@@ -2,3 +2,4 @@ external/
 .vs/
 .cache/
 x64/
+Build/
