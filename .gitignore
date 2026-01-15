@@ -3,3 +3,5 @@ external/
 .cache/
 x64/
 Build/
+
+Test*
