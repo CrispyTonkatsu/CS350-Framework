@@ -23,7 +23,7 @@ typedef Vector4* Vec4Ptr;
 //--------------------------------------------------------------------- Vector 4
 struct Vector4
 {
-  Vector4() {};
+  Vector4() = default;
   explicit Vector4(float x, float y, float z, float w);
   explicit Vector4(ConstRealPointer data);
   //Splat all elements

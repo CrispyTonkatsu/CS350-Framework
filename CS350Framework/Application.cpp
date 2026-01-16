@@ -35,8 +35,6 @@ class BigLevel : public Level
     Vector3 scale(0.5f);
     Quaternion rotation = Quaternion::cIdentity;
 
-    char buffer[200];
-
     for(size_t z = 0; z < depth; ++z)
     {
       for(size_t y = 0; y < height; ++y)
@@ -45,8 +43,7 @@ class BigLevel : public Level
         {
           size_t index = x + y * height + z * (height * depth);
           
-          _itoa_s(index, buffer, 10);
-          std::string objName = "Cube" + std::string(buffer);
+          std::string objName = "Cube" + std::to_string(index);
 
           Vector3 translation((float)x, (float)y, (float)z);
           translation *= 4 * scale;
@@ -276,7 +273,7 @@ void Application::CreateCubeMesh()
   cubeMesh->mIndices.push_back(1); cubeMesh->mIndices.push_back(4); cubeMesh->mIndices.push_back(0);
   cubeMesh->mIndices.push_back(7); cubeMesh->mIndices.push_back(3); cubeMesh->mIndices.push_back(6);
   cubeMesh->mIndices.push_back(6); cubeMesh->mIndices.push_back(3); cubeMesh->mIndices.push_back(2);
-  cubeMesh->mType = mMeshes.size();
+  cubeMesh->mType = static_cast<int>(mMeshes.size());
   cubeMesh->mName = "Cube";
 
   mMeshes.push_back(cubeMesh);
@@ -327,7 +324,7 @@ void Application::CreateCylinderMesh()
     mesh->mIndices.push_back(br);
     mesh->mIndices.push_back(tr);
   }
-  mesh->mType = mMeshes.size();
+  mesh->mType = static_cast<int>(mMeshes.size());
   mesh->mName = "Cylinder";
 
   mMeshes.push_back(mesh);
@@ -355,7 +352,7 @@ void Application::LoadMesh(const std::string& path, const std::string& meshName,
 
   Mesh* mesh = new Mesh();
   mesh->mName = meshName;
-  mesh->mType = mMeshes.size();
+  mesh->mType = static_cast<int>(mMeshes.size());
   Helpers::LoadObjFile(fileData, mesh->mVertices, mesh->mIndices);
   mMeshes.push_back(mesh);
 
@@ -1097,7 +1094,7 @@ void Application::OnKeyUp(unsigned int key, int x, int y)
   if(key == SDLK_PLUS || key == SDLK_KP_PLUS || key == SDLK_EQUALS)
     ChangeLevel((mCurrentLevelIndex + 1) % mLevels.size());
   else if(key == SDLK_MINUS || key == SDLK_KP_MINUS)
-    ChangeLevel((mCurrentLevelIndex + mLevels.size() - 1) % mLevels.size());
+    ChangeLevel((mCurrentLevelIndex + mLevels.size() - 1) % static_cast<int>(mLevels.size()));
 }
 
 Math::Vector2 GetScreenPosition(int x, int y)

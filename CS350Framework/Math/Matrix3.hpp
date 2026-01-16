@@ -45,7 +45,7 @@ typedef Vector3   CrossVector;
 #endif
 
 public:
-  Matrix3() {};
+  Matrix3() = default;
   explicit Matrix3(float p00, float p01, float p02, 
                    float p10, float p11, float p12,
                    float p20, float p21, float p22);

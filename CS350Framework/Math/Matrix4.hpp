@@ -44,7 +44,7 @@ typedef Vector4   CrossVector;
 #endif
 
 public:
-  Matrix4() {};
+  Matrix4() = default;
   Matrix4(float p00, float p01, float p02, float p03,
           float p10, float p11, float p12, float p13,
           float p20, float p21, float p22, float p23,

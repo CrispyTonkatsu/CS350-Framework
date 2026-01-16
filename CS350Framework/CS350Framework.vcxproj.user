@@ -3,5 +3,6 @@
   <PropertyGroup>
     <ShowAllFiles>false</ShowAllFiles>
     <DebuggerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WindowsLocalDebugger</DebuggerFlavor>
+    <DebuggerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

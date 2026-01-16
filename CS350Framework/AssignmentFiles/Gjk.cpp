@@ -163,7 +163,7 @@ bool Gjk::Intersect(const SupportShape* shapeA, const SupportShape* shapeB, unsi
 Gjk::CsoPoint Gjk::ComputeSupport(const SupportShape* shapeA, const SupportShape* shapeB, const Vector3& direction)
 {
   /******Student:Assignment5******/
-  CsoPoint result;
+  CsoPoint result = {};
   Warn("Assignment5: Required function un-implemented");
 
   return result;

@@ -3,5 +3,6 @@ external/
 .cache/
 x64/
 Build/
+Assignments/
 
 Test*

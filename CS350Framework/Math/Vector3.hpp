@@ -24,7 +24,7 @@ typedef Vector3* Vec3Ptr;
 ///3 dimensional vector.
 struct Vector3
 {
-  Vector3() {};
+  Vector3() = default;
   explicit Vector3(float x, float y, float z);
   //Splat all elements
   explicit Vector3(float xyz);

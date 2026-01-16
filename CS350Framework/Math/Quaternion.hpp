@@ -39,7 +39,7 @@ struct Quaternion
 {
   static const Quaternion cIdentity;
 
-  Quaternion() {};
+  Quaternion() = default;
   explicit Quaternion(float x, float y, float z, float w);
 
   void operator=(QuatParam rhs);

@@ -2,30 +2,39 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Test (Release)",
+			"type": "shell",
+			"command": "echo this doesn't compare with the correct output yet",
+			"dependsOn": ["Run (Release)"]
+		},
+		{
 			"label": "Run (Release)",
 			"type": "shell",
-			"command": "powershell -Command \".\\Build\\Out\\Release\\CS350Framework\\*.exe\"",
+			"command": ".\\Build\\Out\\Release\\CS350Framework\\CS350Framework.exe",
+			"args": ["${input:assignment_number}", "0"],
 			"dependsOn": ["Build (Release)"]
 		},
 		{
 			"label": "Run (Debug)",
 			"type": "shell",
-			"command": "powershell -Command \".\\Build\\Out\\Debug\\CS350Framework\\*.exe\"",
+			"command": ".\\Build\\Out\\Debug\\CS350Framework\\CS350Framework.exe",
+			"args": ["${input:assignment_number}", "0"],
 			"dependsOn": ["Build (Debug)"]
 		},
 		{
 			"label": "Build (Debug)",
 			"type": "shell",
-			"windows": {
-				"command": "powershell -wd . -NoLogo -file \".vscode\\build-sln.ps1\""
-			}
+			"command": "powershell -wd . -NoLogo -file \".vscode\\build-sln.ps1\""
 		},
 		{
 			"label": "Build (Release)",
 			"type": "shell",
-			"windows": {
-				"command": "powershell -wd . -NoLogo -file \".vscode\\build-sln.ps1\" -release"
-			}
+			"command": "powershell -wd . -NoLogo -file \".vscode\\build-sln.ps1\" -release"
+		},
+		{
+			"label": "Clean Tests",
+			"type": "shell",
+			"command": "powershell -Command \"rm .\\Test*.txt\""
 		},
 		{
 			"label": "Developer Shell",
@@ -33,6 +42,15 @@
 			"windows": {
 				"command": "powershell -wd . -NoLogo -NoExit -file \"C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/Launch-VsDevShell.ps1\" -SkipAutomaticLocation"
 			}
+		}
+	],
+
+	"inputs": [
+		{
+			"id": "assignment_number",
+			"type": "pickString",
+			"description": "The assignment to test",
+			"options": ["0", "1", "2", "3", "4", "5"],
 		}
 	]
 }

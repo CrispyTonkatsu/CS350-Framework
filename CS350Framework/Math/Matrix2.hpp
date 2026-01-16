@@ -23,7 +23,7 @@ typedef Matrix2& Mat2Ref;
 struct Matrix2
 {
 public:
-  Matrix2() {};
+  Matrix2() = default;
   Matrix2(ConstRealPointer data_);
 
   float* ToFloats();

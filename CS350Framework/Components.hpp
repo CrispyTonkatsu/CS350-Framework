@@ -80,7 +80,7 @@ public:
   virtual void DisplayProperties(TwBar* bar) {};
   virtual void ProcessKeyboardInput(unsigned int key, int x, int y) {};
 
-  GameObject* mOwner;
+  GameObject* mOwner = nullptr;
 };
 
 // Simple macro to add some required data per component (at the moment only to make the has macro work)

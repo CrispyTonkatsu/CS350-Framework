@@ -23,8 +23,8 @@ struct UnitTestWrapper
 
   void Run(int debuggingIndex, FILE* file);
 
-  UnitTestFn mFn;
-  const char* mTestName;
+  UnitTestFn mFn = nullptr;
+  const char* mTestName = nullptr;
 };
 
 typedef std::vector<UnitTestWrapper> AssignmentUnitTestList;

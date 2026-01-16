@@ -16,9 +16,7 @@
 #include <windows.h>
 #include <gl/GLU.h>
 
-#include "Simplification.hpp"
 #include "ExtendedGeometry.hpp"
-#include "GjkHelpers.hpp"
 #include "ObjReader.hpp"
 
 #include "Application.hpp"

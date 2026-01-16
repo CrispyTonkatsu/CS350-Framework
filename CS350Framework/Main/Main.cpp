@@ -382,7 +382,7 @@ bool CheckForUnitTests(int argc, char *argv[])
   if(testNumber == -1)
   {
     // In this case the output is captured from stdout
-    printf("%d", list.size());
+    printf("%d", static_cast<int>(list.size()));
   }
   // Test 0 is also special, it runs all unit test for that assignment.
   // This is the one that you are given a diff file for.

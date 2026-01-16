@@ -254,12 +254,12 @@ bool operator<(const Triangle& rhs, const Triangle& lhs)
   // centers, round the floats and then sort by x then y then z
   Vector3 centerRhs = (rhs.mPoints[0] + rhs.mPoints[1] + rhs.mPoints[2]) / 3.0f;
   Vector3 centerLhs = (lhs.mPoints[0] + lhs.mPoints[1] + lhs.mPoints[2]) / 3.0f;
-  for(size_t i = 0; i < 3; ++i)
+  for(uint32_t i = 0; i < 3; ++i)
     centerRhs[i] = CleanupFloat(centerRhs[i]);
-  for(size_t i = 0; i < 3; ++i)
+  for(uint32_t i = 0; i < 3; ++i)
     centerLhs[i] = CleanupFloat(centerLhs[i]);
   
-  for(size_t j = 0; j < 3; ++j)
+  for(uint32_t j = 0; j < 3; ++j)
   {
     if(centerRhs[j] != centerLhs[j])
       return centerRhs[j] < centerLhs[j];

@@ -23,7 +23,7 @@ typedef Vector2* Vec2Ptr;
 ///2 dimensional vector.
 struct Vector2
 {
-  Vector2() {};
+  Vector2() = default;
   explicit Vector2(float x, float y);
   explicit Vector2(ConstRealPointer data);
 
