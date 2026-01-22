@@ -5,16 +5,16 @@
 
 #include "Math/Precompiled.hpp"
 
-#include <stdlib.h>
-#include <SDL_opengl.h>
-#include "AntTweakBar.h"
-#include <time.h>
-#include <algorithm>
-#include <stdio.h>
 #include <SDL.h>
+#include <SDL_opengl.h>
+#include <algorithm>
+#include <gl/GLU.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <vector>
 #include <windows.h>
-#include <gl/GLU.h>
+#include "AntTweakBar.h"
 
 #include "ExtendedGeometry.hpp"
 #include "ObjReader.hpp"

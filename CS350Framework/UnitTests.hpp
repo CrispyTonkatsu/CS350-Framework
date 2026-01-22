@@ -6,28 +6,31 @@
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include <vector>
-#include <set>
-#include <map>
 #include <algorithm>
+#include <map>
+#include <set>
+#include <vector>
 #include "Application.hpp"
 
-typedef void(*UnitTestFn)(const std::string& testName, int debuggingIndex, FILE* file);
+using UnitTestFn = void (*)(const std::string& testName, int debuggingIndex,
+                            FILE* file);
 
 // Simple class that wraps the function pointer for a unit test.
-// Makes it easier to pass in the test name and to clear statistics between each test run.
+// Makes it easier to pass in the test name and to clear statistics between each
+// test run.
 struct UnitTestWrapper
 {
-  UnitTestWrapper() {}
-  UnitTestWrapper(UnitTestFn fn, const char* testName);
+    UnitTestWrapper() {}
 
-  void Run(int debuggingIndex, FILE* file);
+    UnitTestWrapper(UnitTestFn fn, const char* testName);
 
-  UnitTestFn mFn = nullptr;
-  const char* mTestName = nullptr;
+    void Run(int debuggingIndex, FILE* file);
+
+    UnitTestFn mFn = nullptr;
+    const char* mTestName = nullptr;
 };
 
-typedef std::vector<UnitTestWrapper> AssignmentUnitTestList;
+using AssignmentUnitTestList = std::vector<UnitTestWrapper>;
 extern std::vector<AssignmentUnitTestList> mTestFns;
 
 void InitializeAssignment1Tests();
@@ -36,34 +39,34 @@ void InitializeAssignment3Tests();
 void InitializeAssignment4Tests();
 void InitializeAssignment5Tests();
 
-
 // Simple component that calls a unit test function pointer during update
 class SimpleUnitTesterComponent : public Component
 {
 public:
-  DeclareComponent(SimpleUnitTesterComponent);
+    DeclareComponent(SimpleUnitTesterComponent);
 
-  SimpleUnitTesterComponent(UnitTestFn testFn, const std::string& testName);
-  void Update(float dt) override;
+    SimpleUnitTesterComponent(UnitTestFn testFn, const std::string& testName);
+    void Update(float dt) override;
 
-  UnitTestFn mUnitTestFn;
-  std::string mTestName;
+    UnitTestFn mUnitTestFn;
+    std::string mTestName;
 };
 
-// Simple level to run a unit test (creates an object with the unit test component)
+// Simple level to run a unit test (creates an object with the unit test
+// component)
 class SimpleUnitTestLevel : public Level
 {
 public:
-  SimpleUnitTestLevel(const std::string& levelName, UnitTestFn testFn);
-  void Load(Application* application) override;
-  std::string GetName() const override;
+    SimpleUnitTestLevel(const std::string& levelName, UnitTestFn testFn);
+    void Load(Application* application) override;
+    std::string GetName() const override;
 
-  UnitTestFn mUnitTestFn;
-  std::string mLevelName;
+    UnitTestFn mUnitTestFn;
+    std::string mLevelName;
 };
 
-#define DeclareSimpleUnitTest(fn, assignmentUnitTestList) \
-  assignmentUnitTestList.push_back(UnitTestWrapper(fn, #fn));
+#define DeclareSimpleUnitTest(fn, assignmentUnitTestList)                      \
+    assignmentUnitTestList.push_back(UnitTestWrapper(fn, #fn));
 
 // A printf style string formatter
 std::string FormatString(const char* format, ...);
@@ -84,13 +87,20 @@ void PrintAabbData(FILE* outFile, const SpatialPartitionQueryData& rhs);
 void PrintSphereData(FILE* outFile, const SpatialPartitionQueryData& rhs);
 void PrintTestHeader(FILE* outFile, const std::string& testName);
 
-// Function pointer typedef for printing SpatialPartitionData (to choose between checking the aabb and sphere)
-typedef void(*PrintDataFn)(FILE* outFile, const SpatialPartitionQueryData& rhs);
+// Function pointer typedef for printing SpatialPartitionData (to choose between
+// checking the aabb and sphere)
+using PrintDataFn = void (*)(FILE* outFile,
+                             const SpatialPartitionQueryData& rhs);
 
 // Printing functions for spatial partition results
-void PrintRayCastResults(SpatialPartition& spatialPartition, const Ray& ray, FILE* outFile);
-void PrintFrustumCastResults(SpatialPartition& spatialPartition, const Frustum& frustum, FILE* outFile);
-void PrintSpatialPartitionStructure(SpatialPartition& spatialPartition, PrintDataFn printFn, FILE* outFile, bool shouldSort = true);
-void PrintSpatialPartitionSelfQuery(SpatialPartition& spatialPartition, FILE* outFile);
+void PrintRayCastResults(SpatialPartition& spatialPartition, const Ray& ray,
+                         FILE* outFile);
+void PrintFrustumCastResults(SpatialPartition& spatialPartition,
+                             const Frustum& frustum, FILE* outFile);
+void PrintSpatialPartitionStructure(SpatialPartition& spatialPartition,
+                                    PrintDataFn printFn, FILE* outFile,
+                                    bool shouldSort = true);
+void PrintSpatialPartitionSelfQuery(SpatialPartition& spatialPartition,
+                                    FILE* outFile);
 
 bool operator<(const Triangle& rhs, const Triangle& lhs);

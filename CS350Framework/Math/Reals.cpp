@@ -2,215 +2,135 @@
 ///
 /// \file Reals.cpp
 /// Implementation of the float typedef and utility functions.
-/// 
+///
 /// Authors: Joshua Davis, Benjamin Strukus
 /// Copyright 2010-2012, DigiPen Institute of Technology
 ///
 ///////////////////////////////////////////////////////////////////////////////
 #include "Precompiled.hpp"
 
-#include "Utilities.hpp"
 #include "Reals.hpp"
+#include "Utilities.hpp"
 
+#include <cfloat>
 #include <cmath>
-#include <limits>
 #include <cstdio>
 #include <cstdlib>
-#include <cfloat>
+#include <limits>
 
 namespace Math
 {
+    namespace
+    {
+        const float cTemp = -0.0f;
+        const unsigned cSignBit = *reinterpret_cast<const unsigned*>(&cTemp);
+        const float cNegative = -1.0f;
+        const float cPositive = 1.0f;
 
-namespace
-{
-const float cTemp     = -0.0f;
-const unsigned cSignBit  = *reinterpret_cast<unsigned const*>(&cTemp);
-const float cNegative = -1.0f;
-const float cPositive = 1.0f;
+        float gZeroForInf = 0.0f;
+        float gInfinite = 1.0f / gZeroForInf;
+    } // namespace
 
-float gZeroForInf = 0.0f;
-float gInfinite = 1.0f / gZeroForInf;
-}
+    const float& cInfinite = gInfinite;
 
-const float& cInfinite = gInfinite;
+    float DebugEpsilon() { return 0.00000001f; }
 
-float DebugEpsilon() 
-{
-  return 0.00000001f;
-}
+    float PositiveMax() { return FLT_MAX; }
 
-float PositiveMax() 
-{
-  return FLT_MAX;
-}
+    float PositiveMin() { return FLT_MIN; }
 
-float PositiveMin()
-{
-  return FLT_MIN;
-}
+    // bool Equal(float lhs, float rhs)
+    //{
+    //   return Abs(lhs - rhs) <= Epsilon() * (Abs(lhs) + abs(rhs) + 1.0f);
+    // }
+    //
+    // bool NotEqual(float lhs, float rhs)
+    //{
+    //   return !Equal(lhs, rhs);
+    // }
 
-//bool Equal(float lhs, float rhs) 
-//{
-//  return Abs(lhs - rhs) <= Epsilon() * (Abs(lhs) + abs(rhs) + 1.0f);
-//}
-//
-//bool NotEqual(float lhs, float rhs) 
-//{
-//  return !Equal(lhs, rhs);
-//}
+    bool DebugIsZero(float val) { return Abs(val) <= DebugEpsilon(); }
 
-bool DebugIsZero(float val) 
-{
-  return Abs(val) <= DebugEpsilon();
-}
+    bool IsNegative(float number) { return GetSign(number) == cNegative; }
 
-bool IsNegative(float number)
-{
-  return GetSign(number) == cNegative;
-}
+    bool IsPositive(float number) { return GetSign(number) == cPositive; }
 
-bool IsPositive(float number)
-{
-  return GetSign(number) == cPositive;
-}
+    bool LessThan(float lhs, float rhs) { return lhs < rhs; }
 
-bool LessThan(float lhs, float rhs)  
-{ 
-  return lhs < rhs;
-}
+    bool LessThanOrEqual(float lhs, float rhs) { return lhs <= rhs; }
 
-bool LessThanOrEqual(float lhs, float rhs)  
-{ 
-  return lhs <= rhs;
-}
+    bool GreaterThan(float lhs, float rhs) { return lhs > rhs; }
 
-bool GreaterThan(float lhs, float rhs)  
-{ 
-  return lhs > rhs;
-}
+    bool GreaterThanOrEqual(float lhs, float rhs) { return lhs >= rhs; }
 
-bool GreaterThanOrEqual(float lhs, float rhs)  
-{ 
-  return lhs >= rhs;
-}
+    float Sqrt(float val) { return std::sqrt(val); }
 
-float Sqrt(float val) 
-{ 
-  return std::sqrt(val);
-}
+    float Rsqrt(float val) { return 1.0f / std::sqrt(val); }
 
-float Rsqrt(float val) 
-{
-  return 1.0f / std::sqrt(val);
-}
+    float Sq(float sqrt) { return sqrt * sqrt; }
 
-float Sq(float sqrt)
-{
-  return sqrt * sqrt;
-}
+    float Pow(float base, float exp) { return std::pow(base, exp); }
 
-float Pow(float base, float exp)
-{
-  return std::pow(base, exp);
-}
+    float Log(float val) { return std::log(val); }
 
-float Log(float val)
-{
-  return std::log(val);
-}
+    float Abs(float val) { return std::abs(val); }
 
-float Abs(float val)
-{
-  return std::abs(val);
-}
+    int Abs(int val) { return std::abs(val); }
 
-int Abs(int val)
-{
-  return std::abs(val);
-}
+    float FMod(float dividend, float divisor)
+    {
+        return fmod(dividend, divisor);
+    }
 
-float FMod(float dividend, float divisor)
-{
-  return fmod(dividend, divisor);
-}
+    float GetSign(float val)
+    {
+        return (*reinterpret_cast<unsigned*>(&val) & cSignBit) != 0 ? cNegative
+                                                                    : cPositive;
+        // return lhs >= 0.0f ? 1.0f : -1.0f;
+    }
 
-float GetSign(float val) 
-{
-  return (*reinterpret_cast<unsigned*>(&val) & cSignBit) != 0 ? cNegative 
-                                                          : cPositive;
-  //return lhs >= 0.0f ? 1.0f : -1.0f;
-}
+    float Cos(float val) { return std::cos(val); }
 
-float Cos(float val)
-{
-  return std::cos(val);
-}
+    float Sin(float val) { return std::sin(val); }
 
-float Sin(float val)
-{
-  return std::sin(val);
-}
+    float Tan(float angle) { return std::tan(angle); }
 
-float Tan(float angle)
-{
-  return std::tan(angle);
-}
+    float ArcCos(float angle)
+    {
+        angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
+        return std::acos(angle);
+    }
 
-float ArcCos(float angle)
-{
-  angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
-  return std::acos(angle);
-}
+    float ArcSin(float angle)
+    {
+        angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
+        return std::asin(angle);
+    }
 
-float ArcSin(float angle)
-{
-  angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
-  return std::asin(angle);
-}
+    float ArcTan(float angle)
+    {
+        angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
+        return std::atan(angle);
+    }
 
-float ArcTan(float angle)
-{
-  angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
-  return std::atan(angle);
-}
+    float ArcTan2(float y, float x) { return std::atan2(y, x); }
 
-float ArcTan2(float y, float x)
-{
-  return std::atan2(y, x);
-}
+    float RadToDeg(float radians) { return (180.0f / cPi) * radians; }
 
-float RadToDeg(float radians)
-{
-  return (180.0f / cPi) * radians;
-}
+    float DegToRad(float degrees) { return (cPi / 180.0f) * degrees; }
 
-float DegToRad(float degrees)
-{
-  return (cPi / 180.0f) * degrees;
-}
-
-bool IsValid(float val)
-{
+    bool IsValid(float val)
+    {
 #ifdef _MSC_VER
-  return _finite(val) != 0;
+        return _finite(val) != 0;
 #else
-  return val == val;
+        return val == val;
 #endif
-}
+    }
 
-float Round(float val)
-{
-  return std::floor(val + 0.5f);
-}
+    float Round(float val) { return std::floor(val + 0.5f); }
 
-float Ceil(float val)
-{
-  return std::ceil(val);
-}
+    float Ceil(float val) { return std::ceil(val); }
 
-float Floor(float val)
-{
-  return std::floor(val);
-}
-
-}// namespace Math
+    float Floor(float val) { return std::floor(val); }
+} // namespace Math

@@ -2,22 +2,22 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Test (Release)",
+			"label": "Test (Debug)",
 			"type": "shell",
-			"command": "echo this doesn't compare with the correct output yet",
-			"dependsOn": ["Run (Release)"]
+			"command": "FC .\\Test${input:assignment_number}_0.txt .\\Assignments\\A1\\Assignment${input:assignment_number}_MasterResults.txt",
+			"dependsOn": ["Run (Debug)"]
 		},
 		{
 			"label": "Run (Release)",
 			"type": "shell",
-			"command": ".\\Build\\Out\\Release\\CS350Framework\\CS350Framework.exe",
+			"command": ".\\Build\\Out\\x64\\Release\\CS350Framework\\CS350Framework.exe",
 			"args": ["${input:assignment_number}", "0"],
 			"dependsOn": ["Build (Release)"]
 		},
 		{
 			"label": "Run (Debug)",
 			"type": "shell",
-			"command": ".\\Build\\Out\\Debug\\CS350Framework\\CS350Framework.exe",
+			"command": ".\\Build\\Out\\x64\\Debug\\CS350Framework\\CS350Framework.exe",
 			"args": ["${input:assignment_number}", "0"],
 			"dependsOn": ["Build (Debug)"]
 		},
