@@ -5,11 +5,11 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "Geometry.hpp"
 #include "Precompiled.hpp"
 
-#include <iostream>
-#include <ostream>
+#include <Math/Reals.hpp>
+#include <limits>
+#include <winuser.h>
 
 Vector3 ProjectPointOnPlane(const Vector3& point, const Vector3& normal,
                             float planeDistance)
@@ -138,7 +138,7 @@ bool RayTriangle(const Vector3& rayStart, const Vector3& rayDir,
     const Vector3 normal{(triP1 - triP0).Cross(triP2 - triP0)};
     const Vector4 plane{normal.x, normal.y, normal.z, normal.Dot(triP0)};
 
-    if (RayPlane(rayStart, rayDir, plane, t))
+    if (!RayPlane(rayStart, rayDir, plane, t))
     {
         return false;
     }
@@ -157,18 +157,104 @@ bool RaySphere(const Vector3& rayStart, const Vector3& rayDir,
                const Vector3& sphereCenter, float sphereRadius, float& t)
 {
     ++Application::mStatistics.mRaySphereTests;
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-    return false;
+
+    const Vector3 x{rayStart - sphereCenter};
+
+    const float A{rayDir.LengthSq()};
+    const float B{2 * (rayDir.Dot(x))};
+    const float C{x.LengthSq() - Math::Sq(sphereRadius)};
+
+    const float discriminant{Math::Sq(B) - (4 * A * C)};
+
+    if (discriminant < 0.f)
+    {
+        return false;
+    }
+
+    if (discriminant > 0.f)
+    {
+        const float t0{(-B - Math::Sqrt(discriminant)) / (2 * A)};
+        const float t1{(-B + Math::Sqrt(discriminant)) / (2 * A)};
+
+        if ((t0 < 0.f && t1 > 0.f) || (t0 > 0.f && t1 < 0.f))
+        {
+            t = 0.f;
+            return true;
+        }
+
+        t = Math::Min(t0, t1);
+        if (t < 0.f)
+        {
+            t = Math::Max(t0, t1);
+
+            if (t < 0.f)
+            {
+                return false;
+            }
+        }
+    }
+
+    if (discriminant == 0.f)
+    {
+        t = (-B / (2 * A));
+
+        if (t < 0.f)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 bool RayAabb(const Vector3& rayStart, const Vector3& rayDir,
              const Vector3& aabbMin, const Vector3& aabbMax, float& t)
 {
     ++Application::mStatistics.mRayAabbTests;
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-    return false;
+
+    if (PointAabb(rayStart, aabbMin, aabbMax))
+    {
+        t = 0.f;
+        return true;
+    }
+
+    float t_min{std::numeric_limits<float>::lowest()};
+    float t_max{std::numeric_limits<float>::max()};
+
+    for (unsigned int i{0}; i < 3; i++)
+    {
+        if (rayDir[i] == 0.f)
+        {
+            if (Math::InRange(rayStart[i], aabbMin[i], aabbMax[i]))
+            {
+                continue;
+            }
+
+            return false;
+        }
+
+        const float t_aabb_min{(aabbMin[i] - rayStart[i]) / rayDir[i]};
+        const float t_aabb_max{(aabbMax[i] - rayStart[i]) / rayDir[i]};
+
+        const float ti_min{rayDir[i] > 0.f ? t_aabb_min : t_aabb_max};
+        const float ti_max{rayDir[i] > 0.f ? t_aabb_max : t_aabb_min};
+
+        t_min = Math::Max(ti_min, t_min);
+        t_max = Math::Min(ti_max, t_max);
+    }
+
+    t = t_min;
+    if (t < 0.f)
+    {
+        t = t_max;
+
+        if (t < 0.f)
+        {
+            return false;
+        }
+    }
+
+    return t_min <= t_max;
 }
 
 IntersectionType::Type PlaneTriangle(const Vector4& plane, const Vector3& triP0,
@@ -176,9 +262,45 @@ IntersectionType::Type PlaneTriangle(const Vector4& plane, const Vector3& triP0,
                                      float epsilon)
 {
     ++Application::mStatistics.mPlaneTriangleTests;
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-    return IntersectionType::NotImplemented;
+
+    const IntersectionType::Type res_p0{PointPlane(triP0, plane, epsilon)};
+    const IntersectionType::Type res_p1{PointPlane(triP1, plane, epsilon)};
+    const IntersectionType::Type res_p2{PointPlane(triP2, plane, epsilon)};
+
+    if ((res_p0 == res_p1) && (res_p0 == res_p2))
+    {
+        return res_p0;
+    }
+
+    const IntersectionType::Type results[] = {res_p0, res_p1, res_p2};
+
+    for (size_t i{0}; i < 3; i++)
+    {
+        const size_t prev{(i == 0 ? 2 : i - 1) % 3};
+        const size_t next{(i + 1) % 3};
+
+        if (!((results[i] == results[next]) && (results[i] != results[prev])))
+        {
+            continue;
+        }
+
+        if (((results[i] == IntersectionType::Outside) ||
+             (results[i] == IntersectionType::Inside)) &&
+            ((results[prev] == IntersectionType::Outside) ||
+             (results[prev] == IntersectionType::Inside)))
+        {
+            return IntersectionType::Overlaps;
+        }
+
+        if (results[i] == IntersectionType::Coplanar)
+        {
+            return results[prev];
+        }
+
+        return results[i];
+    }
+
+    return IntersectionType::Overlaps;
 }
 
 IntersectionType::Type PlaneSphere(const Vector4& plane,
@@ -223,16 +345,16 @@ IntersectionType::Type PlaneAabb(const Vector4& plane, const Vector3& aabbMin,
     ++Application::mStatistics.mPlaneAabbTests;
 
     const Vector4 h_min{
-    -plane.x < 0 ? aabbMin.x : aabbMax.x,
-    -plane.y < 0 ? aabbMin.y : aabbMax.y,
-    -plane.z < 0 ? aabbMin.z : aabbMax.z,
+    -plane.x < 0.f ? aabbMin.x : aabbMax.x,
+    -plane.y < 0.f ? aabbMin.y : aabbMax.y,
+    -plane.z < 0.f ? aabbMin.z : aabbMax.z,
     -1.f,
     };
 
     const Vector4 h_max{
-    plane.x < 0 ? aabbMin.x : aabbMax.x,
-    plane.y < 0 ? aabbMin.y : aabbMax.y,
-    plane.z < 0 ? aabbMin.z : aabbMax.z,
+    plane.x < 0.f ? aabbMin.x : aabbMax.x,
+    plane.y < 0.f ? aabbMin.y : aabbMax.y,
+    plane.z < 0.f ? aabbMin.z : aabbMax.z,
     -1.f,
     };
 
