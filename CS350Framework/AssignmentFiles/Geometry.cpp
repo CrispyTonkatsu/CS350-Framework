@@ -6,8 +6,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "Geometry.hpp"
-#include <Math/Reals.hpp>
 #include "Precompiled.hpp"
+
+#include <iostream>
+#include <ostream>
 
 Vector3 ProjectPointOnPlane(const Vector3& point, const Vector3& normal,
                             float planeDistance)
@@ -184,9 +186,35 @@ IntersectionType::Type PlaneSphere(const Vector4& plane,
                                    float sphereRadius)
 {
     ++Application::mStatistics.mPlaneSphereTests;
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-    return IntersectionType::NotImplemented;
+
+    const Vector3 normal{
+    plane.x,
+    plane.y,
+    plane.z,
+    };
+
+    const Vector3 test_point{
+    ProjectPointOnPlane(sphereCenter, normal, plane.w),
+    };
+
+    if (PointSphere(test_point, sphereCenter, sphereRadius))
+    {
+        return IntersectionType::Overlaps;
+    }
+
+    const Vector4 h_center{
+    sphereCenter.x,
+    sphereCenter.y,
+    sphereCenter.z,
+    -1.f,
+    };
+
+    if (plane.Dot(h_center) < 0.f)
+    {
+        return IntersectionType::Outside;
+    }
+
+    return IntersectionType::Inside;
 }
 
 IntersectionType::Type PlaneAabb(const Vector4& plane, const Vector3& aabbMin,
@@ -194,16 +222,22 @@ IntersectionType::Type PlaneAabb(const Vector4& plane, const Vector3& aabbMin,
 {
     ++Application::mStatistics.mPlaneAabbTests;
 
-    const Vector4 h_min{aabbMin.x, aabbMin.y, aabbMin.z, -1.f};
-    const Vector4 h_max{aabbMax.x, aabbMax.y, aabbMax.z, -1.f};
+    const Vector4 h_min{
+    -plane.x < 0 ? aabbMin.x : aabbMax.x,
+    -plane.y < 0 ? aabbMin.y : aabbMax.y,
+    -plane.z < 0 ? aabbMin.z : aabbMax.z,
+    -1.f,
+    };
+
+    const Vector4 h_max{
+    plane.x < 0 ? aabbMin.x : aabbMax.x,
+    plane.y < 0 ? aabbMin.y : aabbMax.y,
+    plane.z < 0 ? aabbMin.z : aabbMax.z,
+    -1.f,
+    };
 
     const float dot_min{plane.Dot(h_min)};
     const float dot_max{plane.Dot(h_max)};
-
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-
-    // TODO: left off here, trying to fix the issue with all the other tests
 
     if ((dot_min >= 0.f && dot_max <= 0.f) ||
         (dot_min <= 0.f && dot_max >= 0.f))
