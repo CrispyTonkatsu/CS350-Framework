@@ -5,11 +5,9 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "Geometry.hpp"
+#include <cstddef>
 #include "Precompiled.hpp"
-
-#include <Math/Reals.hpp>
-#include <limits>
-#include <winuser.h>
 
 Vector3 ProjectPointOnPlane(const Vector3& point, const Vector3& normal,
                             float planeDistance)
@@ -381,9 +379,31 @@ IntersectionType::Type FrustumTriangle(const Vector4 planes[6],
                                        const Vector3& triP2, float epsilon)
 {
     ++Application::mStatistics.mFrustumTriangleTests;
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-    return IntersectionType::NotImplemented;
+
+    size_t inside_count{0};
+
+    for (size_t i{0}; i < 6; i++)
+    {
+        const IntersectionType::Type result{
+        PlaneTriangle(planes[i], triP0, triP1, triP2, epsilon)};
+
+        if (result == IntersectionType::Outside)
+        {
+            return IntersectionType::Outside;
+        }
+
+        if (result == IntersectionType::Inside)
+        {
+            inside_count++;
+        }
+    }
+
+    if (inside_count == 6)
+    {
+        return IntersectionType::Inside;
+    }
+
+    return IntersectionType::Overlaps;
 }
 
 IntersectionType::Type FrustumSphere(const Vector4 planes[6],
@@ -391,9 +411,31 @@ IntersectionType::Type FrustumSphere(const Vector4 planes[6],
                                      float sphereRadius, size_t& lastAxis)
 {
     ++Application::mStatistics.mFrustumSphereTests;
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-    return IntersectionType::NotImplemented;
+
+    size_t inside_count{0};
+
+    for (size_t i{0}; i < 6; i++)
+    {
+        const IntersectionType::Type result{
+        PlaneSphere(planes[i], sphereCenter, sphereRadius)};
+
+        if (result == IntersectionType::Outside)
+        {
+            return IntersectionType::Outside;
+        }
+
+        if (result == IntersectionType::Inside)
+        {
+            inside_count++;
+        }
+    }
+
+    if (inside_count == 6)
+    {
+        return IntersectionType::Inside;
+    }
+
+    return IntersectionType::Overlaps;
 }
 
 IntersectionType::Type FrustumAabb(const Vector4 planes[6],
@@ -401,9 +443,31 @@ IntersectionType::Type FrustumAabb(const Vector4 planes[6],
                                    const Vector3& aabbMax, size_t& lastAxis)
 {
     ++Application::mStatistics.mFrustumAabbTests;
-    /******Student:Assignment1******/
-    Warn("Assignment1: Required function un-implemented");
-    return IntersectionType::NotImplemented;
+
+    size_t inside_count{0};
+
+    for (size_t i{0}; i < 6; i++)
+    {
+        const IntersectionType::Type result{
+        PlaneAabb(planes[i], aabbMin, aabbMax)};
+
+        if (result == IntersectionType::Outside)
+        {
+            return IntersectionType::Outside;
+        }
+
+        if (result == IntersectionType::Inside)
+        {
+            inside_count++;
+        }
+    }
+
+    if (inside_count == 6)
+    {
+        return IntersectionType::Inside;
+    }
+
+    return IntersectionType::Overlaps;
 }
 
 bool SphereSphere(const Vector3& sphereCenter0, float sphereRadius0,
