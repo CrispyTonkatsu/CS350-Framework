@@ -165,12 +165,9 @@ namespace Math
             w = 1.0f;
             return 0.0f;
         }
-        else
-        {
-            length = Math::Rsqrt(length);
-            *this *= length;
-            return length;
-        }
+        length = Rsqrt(length);
+        *this *= length;
+        return length;
     }
 
     Quaternion Quaternion::Normalized() const
@@ -181,16 +178,13 @@ namespace Math
         {
             return Quat(0.0f, 0.0f, 0.0f, 1.0f);
         }
-        else
-        {
-            length = Math::Rsqrt(length);
-            return (*this) * length;
-        }
+        length = Rsqrt(length);
+        return (*this) * length;
     }
 
     float Quaternion::Dot(QuatParam rhs) const { return V4().Dot(rhs.V4()); }
 
-    float Quaternion::Length() const { return Math::Sqrt(LengthSq()); }
+    float Quaternion::Length() const { return Sqrt(LengthSq()); }
 
     float Quaternion::LengthSq() const { return V4().LengthSq(); }
 
@@ -225,10 +219,10 @@ namespace Math
         float angle = V3().Length();
         Quat quaternion(x, y, z, 0.0f);
 
-        if (Math::Abs(angle) > Math::DebugEpsilon())
+        if (Abs(angle) > DebugEpsilon())
         {
-            quaternion.w = Math::Cos(angle);
-            angle = Math::Sin(angle) / angle;
+            quaternion.w = Cos(angle);
+            angle = Sin(angle) / angle;
             quaternion.x *= angle;
             quaternion.y *= angle;
             quaternion.z *= angle;
@@ -239,10 +233,10 @@ namespace Math
     Quaternion Quaternion::Logarithm() const
     {
         Quat quaternion(x, y, z, 0.0f);
-        float theta = Math::ArcCos(w);
-        float sinTheta = Math::Sin(theta);
+        float theta = ArcCos(w);
+        float sinTheta = Sin(theta);
 
-        if (Math::Abs(sinTheta) > Math::DebugEpsilon())
+        if (Abs(sinTheta) > DebugEpsilon())
         {
             theta = theta / sinTheta;
             quaternion.x *= theta;
@@ -254,7 +248,7 @@ namespace Math
 
     void Quaternion::RotateVector(Vec3Ptr vector)
     {
-        Quat tempVec = Math::ToQuaternion(*vector);
+        Quat tempVec = ToQuaternion(*vector);
         Quat conjugate(-x, -y, -z, w);
         Quat result(*this);
         result *= tempVec;
@@ -264,7 +258,7 @@ namespace Math
 
     Vector3 Quaternion::RotatedVector(Vec3Param vector) const
     {
-        Quat tempVec = Math::ToQuaternion(vector);
+        Quat tempVec = ToQuaternion(vector);
         Quat conjugate(-x, -y, -z, w);
         Quat result(*this);
         result *= tempVec;
@@ -280,8 +274,8 @@ namespace Math
 
     bool Quaternion::Valid() const
     {
-        return Math::IsValid(x) && Math::IsValid(y) && Math::IsValid(z) &&
-        Math::IsValid(w);
+        return IsValid(x) && IsValid(y) && IsValid(z) &&
+        IsValid(w);
     }
 
     Vector3& Quaternion::V3() { return *(Vector3*)this; }
@@ -333,7 +327,7 @@ namespace Math
         // Jack Morrison, Graphics Gems III, AP Professional
         //
 
-        const float cSlerpEpsilon = 0.00001f;
+        constexpr float cSlerpEpsilon = 0.00001f;
 
         bool flip;
 
@@ -349,10 +343,10 @@ namespace Math
         float startVal, endVal;
         if ((1.0f - cosTheta) > cSlerpEpsilon)
         {
-            float theta = Math::ArcCos(cosTheta);
-            float sinTheta = Math::Sin(theta);
-            startVal = Math::Sin((1.0f - tValue) * theta) / sinTheta;
-            endVal = Math::Sin(tValue * theta) / sinTheta;
+            float theta = ArcCos(cosTheta);
+            float sinTheta = Sin(theta);
+            startVal = Sin((1.0f - tValue) * theta) / sinTheta;
+            endVal = Sin(tValue * theta) / sinTheta;
         }
         else
         {
@@ -373,7 +367,7 @@ namespace Math
 
     Quaternion CreateDiagonalizer(Mat3Param matrix)
     {
-        const unsigned cMaxSteps = 50;
+        constexpr unsigned cMaxSteps = 50;
 
         Quaternion quat(0.0f, 0.0f, 0.0f, 1.0f);
         Matrix3 quatMatrix;
@@ -406,20 +400,20 @@ namespace Math
 
             float theta =
             (diagMatrix(k2, k2) - diagMatrix(k1, k1)) / (2.0f * offDiag[k]);
-            float sign = Math::GetSign(theta);
+            float sign = GetSign(theta);
 
             // Make theta positive
             theta *= sign;
 
             // Large term in T
             float thetaTerm =
-            theta < 1e6f ? Math::Sqrt(Math::Sq(theta) + 1.0f) : theta;
+            theta < 1e6f ? Sqrt(Sq(theta) + 1.0f) : theta;
 
             // Sign(T) / (|T| + sqrt(T^2 + 1))
             float t = sign / (theta + thetaTerm);
 
             // c = 1 / (t^2 + 1)      t = s / c
-            float c = 1.0f / Math::Sqrt(Math::Sq(t) + 1.0f);
+            float c = 1.0f / Sqrt(Sq(t) + 1.0f);
 
             // No room for improvement - reached machine precision.
             if (c == 1.0f)
@@ -431,10 +425,10 @@ namespace Math
             Quaternion jacobi(0.0f, 0.0f, 0.0f, 0.0f);
 
             // Using 1/2 angle identity sin(a/2) = sqrt((1-cos(a))/2)
-            jacobi[k] = sign * Math::Sqrt((1.0f - c) / 2.0f);
+            jacobi[k] = sign * Sqrt((1.0f - c) / 2.0f);
 
             // Since our quat-to-matrix convention was for v*M instead of M*v
-            jacobi.w = Math::Sqrt(1.0f - Math::Sq(jacobi[k]));
+            jacobi.w = Sqrt(1.0f - Sq(jacobi[k]));
 
             // Reached limits of floating point precision
             if (jacobi.w == 1.0f)

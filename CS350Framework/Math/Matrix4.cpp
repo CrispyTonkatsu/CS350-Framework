@@ -199,12 +199,12 @@ namespace Math
 
     Mat4Ref Matrix4::Transpose()
     {
-        Math::Swap(m01, m10);
-        Math::Swap(m02, m20);
-        Math::Swap(m03, m30);
-        Math::Swap(m12, m21);
-        Math::Swap(m13, m31);
-        Math::Swap(m23, m32);
+        Swap(m01, m10);
+        Swap(m02, m20);
+        Swap(m03, m30);
+        Swap(m12, m21);
+        Swap(m13, m31);
+        Swap(m23, m32);
         return *this;
     }
 
@@ -399,9 +399,9 @@ namespace Math
 
     void Matrix4::Rotate(float x, float y, float z, float radians)
     {
-        float c0 = Math::Cos(radians);
+        float c0 = Cos(radians);
         float n1C0 = 1.0f - c0;
-        float s0 = Math::Sin(radians);
+        float s0 = Sin(radians);
 
         //| x^2(1-c0)+c0  xy(1-c0)-zs0  xz(1-c0)+ys0 |
         //| xy(1-c0)+zs0  y^2(1-c0)+c0  yz(1-c0)-xs0 |
@@ -570,7 +570,7 @@ namespace Math
         rotate->m22 = m22;
 
         // ScaleX is the magnitude of X'
-        scale->x = Math::Sqrt(Math::Sq(m00) + Math::Sq(m10) + Math::Sq(m20));
+        scale->x = Sqrt(Sq(m00) + Sq(m10) + Sq(m20));
 
         // X' is normalized
         rotate->m00 /= scale->x;
@@ -587,7 +587,7 @@ namespace Math
         rotate->m21 -= shear->z * rotate->m20;
 
         // ScaleY is the magnitude of the modified Y'
-        scale->y = Math::Sqrt(Math::Sq(m01) + Math::Sq(m11) + Math::Sq(m21));
+        scale->y = Sqrt(Sq(m01) + Sq(m11) + Sq(m21));
 
         // Y' is normalized
         rotate->m01 /= scale->y;
@@ -616,7 +616,7 @@ namespace Math
         rotate->m22 -= shear->x * rotate->m21;
 
         // ScaleZ is the magnitude of the modified Z'
-        scale->z = Math::Sqrt(Math::Sq(m02) + Math::Sq(m12) + Math::Sq(m22));
+        scale->z = Sqrt(Sq(m02) + Sq(m12) + Sq(m22));
 
         // Z' is normalized
         rotate->m02 /= scale->z;

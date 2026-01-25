@@ -28,15 +28,15 @@ GameObject::~GameObject()
 
     delete mModel;
     delete mTransform;
-    mModel = NULL;
-    mTransform = NULL;
+    mModel = nullptr;
+    mTransform = nullptr;
 }
 
 void GameObject::Update(float dt)
 {
-    if (mTransform != NULL)
+    if (mTransform != nullptr)
         mTransform->Update(dt);
-    if (mModel != NULL)
+    if (mModel != nullptr)
         mModel->Update(dt);
 
     for (size_t i = 0; i < mGameplayComponents.size(); ++i)
@@ -45,9 +45,9 @@ void GameObject::Update(float dt)
 
 void GameObject::TransformUpdate(TransformUpdateFlags::Enum flags)
 {
-    if (mTransform != NULL)
+    if (mTransform != nullptr)
         mTransform->TransformUpdate(flags);
-    if (mModel != NULL)
+    if (mModel != nullptr)
         mModel->TransformUpdate(flags);
 
     for (size_t i = 0; i < mGameplayComponents.size(); ++i)
@@ -56,9 +56,9 @@ void GameObject::TransformUpdate(TransformUpdateFlags::Enum flags)
 
 void GameObject::DebugDraw()
 {
-    if (mTransform != NULL)
+    if (mTransform != nullptr)
         mTransform->DebugDraw();
-    if (mModel != NULL)
+    if (mModel != nullptr)
         mModel->DebugDraw();
 
     for (size_t i = 0; i < mGameplayComponents.size(); ++i)
@@ -67,9 +67,9 @@ void GameObject::DebugDraw()
 
 void GameObject::DisplayComponentProperties(TwBar* bar)
 {
-    if (mTransform != NULL)
+    if (mTransform != nullptr)
         mTransform->DisplayProperties(bar);
-    if (mModel != NULL)
+    if (mModel != nullptr)
         mModel->DisplayProperties(bar);
 
     for (size_t i = 0; i < mGameplayComponents.size(); ++i)
@@ -117,8 +117,8 @@ void GameObject::Destroy() { mApplication->DestroyGameObject(this); }
 Transform::Transform()
 {
     mScale = Vector3(1, 1, 1);
-    mRotation = Math::Quaternion::cIdentity;
-    mTranslation = Math::Vector3::cZero;
+    mRotation = Quaternion::cIdentity;
+    mTranslation = Vector3::cZero;
 }
 
 void Transform::DisplayProperties(TwBar* bar)
@@ -180,7 +180,7 @@ void Transform::SetTranslation(const Vector3& translation)
     mOwner->TransformUpdate(TransformUpdateFlags::Translation);
 }
 
-Math::Matrix4 Transform::GetTransform() const
+Matrix4 Transform::GetTransform() const
 {
     return Math::BuildTransform(mTranslation, Math::ToMatrix3(mRotation),
                                 mScale);
@@ -194,7 +194,7 @@ void SimpleMover::Update(float dt)
     mTotalTime += dt * 4;
 
     Transform* transform = mOwner->has(Transform);
-    if (transform != NULL)
+    if (transform != nullptr)
     {
         transform->mTranslation.y = Math::Cos(mTotalTime);
         transform->mTranslation.z = Math::Sin(mTotalTime);

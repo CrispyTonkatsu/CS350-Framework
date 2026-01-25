@@ -20,7 +20,9 @@ using UnitTestFn = void (*)(const std::string& testName, int debuggingIndex,
 // test run.
 struct UnitTestWrapper
 {
-    UnitTestWrapper() {}
+    UnitTestWrapper()
+    {
+    }
 
     UnitTestWrapper(UnitTestFn fn, const char* testName);
 

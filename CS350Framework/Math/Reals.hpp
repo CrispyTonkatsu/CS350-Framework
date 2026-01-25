@@ -21,19 +21,19 @@ namespace Math
     // a const reference of the given type
     using ConstRealRef = const float&;
 
-    const unsigned cX = 0;
-    const unsigned cY = 1;
-    const unsigned cZ = 2;
-    const unsigned cW = 3;
+    constexpr unsigned cX = 0;
+    constexpr unsigned cY = 1;
+    constexpr unsigned cZ = 2;
+    constexpr unsigned cW = 3;
 
     // these cannot be constants
     extern const float& cInfinite;
 
-    const float cPi = 3.1415926535897932384626433832795f;
+    constexpr float cPi = 3.1415926535897932384626433832795f;
     const float cTwoPi = 2.0f * cPi;
 
     // Golden ratio!
-    const float cGoldenRatio = 1.6180339887498948482045868343656f;
+    constexpr float cGoldenRatio = 1.6180339887498948482045868343656f;
 
     float DebugEpsilon();
     float PositiveMax();
@@ -69,25 +69,25 @@ namespace Math
     bool IsValid(float val);
 
     template <typename T>
-    inline T Max(const T lhs, const T rhs)
+    T Max(const T lhs, const T rhs)
     {
         return lhs > rhs ? lhs : rhs;
     }
 
     template <typename T>
-    inline T Min(const T lhs, const T rhs)
+    T Min(const T lhs, const T rhs)
     {
         return lhs > rhs ? rhs : lhs;
     }
 
     template <typename T>
-    inline T Clamp(const T x, const T xMin, const T xMax)
+    T Clamp(const T x, const T xMin, const T xMax)
     {
         return Max(xMin, Min(x, xMax));
     }
 
     template <typename T>
-    inline T Clamp(const T value)
+    T Clamp(const T value)
     {
         return Clamp(value, T(0), T(1));
     }
@@ -95,7 +95,7 @@ namespace Math
     /// Clamps between min and max but it sets a bool saying whether or not a
     /// value was clamped.
     template <typename T>
-    inline T DebugClamp(const T x, const T xMin, const T xMax, bool& wasClamped)
+    T DebugClamp(const T x, const T xMin, const T xMax, bool& wasClamped)
     {
         wasClamped = true;
         if (x < xMin)
@@ -107,8 +107,8 @@ namespace Math
     }
 
     template <typename T>
-    inline T ClampIfClose(const T x, const T xMin, const T xMax,
-                          const T epsilon)
+    T ClampIfClose(const T x, const T xMin, const T xMax,
+                   const T epsilon)
     {
         float value = x < xMin && x > (xMin - epsilon) ? xMin : x;
         value = value > xMax && value < (xMax + epsilon) ? xMax : value;
@@ -116,7 +116,7 @@ namespace Math
     }
 
     template <typename T>
-    inline float InverseLerp(const T x, const T start, const T end)
+    float InverseLerp(const T x, const T start, const T end)
     {
         if (end == start)
         {
@@ -127,34 +127,35 @@ namespace Math
     }
 
     template <typename T>
-    inline float InverseLerpClamped(const T x, const T start, const T end)
+    float InverseLerpClamped(const T x, const T start, const T end)
     {
         return Clamp(InverseLerp(x, start, end));
     }
 
     /// Checks to see if x is within the interval of [xMin, xMax]
     template <typename T>
-    inline bool InRange(const T x, const T xMin, const T xMax)
+    bool InRange(const T x, const T xMin, const T xMax)
     {
         return ((xMin <= x) && (x <= xMax));
     }
 
     /// Checks to see if x is within the interval of (xMin, xMax)
     template <typename T>
-    inline bool InBounds(const T x, const T xMin, const T xMax)
+    bool InBounds(const T x, const T xMin, const T xMax)
     {
         return ((xMin < x) && (x < xMax));
     }
 
     template <typename T>
-    inline T Wrap(const T x, const T xMin, const T xMax)
+    T Wrap(const T x, const T xMin, const T xMax)
     {
-        return (x < xMin) ? (x + (xMax - xMin))
-                          : ((x > xMax) ? (x - (xMax - xMin)) : x);
+        return (x < xMin)
+        ? (x + (xMax - xMin))
+        : ((x > xMax) ? (x - (xMax - xMin)) : x);
     }
 
     template <typename T>
-    inline void Swap(T& a, T& b)
+    void Swap(T& a, T& b)
     {
         T temp(a);
         a = b;
@@ -162,7 +163,7 @@ namespace Math
     }
 
     template <typename Data, typename T>
-    inline Data Lerp(const Data& start, const Data& end, T interpolationValue)
+    Data Lerp(const Data& start, const Data& end, T interpolationValue)
     {
         return (T(1.0) - interpolationValue) * start + interpolationValue * end;
     }

@@ -137,7 +137,7 @@ namespace Math
     Vector2 Vector2::Reflect(Vec2Param rhs) const
     {
         Vector2 reflect = rhs;
-        reflect *= (*this).Dot(rhs);
+        reflect *= (this)->Dot(rhs);
         reflect *= 2.0f;
         reflect -= *this;
         return reflect;
@@ -195,7 +195,7 @@ namespace Math
     float Vector2::AttemptNormalize()
     {
         float lengthSq = LengthSq();
-        if (Math::DebugIsZero(lengthSq) == false)
+        if (DebugIsZero(lengthSq) == false)
         {
             lengthSq = Sqrt(lengthSq);
             *this /= lengthSq;
@@ -255,17 +255,17 @@ namespace Math
 
     Vector2 Abs(Vec2Param vec)
     {
-        return Vector2(Math::Abs(vec.x), Math::Abs(vec.y));
+        return Vector2(Abs(vec.x), Abs(vec.y));
     }
 
     Vector2 Min(Vec2Param lhs, Vec2Param rhs)
     {
-        return Vector2(Math::Min(lhs.x, rhs.x), Math::Min(lhs.y, rhs.y));
+        return Vector2(Min(lhs.x, rhs.x), Min(lhs.y, rhs.y));
     }
 
     Vector2 Max(Vec2Param lhs, Vec2Param rhs)
     {
-        return Vector2(Math::Max(lhs.x, rhs.x), Math::Max(lhs.y, rhs.y));
+        return Vector2(Max(lhs.x, rhs.x), Max(lhs.y, rhs.y));
     }
 
     Vector2 Lerp(Vec2Param start, Vec2Param end, float tValue)
@@ -279,8 +279,8 @@ namespace Math
     void Clamp(Vec2Ptr vec, float min, float max)
     {
         ErrorIf(vec == NULL, "Null pointer passed into function.");
-        Math::Clamp(vec->x, min, max);
-        Math::Clamp(vec->y, min, max);
+        Clamp(vec->x, min, max);
+        Clamp(vec->y, min, max);
     }
 
     Vector2 DebugClamp(Vec2Param vec, float min, float max, bool& wasClamped)

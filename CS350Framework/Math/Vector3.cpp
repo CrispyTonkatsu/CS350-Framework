@@ -103,7 +103,7 @@ namespace Math
     Vector3 Vector3::Reflect(Vec3Param rhs) const
     {
         Vector3 reflect = rhs;
-        reflect *= (*this).Dot(rhs);
+        reflect *= (this)->Dot(rhs);
         reflect *= 2.0f;
         reflect -= *this;
         return reflect;
@@ -122,7 +122,6 @@ namespace Math
     Vector3 Vector3::Normalized() const
     {
         Vector3 ret = *this;
-        ;
         ret /= Length();
         return ret;
     }
@@ -150,9 +149,9 @@ namespace Math
 
     void Vector3::Truncate()
     {
-        x = float(int(x));
-        y = float(int(y));
-        z = float(int(z));
+        x = static_cast<float>(int(x));
+        y = static_cast<float>(int(y));
+        z = static_cast<float>(int(z));
     }
 
     void Vector3::RoundToExtremes()
@@ -258,19 +257,19 @@ namespace Math
 
     Vector3 Abs(Vec3Param vec)
     {
-        return Vector3(Math::Abs(vec.x), Math::Abs(vec.y), Math::Abs(vec.z));
+        return Vector3(Abs(vec.x), Abs(vec.y), Abs(vec.z));
     }
 
     Vector3 Min(Vec3Param lhs, Vec3Param rhs)
     {
-        return Vector3(Math::Min(lhs.x, rhs.x), Math::Min(lhs.y, rhs.y),
-                       Math::Min(lhs.z, rhs.z));
+        return Vector3(Min(lhs.x, rhs.x), Min(lhs.y, rhs.y),
+                       Min(lhs.z, rhs.z));
     }
 
     Vector3 Max(Vec3Param lhs, Vec3Param rhs)
     {
-        return Vector3(Math::Max(lhs.x, rhs.x), Math::Max(lhs.y, rhs.y),
-                       Math::Max(lhs.z, rhs.z));
+        return Vector3(Max(lhs.x, rhs.x), Max(lhs.y, rhs.y),
+                       Max(lhs.z, rhs.z));
     }
 
     Vector3 Lerp(Vec3Param start, Vec3Param end, float tValue)
@@ -283,17 +282,17 @@ namespace Math
     void Clamp(Vec3Ptr vec, float min, float max)
     {
         ErrorIf(vec == NULL, "Vector3 - Null pointer passed for vector.");
-        vec->x = Math::Clamp(vec->x, min, max);
-        vec->y = Math::Clamp(vec->y, min, max);
-        vec->z = Math::Clamp(vec->z, min, max);
+        vec->x = Clamp(vec->x, min, max);
+        vec->y = Clamp(vec->y, min, max);
+        vec->z = Clamp(vec->z, min, max);
     }
 
     Vector3 Clamped(Vec3Param vec, float min, float max)
     {
         Vector3 results;
-        results[0] = Math::Clamp(vec[0], min, max);
-        results[1] = Math::Clamp(vec[1], min, max);
-        results[2] = Math::Clamp(vec[2], min, max);
+        results[0] = Clamp(vec[0], min, max);
+        results[1] = Clamp(vec[1], min, max);
+        results[2] = Clamp(vec[2], min, max);
         return results;
     }
 

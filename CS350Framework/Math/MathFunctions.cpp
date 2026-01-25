@@ -24,19 +24,19 @@ namespace Math
 
     namespace
     {
-        const unsigned I = 0;
-        const unsigned J = 1;
-        const unsigned H = 2;
+        constexpr unsigned I = 0;
+        constexpr unsigned J = 1;
+        constexpr unsigned H = 2;
 
         void ClampAngle(float* angle)
         {
-            while (*angle < -Math::cPi)
+            while (*angle < -cPi)
             {
-                *angle += Math::cTwoPi;
+                *angle += cTwoPi;
             }
-            while (*angle > Math::cPi)
+            while (*angle > cPi)
             {
-                *angle -= Math::cTwoPi;
+                *angle -= cTwoPi;
             }
         }
     } // namespace
@@ -59,7 +59,7 @@ namespace Math
 
     Vector3 ProjectOut(Vec3Param vector, Vec3Param normal)
     {
-        float projCoef = Math::Dot(vector, normal);
+        float projCoef = Dot(vector, normal);
         return vector - normal * projCoef;
     }
 
@@ -78,10 +78,10 @@ namespace Math
                 "Math - Null pointer passed for axis-angle pair.");
         Quat tempQuat(Normalized(quaternion));
 
-        axisAngle->w = 2.0f * Math::ArcCos(tempQuat.w);
-        float invSinAngle = Math::Sqrt(1.0f - tempQuat.w * tempQuat.w);
+        axisAngle->w = 2.0f * ArcCos(tempQuat.w);
+        float invSinAngle = Sqrt(1.0f - tempQuat.w * tempQuat.w);
 
-        if (Math::Abs(invSinAngle) < 0.0005f)
+        if (Abs(invSinAngle) < 0.0005f)
         {
             invSinAngle = 1.0f;
         }
@@ -101,10 +101,10 @@ namespace Math
         ErrorIf(radians == NULL, "Math - Null pointer passed for radians.");
         Quat tempQuat(Normalized(quaternion));
 
-        *radians = 2.0f * Math::ArcCos(tempQuat.w);
-        float invSinAngle = Math::Sqrt(1.0f - tempQuat.w * tempQuat.w);
+        *radians = 2.0f * ArcCos(tempQuat.w);
+        float invSinAngle = Sqrt(1.0f - tempQuat.w * tempQuat.w);
 
-        if (Math::Abs(invSinAngle) < 0.0005f)
+        if (Abs(invSinAngle) < 0.0005f)
         {
             invSinAngle = 1.0f;
         }
@@ -136,35 +136,35 @@ namespace Math
                              frame);
         if (EulerOrders::Yes == repeated)
         {
-            float sy = Math::Sqrt(matrix(i, j) * matrix(i, j) +
-                                  matrix(i, k) * matrix(i, k));
+            float sy = Sqrt(matrix(i, j) * matrix(i, j) +
+            matrix(i, k) * matrix(i, k));
             if (sy > 16.0f * FLT_EPSILON)
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(matrix(i, j), matrix(i, k));
-                (*eulerAngles)[cY] = Math::ArcTan2(sy, matrix(i, i));
-                (*eulerAngles)[cZ] = Math::ArcTan2(matrix(j, i), -matrix(k, i));
+                (*eulerAngles)[cX] = ArcTan2(matrix(i, j), matrix(i, k));
+                (*eulerAngles)[cY] = ArcTan2(sy, matrix(i, i));
+                (*eulerAngles)[cZ] = ArcTan2(matrix(j, i), -matrix(k, i));
             }
             else
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(-matrix(j, k), matrix(j, j));
-                (*eulerAngles)[cY] = Math::ArcTan2(sy, matrix(i, i));
+                (*eulerAngles)[cX] = ArcTan2(-matrix(j, k), matrix(j, j));
+                (*eulerAngles)[cY] = ArcTan2(sy, matrix(i, i));
                 (*eulerAngles)[cZ] = 0.0f;
             }
         }
         else
         {
-            float cy = Math::Sqrt(matrix(i, i) * matrix(i, i) +
-                                  matrix(j, i) * matrix(j, i));
+            float cy = Sqrt(matrix(i, i) * matrix(i, i) +
+            matrix(j, i) * matrix(j, i));
             if (cy > 16.0f * FLT_EPSILON)
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(matrix(k, j), matrix(k, k));
-                (*eulerAngles)[cY] = Math::ArcTan2(-matrix(k, i), cy);
-                (*eulerAngles)[cZ] = Math::ArcTan2(matrix(j, i), matrix(i, i));
+                (*eulerAngles)[cX] = ArcTan2(matrix(k, j), matrix(k, k));
+                (*eulerAngles)[cY] = ArcTan2(-matrix(k, i), cy);
+                (*eulerAngles)[cZ] = ArcTan2(matrix(j, i), matrix(i, i));
             }
             else
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(-matrix(j, k), matrix(j, j));
-                (*eulerAngles)[cY] = Math::ArcTan2(-matrix(k, i), cy);
+                (*eulerAngles)[cX] = ArcTan2(-matrix(j, k), matrix(j, j));
+                (*eulerAngles)[cY] = ArcTan2(-matrix(k, i), cy);
                 (*eulerAngles)[cZ] = 0.0f;
             }
         }
@@ -181,7 +181,7 @@ namespace Math
 
         if (EulerOrders::Rotated == frame)
         {
-            Math::Swap((*eulerAngles)[cX], (*eulerAngles)[cZ]);
+            Swap((*eulerAngles)[cX], (*eulerAngles)[cZ]);
         }
     }
 
@@ -205,35 +205,35 @@ namespace Math
                              frame);
         if (EulerOrders::Yes == repeated)
         {
-            float sy = Math::Sqrt(matrix(i, j) * matrix(i, j) +
-                                  matrix(i, k) * matrix(i, k));
+            float sy = Sqrt(matrix(i, j) * matrix(i, j) +
+            matrix(i, k) * matrix(i, k));
             if (sy > 16.0f * FLT_EPSILON)
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(matrix(i, j), matrix(i, k));
-                (*eulerAngles)[cY] = Math::ArcTan2(sy, matrix(i, i));
-                (*eulerAngles)[cZ] = Math::ArcTan2(matrix(j, i), -matrix(k, i));
+                (*eulerAngles)[cX] = ArcTan2(matrix(i, j), matrix(i, k));
+                (*eulerAngles)[cY] = ArcTan2(sy, matrix(i, i));
+                (*eulerAngles)[cZ] = ArcTan2(matrix(j, i), -matrix(k, i));
             }
             else
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(-matrix(j, k), matrix(j, j));
-                (*eulerAngles)[cY] = Math::ArcTan2(sy, matrix(i, i));
+                (*eulerAngles)[cX] = ArcTan2(-matrix(j, k), matrix(j, j));
+                (*eulerAngles)[cY] = ArcTan2(sy, matrix(i, i));
                 (*eulerAngles)[cZ] = 0.0f;
             }
         }
         else
         {
-            float cy = Math::Sqrt(matrix(i, i) * matrix(i, i) +
-                                  matrix(j, i) * matrix(j, i));
+            float cy = Sqrt(matrix(i, i) * matrix(i, i) +
+            matrix(j, i) * matrix(j, i));
             if (cy > 16.0f * FLT_EPSILON)
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(matrix(k, j), matrix(k, k));
-                (*eulerAngles)[cY] = Math::ArcTan2(-matrix(k, i), cy);
-                (*eulerAngles)[cZ] = Math::ArcTan2(matrix(j, i), matrix(i, i));
+                (*eulerAngles)[cX] = ArcTan2(matrix(k, j), matrix(k, k));
+                (*eulerAngles)[cY] = ArcTan2(-matrix(k, i), cy);
+                (*eulerAngles)[cZ] = ArcTan2(matrix(j, i), matrix(i, i));
             }
             else
             {
-                (*eulerAngles)[cX] = Math::ArcTan2(-matrix(j, k), matrix(j, j));
-                (*eulerAngles)[cY] = Math::ArcTan2(-matrix(k, i), cy);
+                (*eulerAngles)[cX] = ArcTan2(-matrix(j, k), matrix(j, j));
+                (*eulerAngles)[cY] = ArcTan2(-matrix(k, i), cy);
                 (*eulerAngles)[cZ] = 0.0f;
             }
         }
@@ -250,7 +250,7 @@ namespace Math
 
         if (EulerOrders::Rotated == frame)
         {
-            Math::Swap((*eulerAngles)[cX], (*eulerAngles)[cZ]);
+            Swap((*eulerAngles)[cX], (*eulerAngles)[cZ]);
         }
     }
 
@@ -295,9 +295,9 @@ namespace Math
     {
         ErrorIf(matrix == NULL, "Math - Null pointer passed for matrix.");
 
-        float c0 = Math::Cos(axisAngle.w);
+        float c0 = Cos(axisAngle.w);
         float n1C0 = 1.0f - c0;
-        float s0 = Math::Sin(axisAngle.w);
+        float s0 = Sin(axisAngle.w);
 
         //| x^2(1-c0)+c0  xy(1-c0)-zs0  xz(1-c0)+ys0 |
         //| xy(1-c0)+zs0  y^2(1-c0)+c0  yz(1-c0)-xs0 |
@@ -328,9 +328,9 @@ namespace Math
     {
         ErrorIf(matrix == NULL, "Math - Null pointer passed for matrix.");
 
-        float c0 = Math::Cos(radians);
+        float c0 = Cos(radians);
         float n1C0 = 1.0f - c0;
-        float s0 = Math::Sin(radians);
+        float s0 = Sin(radians);
 
         //| x^2(1-c0)+c0  xy(1-c0)-zs0  xz(1-c0)+ys0 |
         //| xy(1-c0)+zs0  y^2(1-c0)+c0  yz(1-c0)-xs0 |
@@ -366,7 +366,7 @@ namespace Math
                              frame);
         if (EulerOrders::Rotated == frame)
         {
-            Math::Swap(angles[cX], angles[cZ]);
+            Swap(angles[cX], angles[cZ]);
         }
         if (EulerOrders::Odd == parity)
         {
@@ -379,12 +379,12 @@ namespace Math
         t[I] = angles[cX];
         t[J] = angles[cY];
         t[H] = angles[cZ];
-        c[I] = Math::Cos(t[I]);
-        c[J] = Math::Cos(t[J]);
-        c[H] = Math::Cos(t[H]);
-        s[I] = Math::Sin(t[I]);
-        s[J] = Math::Sin(t[J]);
-        s[H] = Math::Sin(t[H]);
+        c[I] = Cos(t[I]);
+        c[J] = Cos(t[J]);
+        c[H] = Cos(t[H]);
+        s[I] = Sin(t[I]);
+        s[J] = Sin(t[J]);
+        s[H] = Sin(t[H]);
 
         const float cc = c[I] * c[H];
         const float cs = c[I] * s[H];
@@ -512,7 +512,7 @@ namespace Math
                              frame);
         if (EulerOrders::Rotated == frame)
         {
-            Math::Swap(angles[cX], angles[cZ]);
+            Swap(angles[cX], angles[cZ]);
         }
         if (EulerOrders::Odd == parity)
         {
@@ -524,12 +524,12 @@ namespace Math
         t[I] = angles[cX];
         t[J] = angles[cY];
         t[H] = angles[cZ];
-        c[I] = Math::Cos(t[I]);
-        c[J] = Math::Cos(t[J]);
-        c[H] = Math::Cos(t[H]);
-        s[I] = Math::Sin(t[I]);
-        s[J] = Math::Sin(t[J]);
-        s[H] = Math::Sin(t[H]);
+        c[I] = Cos(t[I]);
+        c[J] = Cos(t[J]);
+        c[H] = Cos(t[H]);
+        s[I] = Sin(t[I]);
+        s[J] = Sin(t[J]);
+        s[H] = Sin(t[H]);
         float cc = c[I] * c[H];
         float cs = c[I] * s[H];
         float sc = s[I] * c[H];
@@ -694,12 +694,12 @@ namespace Math
                 "Math - Null pointer passed for quaternion.");
 
         float alpha = axisAngle.w * 0.5f;
-        float sinAlpha = Math::Sin(alpha);
+        float sinAlpha = Sin(alpha);
 
         quaternion->x = axisAngle.x * sinAlpha;
         quaternion->y = axisAngle.y * sinAlpha;
         quaternion->z = axisAngle.z * sinAlpha;
-        quaternion->w = Math::Cos(alpha);
+        quaternion->w = Cos(alpha);
     }
 
     /// Converts an axis-angle pair to a quaternion (in radians). Axis is
@@ -717,12 +717,12 @@ namespace Math
                 "Math - Null pointer passed for quaternion.");
 
         float alpha = radians * 0.5f;
-        float sinAlpha = Math::Sin(alpha);
+        float sinAlpha = Sin(alpha);
 
         quaternion->x = axis.x * sinAlpha;
         quaternion->y = axis.y * sinAlpha;
         quaternion->z = axis.z * sinAlpha;
-        quaternion->w = Math::Cos(alpha);
+        quaternion->w = Cos(alpha);
     }
 
     /// Convert a set of Euler angles to a quaternion (in radians).
@@ -744,7 +744,7 @@ namespace Math
                              frame);
         if (EulerOrders::Rotated == frame)
         {
-            Math::Swap(angles[cX], angles[cZ]);
+            Swap(angles[cX], angles[cZ]);
         }
 
         if (EulerOrders::Odd == parity)
@@ -754,14 +754,14 @@ namespace Math
 
         float t[3], c[3], s[3];
         t[I] = angles[cX] * 0.5f;
-        c[I] = Math::Cos(t[I]);
-        s[I] = Math::Sin(t[I]);
+        c[I] = Cos(t[I]);
+        s[I] = Sin(t[I]);
         t[J] = angles[cY] * 0.5f;
-        c[J] = Math::Cos(t[J]);
-        s[J] = Math::Sin(t[J]);
+        c[J] = Cos(t[J]);
+        s[J] = Sin(t[J]);
         t[H] = angles[cZ] * 0.5f;
-        c[H] = Math::Cos(t[H]);
-        s[H] = Math::Sin(t[H]);
+        c[H] = Cos(t[H]);
+        s[H] = Sin(t[H]);
 
         const float cc = c[I] * c[H];
         const float cs = c[I] * s[H];
@@ -806,7 +806,7 @@ namespace Math
         if (matrix.m00 + matrix.m11 + matrix.m22 > 0.0f)
         {
             float t = matrix.m00 + matrix.m11 + matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[3] = s * t;
             (*quaternion)[2] = (matrix.m10 - matrix.m01) * s;
@@ -816,7 +816,7 @@ namespace Math
         else if (matrix.m00 > matrix.m11 && matrix.m00 > matrix.m22)
         {
             float t = matrix.m00 - matrix.m11 - matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[0] = s * t;
             (*quaternion)[1] = (matrix.m10 + matrix.m01) * s;
@@ -826,7 +826,7 @@ namespace Math
         else if (matrix.m11 > matrix.m22)
         {
             float t = -matrix.m00 + matrix.m11 - matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[1] = s * t;
             (*quaternion)[0] = (matrix.m10 + matrix.m01) * s;
@@ -836,7 +836,7 @@ namespace Math
         else
         {
             float t = -matrix.m00 - matrix.m11 + matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[2] = s * t;
             (*quaternion)[3] = (matrix.m10 - matrix.m01) * s;
@@ -861,7 +861,7 @@ namespace Math
         if (matrix.m00 + matrix.m11 + matrix.m22 > 0.0f)
         {
             float t = matrix.m00 + matrix.m11 + matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[3] = s * t;
             (*quaternion)[2] = (matrix.m10 - matrix.m01) * s;
@@ -871,7 +871,7 @@ namespace Math
         else if (matrix.m00 > matrix.m11 && matrix.m00 > matrix.m22)
         {
             float t = matrix.m00 - matrix.m11 - matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[0] = s * t;
             (*quaternion)[1] = (matrix.m10 + matrix.m01) * s;
@@ -881,7 +881,7 @@ namespace Math
         else if (matrix.m11 > matrix.m22)
         {
             float t = -matrix.m00 + matrix.m11 - matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[1] = s * t;
             (*quaternion)[0] = (matrix.m10 + matrix.m01) * s;
@@ -891,7 +891,7 @@ namespace Math
         else
         {
             float t = -matrix.m00 - matrix.m11 + matrix.m22 + 1.0f;
-            float s = Math::Rsqrt(t) * 0.5f;
+            float s = Rsqrt(t) * 0.5f;
 
             (*quaternion)[2] = s * t;
             (*quaternion)[3] = (matrix.m10 - matrix.m01) * s;
@@ -907,8 +907,8 @@ namespace Math
         ErrorIf(u == NULL, "Math - Null pointer passed for vector U.");
         ErrorIf(v == NULL, "Math - Null pointer passed for vector V.");
 
-        if ((Math::Abs(w.x) >= Math::Abs(w.y)) &&
-            (Math::Abs(w.x) >= Math::Abs(w.z)))
+        if ((Abs(w.x) >= Abs(w.y)) &&
+            (Abs(w.x) >= Abs(w.z)))
         {
             u->x = -w.y;
             u->y = w.x;
@@ -932,8 +932,8 @@ namespace Math
         ErrorIf(u == NULL, "Math - Null pointer passed for vector U.");
         ErrorIf(v == NULL, "Math - Null pointer passed for vector V.");
 
-        if ((Math::Abs(w.x) >= Math::Abs(w.y)) &&
-            (Math::Abs(w.x) >= Math::Abs(w.z)))
+        if ((Abs(w.x) >= Abs(w.y)) &&
+            (Abs(w.x) >= Abs(w.z)))
         {
             u->x = -w.y;
             u->y = w.x;
@@ -1017,13 +1017,13 @@ namespace Math
     float Angle(Vec2Param a, Vec2Param b)
     {
         float dot = Dot(a, b);
-        return Math::ArcCos(dot);
+        return ArcCos(dot);
     }
 
     float Angle(Vec3Param a, Vec3Param b)
     {
         float dot = Dot(a, b);
-        return Math::ArcCos(dot);
+        return ArcCos(dot);
     }
 
     float Angle(QuatParam a, QuatParam b)
@@ -1031,41 +1031,41 @@ namespace Math
         float dot = Dot(a, b);
         if (dot == 0.0f)
             return 0.0f;
-        float angle = 2.0f * Math::ArcCos(dot);
+        float angle = 2.0f * ArcCos(dot);
         return angle;
     }
 
     Vector2 Slerp(Vec2Param start, Vec2Param end, float t)
     {
         float dot = Dot(start, end);
-        float theta = Math::ArcCos(dot) * t;
+        float theta = ArcCos(dot) * t;
         Vector2 relativeVec = end - start * dot;
         relativeVec.Normalize();
-        return (start * Math::Cos(theta)) + (relativeVec * Math::Sin(theta));
+        return (start * Cos(theta)) + (relativeVec * Sin(theta));
     }
 
     Vector3 Slerp(Vec3Param start, Vec3Param end, float t)
     {
         float dot = Dot(start, end);
-        float theta = Math::ArcCos(dot) * t;
+        float theta = ArcCos(dot) * t;
         Vector3 relativeVec = end - start * dot;
         relativeVec.Normalize();
-        return (start * Math::Cos(theta)) + (relativeVec * Math::Sin(theta));
+        return (start * Cos(theta)) + (relativeVec * Sin(theta));
     }
 
     template <typename type>
     type GenericTowards(const type& a, const type& b, float maxAngle)
     {
-        const float cAngleEpsilon = 0.0000001f;
+        constexpr float cAngleEpsilon = 0.0000001f;
 
         float angle = Angle(a, b);
 
-        if (angle > Math::cPi)
+        if (angle > cPi)
         {
-            angle -= Math::cTwoPi;
+            angle -= cTwoPi;
         }
 
-        angle = Math::Abs(angle);
+        angle = Abs(angle);
         if (angle > cAngleEpsilon)
         {
             float t = maxAngle / angle;
@@ -1075,10 +1075,7 @@ namespace Math
             }
             return Slerp(a, b, t);
         }
-        else
-        {
-            return b;
-        }
+        return b;
     }
 
     Vector2 RotateTowards(Vec2Param a, Vec2Param b, float maxAngle)
@@ -1104,15 +1101,15 @@ namespace Math
     float SignedAngle(Vec3Param a, Vec3Param b, Vec3Param up)
     {
         // Get the right vector
-        Vec3 right = Math::Cross(a, up);
+        Vec3 right = Cross(a, up);
         right.AttemptNormalize();
 
         // Get the forward and right dot products
-        float forwardDot = Math::Clamp(Math::Dot(a, b), -1.0f, 1.0f);
-        float rightDot = Math::Clamp(Math::Dot(right, b), -1.0f, 1.0f);
+        float forwardDot = Clamp(Dot(a, b), -1.0f, 1.0f);
+        float rightDot = Clamp(Dot(right, b), -1.0f, 1.0f);
 
         // Get the actual angle from the forward dot product
-        float finalAngle = Math::ArcCos(forwardDot);
+        float finalAngle = ArcCos(forwardDot);
 
         // If we're actually on the left side...
         if (rightDot > 0.0f)

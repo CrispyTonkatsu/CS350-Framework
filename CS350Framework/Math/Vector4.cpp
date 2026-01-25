@@ -225,7 +225,7 @@ namespace Math
     float Vector4::AttemptNormalize()
     {
         float lengthSq = LengthSq();
-        if (Math::DebugIsZero(lengthSq) == false)
+        if (DebugIsZero(lengthSq) == false)
         {
             lengthSq = Sqrt(lengthSq);
             *this /= lengthSq;
@@ -279,20 +279,20 @@ namespace Math
 
     Vector4 Abs(Vec4Param vec)
     {
-        return Vector4(Math::Abs(vec.x), Math::Abs(vec.y), Math::Abs(vec.z),
-                       Math::Abs(vec.w));
+        return Vector4(Abs(vec.x), Abs(vec.y), Abs(vec.z),
+                       Abs(vec.w));
     }
 
     Vector4 Min(Vec4Param lhs, Vec4Param rhs)
     {
-        return Vector4(Math::Min(lhs.x, rhs.x), Math::Min(lhs.y, rhs.y),
-                       Math::Min(lhs.z, rhs.z), Math::Min(lhs.w, rhs.w));
+        return Vector4(Min(lhs.x, rhs.x), Min(lhs.y, rhs.y),
+                       Min(lhs.z, rhs.z), Min(lhs.w, rhs.w));
     }
 
     Vector4 Max(Vec4Param lhs, Vec4Param rhs)
     {
-        return Vector4(Math::Max(lhs.x, rhs.x), Math::Max(lhs.y, rhs.y),
-                       Math::Max(lhs.z, rhs.z), Math::Max(lhs.w, rhs.w));
+        return Vector4(Max(lhs.x, rhs.x), Max(lhs.y, rhs.y),
+                       Max(lhs.z, rhs.z), Max(lhs.w, rhs.w));
     }
 
     Vector4 Lerp(Vec4Param start, Vec4Param end, float tValue)

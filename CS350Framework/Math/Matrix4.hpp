@@ -44,7 +44,6 @@ namespace Math
         typedef Vector4 CrossVector;
 #endif
 
-    public:
         Matrix4() = default;
         Matrix4(float p00, float p01, float p02, float p03, float p10,
                 float p11, float p12, float p13, float p20, float p21,
@@ -202,6 +201,7 @@ namespace Math
         Vector3 Cross3(unsigned index) const;
 
         Vector4& operator[](unsigned index) { return ((Vector4*)this)[index]; }
+
         const Vector4& operator[](unsigned index) const
         {
             return ((Vector4*)this)[index];
@@ -213,10 +213,10 @@ namespace Math
             {
 #ifdef ColumnBasis
                 float m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22,
-                m23, m30, m31, m32, m33;
+                      m23, m30, m31, m32, m33;
 #else
                 float m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22,
-                m32, m03, m13, m23, m33;
+                      m32, m03, m13, m23, m33;
 #endif
             };
 

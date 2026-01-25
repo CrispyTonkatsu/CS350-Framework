@@ -21,7 +21,6 @@ namespace Math
 
     struct Matrix2
     {
-    public:
         Matrix2() = default;
         Matrix2(ConstRealPointer data_);
 

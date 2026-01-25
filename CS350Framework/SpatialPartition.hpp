@@ -142,7 +142,9 @@ class SpatialPartition
 public:
     SpatialPartition() { mType = SpatialPartitionTypes::Unknown; }
 
-    virtual ~SpatialPartition() {};
+    virtual ~SpatialPartition()
+    {
+    };
 
     // Insert the given data into the spatial partition and sets the key to
     // be whatever data is needed to efficiently find this object for subsequent
@@ -164,7 +166,7 @@ public:
     // operation using
     // ".Color(float4)" and ".MaskBit(size_t)". The mask bit is just a helper to
     // allow run-time toggling of debug shapes.
-    virtual void DebugDraw(int level, const Math::Matrix4& transform,
+    virtual void DebugDraw(int level, const Matrix4& transform,
                            const Vector4& color = Vector4(1),
                            int bitMask = 0) = 0;
 
@@ -184,12 +186,16 @@ public:
 
     // Debug Interface
     virtual void GetDataFromKey(const SpatialPartitionKey& key,
-                                SpatialPartitionData& data) const {};
+                                SpatialPartitionData& data) const
+    {
+    };
     // Fill out all contained data (whichever is relevant between sphere and
     // aabb). If this is a tree then it should fill out the data in a pre-order
     // depth first traversal.
     virtual void
-    FilloutData(std::vector<SpatialPartitionQueryData>& results) const {};
+    FilloutData(std::vector<SpatialPartitionQueryData>& results) const
+    {
+    };
 
     // What kind of spatial partition this is. Used for anttweakbar binding.
     SpatialPartitionTypes::Types mType;

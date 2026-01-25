@@ -1,7 +1,8 @@
-#include "UnitTests.hpp"
-#include <cmath>
-#include "DebugDraw.hpp"
 #include "Precompiled.hpp"
+
+#include <cmath>
+#include "UnitTests.hpp"
+#include "DebugDraw.hpp"
 std::vector<AssignmentUnitTestList> mTestFns;
 
 //-----------------------------------------------------------------------------UnitTestWrapper
@@ -27,7 +28,7 @@ UnitTestFn testFn, const std::string& testName)
 void SimpleUnitTesterComponent::Update(float dt)
 {
     int debuggingIndex = mOwner->mApplication->mDebuggingIndex;
-    mUnitTestFn(mTestName, debuggingIndex, NULL);
+    mUnitTestFn(mTestName, debuggingIndex, nullptr);
 }
 
 //-----------------------------------------------------------------------------SimpleUnitTesterComponent
@@ -55,7 +56,8 @@ std::string FormatString(const char* format, ...)
 
     int bufferSize;
     bufferSize = _vscprintf(format, va) + 1;
-    auto stringBuffer = (char*)alloca((bufferSize + 1) * sizeof(char));
+    auto stringBuffer = static_cast<char*>(alloca(
+    (bufferSize + 1) * sizeof(char)));
     stringBuffer[bufferSize] = '\0';
     vsprintf_s(stringBuffer, bufferSize, format, va);
 
@@ -145,21 +147,21 @@ std::string PrintTriangle(const Triangle& tri)
 
 void PrintAabbData(FILE* outFile, const SpatialPartitionQueryData& rhs)
 {
-    if (outFile != NULL)
+    if (outFile != nullptr)
         fprintf(outFile, "    Depth(%d) ClientData(%p) %s\n", rhs.mDepth,
                 rhs.mClientData, PrintAabb(rhs.mAabb).c_str());
 }
 
 void PrintSphereData(FILE* outFile, const SpatialPartitionQueryData& rhs)
 {
-    if (outFile != NULL)
+    if (outFile != nullptr)
         fprintf(outFile, "    Depth(%d) ClientData(%p) %s\n", rhs.mDepth,
                 rhs.mClientData, PrintSphere(rhs.mBoundingSphere).c_str());
 }
 
 void PrintTestHeader(FILE* outFile, const std::string& testName)
 {
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "\n");
         fprintf(
@@ -184,7 +186,7 @@ void PrintRayCastResults(SpatialPartition& spatialPartition, const Ray& ray,
     ray.DebugDraw(10.0f);
     spatialPartition.DebugDraw(-1, Matrix4::cIdentity);
 
-    if (outFile == NULL)
+    if (outFile == nullptr)
         return;
 
     fprintf(outFile, "  Test RayCast:\n");
@@ -215,7 +217,7 @@ void PrintFrustumCastResults(SpatialPartition& spatialPartition,
     frustum.DebugDraw();
     spatialPartition.DebugDraw(-1, Matrix4::cIdentity);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Test FrustumCast:\n");
         for (size_t i = 0; i < castResults.mResults.size(); ++i)
@@ -235,7 +237,7 @@ void PrintSpatialPartitionStructure(SpatialPartition& spatialPartition,
     if (shouldSort)
         sort(results.begin(), results.end());
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Test Spatial Partition Structure:\n");
 
@@ -260,7 +262,7 @@ void PrintSpatialPartitionSelfQuery(SpatialPartition& spatialPartition,
 
     spatialPartition.DebugDraw(-1, Matrix4::cIdentity);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Test SelfQuery:\n");
         for (size_t i = 0; i < results.mResults.size(); ++i)

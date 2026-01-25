@@ -31,20 +31,20 @@ namespace Math
     */
     namespace EulerOrders
     {
-        const unsigned Safe[4] = {0, 1, 2, 0};
-        const unsigned Next[4] = {1, 2, 0, 1};
+        constexpr unsigned Safe[4] = {0, 1, 2, 0};
+        constexpr unsigned Next[4] = {1, 2, 0, 1};
 
         /// The two different types of reference frames
-        const unsigned Static = 0;
-        const unsigned Rotated = 1;
+        constexpr unsigned Static = 0;
+        constexpr unsigned Rotated = 1;
 
         /// The two different states of "is there a repeated axis?"
-        const unsigned No = 0;
-        const unsigned Yes = 1;
+        constexpr unsigned No = 0;
+        constexpr unsigned Yes = 1;
 
         /// Two different states of parity
-        const unsigned Even = 0;
-        const unsigned Odd = 1;
+        constexpr unsigned Even = 0;
+        constexpr unsigned Odd = 1;
 
         /// CreateOrder creates an order value between 0 and 23 from 4-tuple
         /// choices.

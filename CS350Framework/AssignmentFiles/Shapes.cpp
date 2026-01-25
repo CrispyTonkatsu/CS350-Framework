@@ -1,11 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 ///
-/// Authors: Joshua Davis
+/// Authors: Joshua Davis, Edgar Jose Donoso Mansilla
 /// Copyright 2015, DigiPen Institute of Technology
 ///
 ///////////////////////////////////////////////////////////////////////////////
-#include <Math/Math.hpp>
-#include <Math/Vector3.hpp>
+
 #include "Precompiled.hpp"
 
 //-----------------------------------------------------------------------------LineSegment
@@ -31,7 +30,7 @@ Ray::Ray(Math::Vec3Param start, Math::Vec3Param dir)
     mDirection = dir;
 }
 
-Ray Ray::Transform(const Math::Matrix4& transform) const
+Ray Ray::Transform(const Matrix4& transform) const
 {
     Ray transformedRay;
     transformedRay.mStart = Math::TransformPoint(transform, mStart);
@@ -316,7 +315,7 @@ void Frustum::Set(const Vector3& lbn, const Vector3& rbn, const Vector3& rtn,
     mPlanes[5].Set(rbf, rtf, lbf);
 }
 
-Math::Vector4* Frustum::GetPlanes() const { return (Vector4*)mPlanes; }
+Vector4* Frustum::GetPlanes() const { return (Vector4*)mPlanes; }
 
 DebugShape& Frustum::DebugDraw() const
 {

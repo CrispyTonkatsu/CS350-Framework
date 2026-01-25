@@ -42,7 +42,7 @@ void NSquaredSpatialPartition::RemoveData(SpatialPartitionKey& key)
 }
 
 void NSquaredSpatialPartition::DebugDraw(int level,
-                                         const Math::Matrix4& transform,
+                                         const Matrix4& transform,
                                          const Vector4& color, int bitMask)
 {
     // Nothing to debug draw
@@ -124,7 +124,7 @@ void BoundingSphereSpatialPartition::RemoveData(SpatialPartitionKey& key)
 }
 
 void BoundingSphereSpatialPartition::DebugDraw(int level,
-                                               const Math::Matrix4& transform,
+                                               const Matrix4& transform,
                                                const Vector4& color,
                                                int bitMask)
 {

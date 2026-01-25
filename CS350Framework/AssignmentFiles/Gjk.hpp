@@ -103,9 +103,9 @@ namespace VoronoiRegion
     };
 
     static const char* Names[] = {
-    "Point0",      "Point1",      "Point2",         "Point3",
-    "Edge01",      "Edge02",      "Edge03",         "Edge12",
-    "Edge13",      "Edge23",      "Triangle012",    "Triangle013",
+    "Point0", "Point1", "Point2", "Point3",
+    "Edge01", "Edge02", "Edge03", "Edge12",
+    "Edge13", "Edge23", "Triangle012", "Triangle013",
     "Triangle023", "Triangle123", "Tetrahedra0123", "Unknown"};
 } // namespace VoronoiRegion
 

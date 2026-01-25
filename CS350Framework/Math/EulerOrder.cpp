@@ -15,7 +15,8 @@
 
 namespace Math
 {
-    EulerOrder::EulerOrder(EulerOrders::Enum eulerOrder) : Order(eulerOrder)
+    EulerOrder::EulerOrder(EulerOrders::Enum eulerOrder)
+        : Order(eulerOrder)
     {
         //
     }
@@ -38,7 +39,7 @@ namespace Math
 
     unsigned EulerOrder::I() const
     {
-        return EulerOrders::Safe[((unsigned(Order) >> 3) & 3)];
+        return EulerOrders::Safe[((static_cast<unsigned>(Order) >> 3) & 3)];
     }
 
     unsigned EulerOrder::J() const
@@ -58,24 +59,24 @@ namespace Math
 
     bool EulerOrder::RepeatingAngles() const
     {
-        return ((unsigned(Order) >> 1) & 1) == EulerOrders::Yes;
+        return ((static_cast<unsigned>(Order) >> 1) & 1) == EulerOrders::Yes;
     }
 
     bool EulerOrder::RotatingFrame() const
     {
-        return (unsigned(Order) & 1) == EulerOrders::Rotated;
+        return (static_cast<unsigned>(Order) & 1) == EulerOrders::Rotated;
     }
 
     bool EulerOrder::OddParity() const
     {
-        return ((unsigned(Order) >> 2) & 1) == EulerOrders::Odd;
+        return ((static_cast<unsigned>(Order) >> 2) & 1) == EulerOrders::Odd;
     }
 
     void EulerOrder::GetOrder(EulerOrder order, unsigned& i, unsigned& j,
                               unsigned& k, unsigned& h, unsigned& parity,
                               unsigned& repeated, unsigned& frame)
     {
-        unsigned orderValue = unsigned(order.Order);
+        unsigned orderValue = static_cast<unsigned>(order.Order);
 
         frame = orderValue & 1;
         orderValue >>= 1;

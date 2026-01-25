@@ -22,10 +22,10 @@ namespace Math
 {
     namespace
     {
-        const float cTemp = -0.0f;
+        constexpr float cTemp = -0.0f;
         const unsigned cSignBit = *reinterpret_cast<const unsigned*>(&cTemp);
-        const float cNegative = -1.0f;
-        const float cPositive = 1.0f;
+        constexpr float cNegative = -1.0f;
+        constexpr float cPositive = 1.0f;
 
         float gZeroForInf = 0.0f;
         float gInfinite = 1.0f / gZeroForInf;
@@ -84,8 +84,9 @@ namespace Math
 
     float GetSign(float val)
     {
-        return (*reinterpret_cast<unsigned*>(&val) & cSignBit) != 0 ? cNegative
-                                                                    : cPositive;
+        return (*reinterpret_cast<unsigned*>(&val) & cSignBit) != 0
+        ? cNegative
+        : cPositive;
         // return lhs >= 0.0f ? 1.0f : -1.0f;
     }
 
@@ -97,19 +98,19 @@ namespace Math
 
     float ArcCos(float angle)
     {
-        angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
+        angle = ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
         return std::acos(angle);
     }
 
     float ArcSin(float angle)
     {
-        angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
+        angle = ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
         return std::asin(angle);
     }
 
     float ArcTan(float angle)
     {
-        angle = Math::ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
+        angle = ClampIfClose(angle, -1.0f, 1.0f, 0.00001f);
         return std::atan(angle);
     }
 

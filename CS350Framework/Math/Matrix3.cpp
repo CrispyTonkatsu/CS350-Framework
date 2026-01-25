@@ -189,9 +189,9 @@ namespace Math
 
     Mat3Ref Matrix3::Transpose()
     {
-        Math::Swap(m01, m10);
-        Math::Swap(m02, m20);
-        Math::Swap(m12, m21);
+        Swap(m01, m10);
+        Swap(m02, m20);
+        Swap(m12, m21);
         return *this;
     }
 
@@ -290,9 +290,9 @@ namespace Math
 
     void Matrix3::Rotate(float x, float y, float z, float radian)
     {
-        float c0 = Math::Cos(radian);
+        float c0 = Cos(radian);
         float n1C0 = 1.0f - c0;
-        float s0 = Math::Sin(radian);
+        float s0 = Sin(radian);
 
         //| x^2(1-c0)+c0  xy(1-c0)-zs0  xz(1-c0)+ys0 |
         //| xy(1-c0)+zs0  y^2(1-c0)+c0  yz(1-c0)-xs0 |
@@ -339,8 +339,8 @@ namespace Math
         m22 = 1.0f;
 
         // Rotation
-        m00 = Math::Cos(radians);
-        m01 = -Math::Sin(radians);
+        m00 = Cos(radians);
+        m01 = -Sin(radians);
         m10 = -m01;
         m11 = m00;
 

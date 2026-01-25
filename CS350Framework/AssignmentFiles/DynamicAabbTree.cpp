@@ -10,7 +10,9 @@ const float DynamicAabbTree::mFatteningFactor = 1.1f;
 
 DynamicAabbTree::DynamicAabbTree() { mType = SpatialPartitionTypes::AabbTree; }
 
-DynamicAabbTree::~DynamicAabbTree() {}
+DynamicAabbTree::~DynamicAabbTree()
+{
+}
 
 void DynamicAabbTree::InsertData(SpatialPartitionKey& key,
                                  SpatialPartitionData& data)
@@ -29,7 +31,7 @@ void DynamicAabbTree::RemoveData(SpatialPartitionKey& key)
     Warn("Assignment3: Required function un-implemented");
 }
 
-void DynamicAabbTree::DebugDraw(int level, const Math::Matrix4& transform,
+void DynamicAabbTree::DebugDraw(int level, const Matrix4& transform,
                                 const Vector4& color, int bitMask)
 {
     Warn("Assignment3: Required function un-implemented");

@@ -39,7 +39,7 @@ void Camera::SetCameraMode(const int& mode)
     if (newMode == mMode)
         return;
 
-    mMode = (Mode)newMode;
+    mMode = static_cast<Mode>(newMode);
 
     mPhi = Math::cPi - mPhi;
     mTheta = Math::cPi - mTheta;

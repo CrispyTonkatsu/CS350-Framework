@@ -28,7 +28,7 @@ void Idle(Application* application, clock_t& lastTime)
     clock_t ticks = newTime - lastTime;
 
     // Divide out by tick frequency to get the frame time passed
-    float frameTime = ticks / (float)CLOCKS_PER_SEC;
+    float frameTime = ticks / static_cast<float>(CLOCKS_PER_SEC);
 
     // Update the last tick count
     lastTime = newTime;
@@ -66,7 +66,7 @@ void Reshape(Application* application, int width, int height)
     }
 
     // Compute the aspect ratio as w/h
-    float aspectRatio = width / (float)height;
+    float aspectRatio = width / static_cast<float>(height);
 
     // Set the viewport to be the entire window
     glViewport(0, 0, width, height);
@@ -102,107 +102,107 @@ bool TwCustomEventSDL(SDL_Event& event)
 
     case SDL_MOUSEBUTTONDOWN:
     case SDL_MOUSEBUTTONUP:
-        {
-            TwMouseAction action;
-            // Convert to button up/down (could do on the outside level but a
-            // lot of code is shared)
-            if (event.type == SDL_MOUSEBUTTONDOWN)
-                action = TW_MOUSE_PRESSED;
-            else
-                action = TW_MOUSE_RELEASED;
+    {
+        TwMouseAction action;
+        // Convert to button up/down (could do on the outside level but a
+        // lot of code is shared)
+        if (event.type == SDL_MOUSEBUTTONDOWN)
+            action = TW_MOUSE_PRESSED;
+        else
+            action = TW_MOUSE_RELEASED;
 
-            // Convert which mouse button it was
-            TwMouseButtonID button;
-            if (event.button.button == SDL_BUTTON_RIGHT)
-                button = TW_MOUSE_RIGHT;
-            else if (event.button.button == SDL_BUTTON_LEFT)
-                button = TW_MOUSE_LEFT;
-            else if (event.button.button == SDL_BUTTON_MIDDLE)
-                button = TW_MOUSE_MIDDLE;
-            else
-                button = TW_MOUSE_RIGHT;
+        // Convert which mouse button it was
+        TwMouseButtonID button;
+        if (event.button.button == SDL_BUTTON_RIGHT)
+            button = TW_MOUSE_RIGHT;
+        else if (event.button.button == SDL_BUTTON_LEFT)
+            button = TW_MOUSE_LEFT;
+        else if (event.button.button == SDL_BUTTON_MIDDLE)
+            button = TW_MOUSE_MIDDLE;
+        else
+            button = TW_MOUSE_RIGHT;
 
-            return TwMouseButton(action, button) != 0;
-        }
+        return TwMouseButton(action, button) != 0;
+    }
 
     case SDL_MOUSEWHEEL:
-        {
-            // Ant-tweakbar uses an absolute wheel position while sdl just
-            // returns a delta
-            static int s_WheelPos = 0;
-            s_WheelPos += event.wheel.y;
-            return TwMouseWheel(s_WheelPos) != 0;
-        }
+    {
+        // Ant-tweakbar uses an absolute wheel position while sdl just
+        // returns a delta
+        static int s_WheelPos = 0;
+        s_WheelPos += event.wheel.y;
+        return TwMouseWheel(s_WheelPos) != 0;
+    }
 
     case SDL_KEYDOWN:
+    {
+        // Convert relevant modifier codes
+        int mod = event.key.keysym.mod;
+        switch (mod)
         {
-            // Convert relevant modifier codes
-            int mod = event.key.keysym.mod;
-            switch (mod)
-            {
-            case KMOD_SHIFT:
-                mod = TW_KMOD_SHIFT;
-                break;
-            case KMOD_CTRL:
-                mod = TW_KMOD_CTRL;
-                break;
-            case KMOD_ALT:
-                mod = TW_KMOD_ALT;
-                break;
-            }
-
-            // Convert special key codes (F keys, Num-pad, Arrows, etc...)
-            int key = event.key.keysym.sym;
-            switch (key)
-            {
-                SdlKeyToTwKey(F1);
-                SdlKeyToTwKey(F2);
-                SdlKeyToTwKey(F3);
-                SdlKeyToTwKey(F4);
-                SdlKeyToTwKey(F5);
-                SdlKeyToTwKey(F6);
-                SdlKeyToTwKey(F7);
-                SdlKeyToTwKey(F8);
-                SdlKeyToTwKey(F9);
-                SdlKeyToTwKey(F10);
-                SdlKeyToTwKey(F11);
-                SdlKeyToTwKey(F12);
-
-                SdlKeyToTwKey(LEFT);
-                SdlKeyToTwKey(RIGHT);
-                SdlKeyToTwKey(UP);
-                SdlKeyToTwKey(DOWN);
-
-                SdlKeyToTwKey(HOME);
-                SdlKeyToTwKey(END);
-
-                KeyPadToKey(0);
-                KeyPadToKey(1);
-                KeyPadToKey(2);
-                KeyPadToKey(3);
-                KeyPadToKey(4);
-                KeyPadToKey(5);
-                KeyPadToKey(6);
-                KeyPadToKey(7);
-                KeyPadToKey(8);
-                KeyPadToKey(9);
-
-                KeyPadToKey(PERIOD);
-                KeyPadToKey(PLUS);
-                KeyPadToKey(MINUS);
-            case SDLK_KP_DIVIDE:
-                key = SDLK_SLASH;
-                break;
-            case SDLK_KP_MULTIPLY:
-                key = SDLK_ASTERISK;
-                break;
-            case SDLK_KP_ENTER:
-                key = SDLK_RETURN;
-                break;
-            }
-
-            return TwKeyPressed(key, mod) != 0;
+        case KMOD_SHIFT:
+            mod = TW_KMOD_SHIFT;
+            break;
+        case KMOD_CTRL:
+            mod = TW_KMOD_CTRL;
+            break;
+        case KMOD_ALT:
+            mod = TW_KMOD_ALT;
+            break;
         }
+
+        // Convert special key codes (F keys, Num-pad, Arrows, etc...)
+        int key = event.key.keysym.sym;
+        switch (key)
+        {
+        SdlKeyToTwKey(F1);
+        SdlKeyToTwKey(F2);
+        SdlKeyToTwKey(F3);
+        SdlKeyToTwKey(F4);
+        SdlKeyToTwKey(F5);
+        SdlKeyToTwKey(F6);
+        SdlKeyToTwKey(F7);
+        SdlKeyToTwKey(F8);
+        SdlKeyToTwKey(F9);
+        SdlKeyToTwKey(F10);
+        SdlKeyToTwKey(F11);
+        SdlKeyToTwKey(F12);
+
+        SdlKeyToTwKey(LEFT);
+        SdlKeyToTwKey(RIGHT);
+        SdlKeyToTwKey(UP);
+        SdlKeyToTwKey(DOWN);
+
+        SdlKeyToTwKey(HOME);
+        SdlKeyToTwKey(END);
+
+        KeyPadToKey(0);
+        KeyPadToKey(1);
+        KeyPadToKey(2);
+        KeyPadToKey(3);
+        KeyPadToKey(4);
+        KeyPadToKey(5);
+        KeyPadToKey(6);
+        KeyPadToKey(7);
+        KeyPadToKey(8);
+        KeyPadToKey(9);
+
+        KeyPadToKey(PERIOD);
+        KeyPadToKey(PLUS);
+        KeyPadToKey(MINUS);
+        case SDLK_KP_DIVIDE:
+            key = SDLK_SLASH;
+            break;
+        case SDLK_KP_MULTIPLY:
+            key = SDLK_ASTERISK;
+            break;
+        case SDLK_KP_ENTER:
+            key = SDLK_RETURN;
+            break;
+        }
+
+        return TwKeyPressed(key, mod) != 0;
+    }
     }
     return false;
 }
@@ -228,56 +228,56 @@ void MainLoop(SDL_Window* window, Application* application)
             switch (event.type)
             {
             case SDL_QUIT:
-                {
-                    quit = true;
-                    break;
-                }
+            {
+                quit = true;
+                break;
+            }
 
             case SDL_MOUSEMOTION:
-                {
-                    application->OnMouseMove(event.motion.x, event.motion.y);
-                    break;
-                }
+            {
+                application->OnMouseMove(event.motion.x, event.motion.y);
+                break;
+            }
 
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
-                {
-                    application->OnMouseInput(event.button.button,
-                                              event.button.state == SDL_PRESSED,
-                                              event.button.x, event.button.y);
-                    break;
-                }
+            {
+                application->OnMouseInput(event.button.button,
+                                          event.button.state == SDL_PRESSED,
+                                          event.button.x, event.button.y);
+                break;
+            }
 
             case SDL_MOUSEWHEEL:
-                {
-                    application->OnMouseScroll(event.wheel.x, event.wheel.y);
-                    break;
-                }
+            {
+                application->OnMouseScroll(event.wheel.x, event.wheel.y);
+                break;
+            }
 
             case SDL_KEYDOWN:
-                {
-                    application->OnKeyDown(event.key.keysym.sym, 0, 0);
-                    break;
-                }
+            {
+                application->OnKeyDown(event.key.keysym.sym, 0, 0);
+                break;
+            }
 
             case SDL_KEYUP:
-                {
-                    application->OnKeyUp(event.key.keysym.sym, 0, 0);
-                    break;
-                }
+            {
+                application->OnKeyUp(event.key.keysym.sym, 0, 0);
+                break;
+            }
 
             case SDL_WINDOWEVENT:
+            {
+                switch (event.window.event)
                 {
-                    switch (event.window.event)
-                    {
-                    // Handle the window being resized
-                    case SDL_WINDOWEVENT_RESIZED:
-                        Reshape(application, event.window.data1,
-                                event.window.data2);
-                        break;
-                    }
+                // Handle the window being resized
+                case SDL_WINDOWEVENT_RESIZED:
+                    Reshape(application, event.window.data1,
+                            event.window.data2);
                     break;
                 }
+                break;
+            }
             }
         }
 
@@ -340,7 +340,7 @@ bool Startup(SDL_Window*& window, SDL_GLContext& glContext, int WindowWidth,
     glEnable(GL_LIGHTING);
 
     // Initialize AntTweakBar
-    TwInit(TW_OPENGL, NULL);
+    TwInit(TW_OPENGL, nullptr);
     TwCopyStdStringToClientFunc(CopyStdStringToClient);
     TwWindowSize(WindowWidth, WindowHeight);
 
@@ -382,8 +382,8 @@ bool CheckForUnitTests(int argc, char* argv[])
     FormatString("Test%d_%d.txt", assignmentNumber, testNumber);
     // The 3rd argument is an optional one specifying what the output file name
     // should be for the unit tests
-    char* outFile = NULL;
-    if (argc >= 4 && argv[3] != NULL)
+    char* outFile = nullptr;
+    if (argc >= 4 && argv[3] != nullptr)
         outFilePath = argv[3];
 
     // Open the file we're writing to
@@ -391,7 +391,8 @@ bool CheckForUnitTests(int argc, char* argv[])
     fopen_s(&file, outFilePath.c_str(), "w");
 
     // Bounds check the assignment number
-    if (assignmentNumber < 0 || (int)mTestFns.size() < assignmentNumber)
+    if (assignmentNumber < 0 || static_cast<int>(mTestFns.size()) <
+        assignmentNumber)
         return false;
 
     AssignmentUnitTestList& list = mTestFns[assignmentNumber - 1];
@@ -416,7 +417,8 @@ bool CheckForUnitTests(int argc, char* argv[])
     {
         // The argument of 1 runs the 1st test (index 0)
         int actualTestNumber = testNumber - 1;
-        if (0 <= actualTestNumber && actualTestNumber < (int)list.size())
+        if (0 <= actualTestNumber && actualTestNumber < static_cast<int>(list.
+            size()))
         {
             UnitTestWrapper& wrapper = list[actualTestNumber];
             wrapper.Run(-1, file);

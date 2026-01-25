@@ -14,11 +14,11 @@
 void Gizmo::GetBasis(Vector3& pos, Vector3& basisX, Vector3& basisY,
                      Vector3& basisZ)
 {
-    if (mSelectedObject == NULL)
+    if (mSelectedObject == nullptr)
         return;
 
     Transform* transform = mSelectedObject->has(Transform);
-    if (transform != NULL)
+    if (transform != nullptr)
     {
         pos = transform->mTranslation;
         basisX = Vector3::cXAxis;
@@ -31,7 +31,7 @@ TranslationGizmo::TranslationGizmo() { mCaptured = false; }
 
 void TranslationGizmo::OnUpdate(Application* application, float dt)
 {
-    if (mSelectedObject == NULL)
+    if (mSelectedObject == nullptr)
         return;
 
     Vector3 pos, basisX, basisY, basisZ;
@@ -50,7 +50,7 @@ bool TranslationGizmo::OnMouseInput(Application* application,
                                     unsigned int button, bool isDown,
                                     const Ray& ray)
 {
-    if (mSelectedObject == NULL)
+    if (mSelectedObject == nullptr)
         return false;
 
     if (button != SDL_BUTTON_LEFT)
@@ -126,7 +126,7 @@ bool TranslationGizmo::OnMouseInput(Application* application,
 
 bool TranslationGizmo::OnMouseMove(Application* application, const Ray& ray)
 {
-    if (mSelectedObject == NULL)
+    if (mSelectedObject == nullptr)
         return false;
 
     float cylinderLength = 5;
@@ -197,7 +197,7 @@ bool TranslationGizmo::OnMouseMove(Application* application, const Ray& ray)
 
 bool TranslationGizmo::OnMouseScroll(Application* application, int x, int y)
 {
-    if (mSelectedObject == NULL)
+    if (mSelectedObject == nullptr)
         return false;
 
     return false;

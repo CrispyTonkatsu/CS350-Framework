@@ -4,7 +4,7 @@
 		{
 			"label": "Test (Debug)",
 			"type": "shell",
-			"command": "FC .\\Test${input:assignment_number}_0.txt .\\Assignments\\A1\\Assignment${input:assignment_number}_MasterResults.txt",
+			"command": "delta .\\Test${input:assignment_number}_0.txt .\\Assignments\\A1\\Assignment${input:assignment_number}_MasterResults.txt",
 			"dependsOn": ["Run (Debug)"]
 		},
 		{
@@ -48,9 +48,8 @@
 	"inputs": [
 		{
 			"id": "assignment_number",
-			"type": "pickString",
-			"description": "The assignment to test",
-			"options": ["0", "1", "2", "3", "4", "5"],
+			"type": "promptString",
+			"description": "The assignment to test"
 		}
 	]
 }

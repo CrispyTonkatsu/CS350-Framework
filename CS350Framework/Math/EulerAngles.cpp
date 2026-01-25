@@ -18,7 +18,8 @@ namespace Math
 {
     //----------------------------------------------------------------- Euler
     //Angles
-    EulerAngles::EulerAngles(EulerOrderParam order) : Order(order)
+    EulerAngles::EulerAngles(EulerOrderParam order)
+        : Order(order)
     {
         //
     }
@@ -39,19 +40,19 @@ namespace Math
     EulerAngles::EulerAngles(Mat3Param matrix, EulerOrderParam order)
         : Order(order)
     {
-        Math::ToEulerAngles(matrix, this);
+        ToEulerAngles(matrix, this);
     }
 
     EulerAngles::EulerAngles(Mat4Param matrix, EulerOrderParam order)
         : Order(order)
     {
-        Math::ToEulerAngles(matrix, this);
+        ToEulerAngles(matrix, this);
     }
 
     EulerAngles::EulerAngles(QuatParam quaternion, EulerOrderParam order)
         : Order(order)
     {
-        Math::ToEulerAngles(quaternion, this);
+        ToEulerAngles(quaternion, this);
     }
 
     float EulerAngles::operator[](unsigned index) const

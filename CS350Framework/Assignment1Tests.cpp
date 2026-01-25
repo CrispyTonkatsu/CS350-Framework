@@ -16,7 +16,7 @@ void TestBarycentricLine(const Vector3& p0, const Vector3& p1, float expectedU,
     float u, v;
     bool result = BarycentricCoordinates(testPoint, p0, p1, u, v, epsilon);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
         fprintf(outFile, "  Result:%s (u, v):%s\n", result ? "true" : "false",
                 PrintVector2(u, v).c_str());
 
@@ -41,7 +41,7 @@ void TestBarycentricTriangle(const Vector3& p0, const Vector3& p1,
     bool result =
     BarycentricCoordinates(testPoint, p0, p1, p2, u, v, w, epsilon);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
         fprintf(outFile, "  Result:%s (u, v, w): %s\n",
                 result ? "true" : "false", PrintVector3(u, v, w).c_str());
 
@@ -61,7 +61,7 @@ void TestRayPlane(const Ray& ray, const Plane& plane, FILE* outFile)
     float t;
     bool result = RayPlane(ray.mStart, ray.mDirection, plane.mData, t);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         if (result)
             fprintf(outFile, "  Result:true t:%s\n", PrintFloat(t).c_str());
@@ -85,7 +85,7 @@ void TestRayTriangle(const Ray& ray, const Triangle& tri, FILE* outFile)
     bool result = RayTriangle(ray.mStart, ray.mDirection, tri.mPoints[0],
                               tri.mPoints[1], tri.mPoints[2], t, epsilon);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         if (result)
             fprintf(outFile, "  Result:true t:%s\n", PrintFloat(t).c_str());
@@ -108,7 +108,7 @@ void TestRaySphere(const Ray& ray, const Sphere& sphere, FILE* outFile)
     bool result =
     RaySphere(ray.mStart, ray.mDirection, sphere.mCenter, sphere.mRadius, t);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         if (result)
             fprintf(outFile, "  Result:true t:%s\n", PrintFloat(t).c_str());
@@ -130,7 +130,7 @@ void TestRayAabb(const Ray& ray, const Aabb& aabb, FILE* outFile)
     float t = 0;
     bool result = RayAabb(ray.mStart, ray.mDirection, aabb.mMin, aabb.mMax, t);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         if (result)
             fprintf(outFile, "  Result:true t:%s\n", PrintFloat(t).c_str());
@@ -149,7 +149,7 @@ void TestRayAabb(const Ray& ray, const Aabb& aabb, FILE* outFile)
 
 void TestPlaneSet(const Plane& plane, FILE* outFile)
 {
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", PrintVector4(plane.mData).c_str());
     }
@@ -176,7 +176,7 @@ void TestPointPlane(const Vector3& point, const Plane& plane, float epsilon,
 {
     int result = PointPlane(point, plane.mData, epsilon);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", IntersectionType::Names[result]);
     }
@@ -197,7 +197,7 @@ void TestPointSphere(const Vector3& point, const Sphere& sphere, FILE* outFile)
 {
     bool result = PointSphere(point, sphere.mCenter, sphere.mRadius);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", result ? "true" : "false");
     }
@@ -214,7 +214,7 @@ void TestPointAabb(const Vector3& point, const Aabb& aabb, FILE* outFile)
 {
     bool result = PointAabb(point, aabb.mMin, aabb.mMax);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", result ? "true" : "false");
     }
@@ -232,7 +232,7 @@ void TestProjectPointOnPlane(const Vector3& point, const Plane& plane,
 {
     Vector3 result =
     ProjectPointOnPlane(point, plane.GetNormal(), plane.GetDistance());
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", PrintVector3(result).c_str());
     }
@@ -246,7 +246,7 @@ void TestPlaneSphere(const Plane& plane, const Sphere& sphere, FILE* outFile)
 {
     int result = PlaneSphere(plane.mData, sphere.mCenter, sphere.mRadius);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", IntersectionType::Names[result]);
     }
@@ -271,7 +271,7 @@ void TestPlaneAabb(const Plane& plane, const Aabb& aabb, FILE* outFile)
 {
     int result = PlaneAabb(plane.mData, aabb.GetMin(), aabb.GetMax());
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", IntersectionType::Names[result]);
     }
@@ -294,7 +294,7 @@ void TestPlaneTriangle(const Plane& plane, const Triangle& tri, float epsilon,
     int result = PlaneTriangle(plane.mData, tri.mPoints[0], tri.mPoints[1],
                                tri.mPoints[2], epsilon);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", IntersectionType::Names[result]);
     }
@@ -319,7 +319,7 @@ void TestSphereSphere(const Sphere& sphere0, const Sphere& sphere1,
     bool result = SphereSphere(sphere0.mCenter, sphere0.mRadius,
                                sphere1.mCenter, sphere1.mRadius);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", result ? "true" : "false");
     }
@@ -335,7 +335,7 @@ void TestSphereSphere(const Sphere& sphere0, const Sphere& sphere1,
 void TestAabbAabb(const Aabb& aabb0, const Aabb& aabb1, FILE* outFile)
 {
     bool result = AabbAabb(aabb0.mMin, aabb0.mMax, aabb1.mMin, aabb1.mMax);
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", result ? "true" : "false");
     }
@@ -356,7 +356,7 @@ void TestFrustumTriangle(const Frustum& frustum, const Triangle& tri,
     FrustumTriangle(frustum.GetPlanes(), tri.mPoints[0], tri.mPoints[1],
                     tri.mPoints[2], epsilon);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, " Result:%s\n", IntersectionType::Names[result]);
     }
@@ -380,7 +380,7 @@ void TestFrustumSphere(const Frustum& frustum, const Sphere& sphere,
     IntersectionType::Type result =
     FrustumSphere(frustum.GetPlanes(), sphere.mCenter, sphere.mRadius, axis);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, " Result:%s\n", IntersectionType::Names[result]);
     }
@@ -403,7 +403,7 @@ void TestFrustumAabb(const Frustum& frustum, const Aabb& aabb, FILE* outFile)
     IntersectionType::Type result =
     FrustumAabb(frustum.GetPlanes(), aabb.GetMin(), aabb.GetMax(), axis);
 
-    if (outFile != NULL)
+    if (outFile != nullptr)
     {
         fprintf(outFile, "  Result:%s\n", IntersectionType::Names[result]);
     }
@@ -421,7 +421,7 @@ void TestFrustumAabb(const Frustum& frustum, const Aabb& aabb, FILE* outFile)
 }
 
 void ProjectPointOnPlaneTest1(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -432,7 +432,7 @@ void ProjectPointOnPlaneTest1(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest2(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -443,7 +443,7 @@ void ProjectPointOnPlaneTest2(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest3(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -454,7 +454,7 @@ void ProjectPointOnPlaneTest3(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest4(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -465,7 +465,7 @@ void ProjectPointOnPlaneTest4(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest5(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -476,7 +476,7 @@ void ProjectPointOnPlaneTest5(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest6(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -487,7 +487,7 @@ void ProjectPointOnPlaneTest6(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest7(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -498,7 +498,7 @@ void ProjectPointOnPlaneTest7(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest8(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -509,7 +509,7 @@ void ProjectPointOnPlaneTest8(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest9(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -520,7 +520,7 @@ void ProjectPointOnPlaneTest9(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest10(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -531,7 +531,7 @@ void ProjectPointOnPlaneTest10(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest11(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -542,7 +542,7 @@ void ProjectPointOnPlaneTest11(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest12(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -553,7 +553,7 @@ void ProjectPointOnPlaneTest12(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest13(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -564,7 +564,7 @@ void ProjectPointOnPlaneTest13(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest14(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -575,7 +575,7 @@ void ProjectPointOnPlaneTest14(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest15(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -586,7 +586,7 @@ void ProjectPointOnPlaneTest15(const std::string& testName, int debuggingIndex,
 }
 
 void ProjectPointOnPlaneTest16(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -597,7 +597,7 @@ void ProjectPointOnPlaneTest16(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest0(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -610,7 +610,7 @@ void BarycentricLineTest0(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest1(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -623,7 +623,7 @@ void BarycentricLineTest1(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest2(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -636,7 +636,7 @@ void BarycentricLineTest2(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest3(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -649,7 +649,7 @@ void BarycentricLineTest3(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest4(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -662,7 +662,7 @@ void BarycentricLineTest4(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest5(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -675,7 +675,7 @@ void BarycentricLineTest5(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest6(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -688,7 +688,7 @@ void BarycentricLineTest6(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest7(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -701,7 +701,7 @@ void BarycentricLineTest7(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest8(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -714,7 +714,7 @@ void BarycentricLineTest8(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest9(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -727,7 +727,7 @@ void BarycentricLineTest9(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest10(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -740,7 +740,7 @@ void BarycentricLineTest10(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest11(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -753,7 +753,7 @@ void BarycentricLineTest11(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest12(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -766,7 +766,7 @@ void BarycentricLineTest12(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest13(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -779,7 +779,7 @@ void BarycentricLineTest13(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest14(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -792,7 +792,7 @@ void BarycentricLineTest14(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest15(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -805,7 +805,7 @@ void BarycentricLineTest15(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest16(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -818,7 +818,7 @@ void BarycentricLineTest16(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest17(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -831,7 +831,7 @@ void BarycentricLineTest17(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest18(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -844,7 +844,7 @@ void BarycentricLineTest18(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest19(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -857,7 +857,7 @@ void BarycentricLineTest19(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest20(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -870,7 +870,7 @@ void BarycentricLineTest20(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest21(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -883,7 +883,7 @@ void BarycentricLineTest21(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest22(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -896,7 +896,7 @@ void BarycentricLineTest22(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest23(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -909,7 +909,7 @@ void BarycentricLineTest23(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest24(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -922,7 +922,7 @@ void BarycentricLineTest24(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest25(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -935,7 +935,7 @@ void BarycentricLineTest25(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest26(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -948,7 +948,7 @@ void BarycentricLineTest26(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest27(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -961,7 +961,7 @@ void BarycentricLineTest27(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest28(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -974,7 +974,7 @@ void BarycentricLineTest28(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest29(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -987,7 +987,7 @@ void BarycentricLineTest29(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest30(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1000,7 +1000,7 @@ void BarycentricLineTest30(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest31(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1013,7 +1013,7 @@ void BarycentricLineTest31(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest32(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1026,7 +1026,7 @@ void BarycentricLineTest32(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest33(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1039,7 +1039,7 @@ void BarycentricLineTest33(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest34(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1052,7 +1052,7 @@ void BarycentricLineTest34(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest35(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1065,7 +1065,7 @@ void BarycentricLineTest35(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest36(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1078,7 +1078,7 @@ void BarycentricLineTest36(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest37(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1091,7 +1091,7 @@ void BarycentricLineTest37(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest38(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1104,7 +1104,7 @@ void BarycentricLineTest38(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest39(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1117,7 +1117,7 @@ void BarycentricLineTest39(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest40(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1130,7 +1130,7 @@ void BarycentricLineTest40(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest41(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1143,7 +1143,7 @@ void BarycentricLineTest41(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest42(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1156,7 +1156,7 @@ void BarycentricLineTest42(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest43(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1169,7 +1169,7 @@ void BarycentricLineTest43(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest44(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1182,7 +1182,7 @@ void BarycentricLineTest44(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest45(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1195,7 +1195,7 @@ void BarycentricLineTest45(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest46(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1208,7 +1208,7 @@ void BarycentricLineTest46(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest47(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1221,7 +1221,7 @@ void BarycentricLineTest47(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest48(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1234,7 +1234,7 @@ void BarycentricLineTest48(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest49(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1247,7 +1247,7 @@ void BarycentricLineTest49(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest50(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1260,7 +1260,7 @@ void BarycentricLineTest50(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest51(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1273,7 +1273,7 @@ void BarycentricLineTest51(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest52(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1286,7 +1286,7 @@ void BarycentricLineTest52(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest53(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1299,7 +1299,7 @@ void BarycentricLineTest53(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricLineTest54(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1313,7 +1313,7 @@ void BarycentricLineTest54(const std::string& testName, int debuggingIndex,
 
 // Expected Result: false. Testing a degenerate line
 void BarycentricLineTest55(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1327,7 +1327,7 @@ void BarycentricLineTest55(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Testing the use of epsilon
 void BarycentricLineTest56(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1340,7 +1340,7 @@ void BarycentricLineTest56(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest0(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1356,7 +1356,7 @@ void BarycentricTriangleTest0(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Halfway in-between p0 and p1
 void BarycentricTriangleTest1(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1372,7 +1372,7 @@ void BarycentricTriangleTest1(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Halfway in-between p0 and p2
 void BarycentricTriangleTest2(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1388,7 +1388,7 @@ void BarycentricTriangleTest2(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Halfway in-between p1 and p2
 void BarycentricTriangleTest3(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1404,7 +1404,7 @@ void BarycentricTriangleTest3(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Coordinate at p0
 void BarycentricTriangleTest4(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1420,7 +1420,7 @@ void BarycentricTriangleTest4(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Coordinate at p1
 void BarycentricTriangleTest5(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1436,7 +1436,7 @@ void BarycentricTriangleTest5(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Coordinate at p2
 void BarycentricTriangleTest6(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1451,7 +1451,7 @@ void BarycentricTriangleTest6(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest7(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1466,7 +1466,7 @@ void BarycentricTriangleTest7(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest8(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1481,7 +1481,7 @@ void BarycentricTriangleTest8(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest9(const std::string& testName, int debuggingIndex,
-                              FILE* file = NULL)
+                              FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1496,7 +1496,7 @@ void BarycentricTriangleTest9(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest10(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1511,7 +1511,7 @@ void BarycentricTriangleTest10(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest11(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1526,7 +1526,7 @@ void BarycentricTriangleTest11(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest12(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1541,7 +1541,7 @@ void BarycentricTriangleTest12(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest13(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1556,7 +1556,7 @@ void BarycentricTriangleTest13(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest14(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1571,7 +1571,7 @@ void BarycentricTriangleTest14(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest15(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1586,7 +1586,7 @@ void BarycentricTriangleTest15(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest16(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1601,7 +1601,7 @@ void BarycentricTriangleTest16(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest17(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1616,7 +1616,7 @@ void BarycentricTriangleTest17(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest18(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1631,7 +1631,7 @@ void BarycentricTriangleTest18(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest19(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1646,7 +1646,7 @@ void BarycentricTriangleTest19(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest20(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1661,7 +1661,7 @@ void BarycentricTriangleTest20(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest21(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1676,7 +1676,7 @@ void BarycentricTriangleTest21(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest22(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1691,7 +1691,7 @@ void BarycentricTriangleTest22(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest23(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1706,7 +1706,7 @@ void BarycentricTriangleTest23(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest24(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1721,7 +1721,7 @@ void BarycentricTriangleTest24(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest25(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1736,7 +1736,7 @@ void BarycentricTriangleTest25(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest26(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1751,7 +1751,7 @@ void BarycentricTriangleTest26(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest27(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1766,7 +1766,7 @@ void BarycentricTriangleTest27(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest28(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1781,7 +1781,7 @@ void BarycentricTriangleTest28(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest29(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1796,7 +1796,7 @@ void BarycentricTriangleTest29(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest30(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1811,7 +1811,7 @@ void BarycentricTriangleTest30(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest31(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1827,7 +1827,7 @@ void BarycentricTriangleTest31(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Halfway in-between p0 and p1
 void BarycentricTriangleTest32(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1843,7 +1843,7 @@ void BarycentricTriangleTest32(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Halfway in-between p0 and p2
 void BarycentricTriangleTest33(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1859,7 +1859,7 @@ void BarycentricTriangleTest33(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Halfway in-between p1 and p2
 void BarycentricTriangleTest34(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1875,7 +1875,7 @@ void BarycentricTriangleTest34(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Coordinate at p0
 void BarycentricTriangleTest35(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1891,7 +1891,7 @@ void BarycentricTriangleTest35(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Coordinate at p1
 void BarycentricTriangleTest36(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1907,7 +1907,7 @@ void BarycentricTriangleTest36(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Coordinate at p2
 void BarycentricTriangleTest37(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1922,7 +1922,7 @@ void BarycentricTriangleTest37(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest38(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1937,7 +1937,7 @@ void BarycentricTriangleTest38(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest39(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1952,7 +1952,7 @@ void BarycentricTriangleTest39(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest40(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1967,7 +1967,7 @@ void BarycentricTriangleTest40(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest41(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1982,7 +1982,7 @@ void BarycentricTriangleTest41(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest42(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -1997,7 +1997,7 @@ void BarycentricTriangleTest42(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest43(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2012,7 +2012,7 @@ void BarycentricTriangleTest43(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest44(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2027,7 +2027,7 @@ void BarycentricTriangleTest44(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest45(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2042,7 +2042,7 @@ void BarycentricTriangleTest45(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest46(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2057,7 +2057,7 @@ void BarycentricTriangleTest46(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest47(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2072,7 +2072,7 @@ void BarycentricTriangleTest47(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest48(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2087,7 +2087,7 @@ void BarycentricTriangleTest48(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest49(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2102,7 +2102,7 @@ void BarycentricTriangleTest49(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest50(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2117,7 +2117,7 @@ void BarycentricTriangleTest50(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest51(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2132,7 +2132,7 @@ void BarycentricTriangleTest51(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest52(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2147,7 +2147,7 @@ void BarycentricTriangleTest52(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest53(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2162,7 +2162,7 @@ void BarycentricTriangleTest53(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest54(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2177,7 +2177,7 @@ void BarycentricTriangleTest54(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest55(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2192,7 +2192,7 @@ void BarycentricTriangleTest55(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest56(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2207,7 +2207,7 @@ void BarycentricTriangleTest56(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest57(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2222,7 +2222,7 @@ void BarycentricTriangleTest57(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest58(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2237,7 +2237,7 @@ void BarycentricTriangleTest58(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest59(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2252,7 +2252,7 @@ void BarycentricTriangleTest59(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest60(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2267,7 +2267,7 @@ void BarycentricTriangleTest60(const std::string& testName, int debuggingIndex,
 }
 
 void BarycentricTriangleTest61(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2283,7 +2283,7 @@ void BarycentricTriangleTest61(const std::string& testName, int debuggingIndex,
 
 // Expected Result: false. Testing a degenerate triangle
 void BarycentricTriangleTest62(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2299,7 +2299,7 @@ void BarycentricTriangleTest62(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Testing the use of epsilon
 void BarycentricTriangleTest63(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2315,7 +2315,7 @@ void BarycentricTriangleTest63(const std::string& testName, int debuggingIndex,
 
 // Expected Result: true. Testing the use of epsilon
 void BarycentricTriangleTest64(const std::string& testName, int debuggingIndex,
-                               FILE* file = NULL)
+                               FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2330,7 +2330,7 @@ void BarycentricTriangleTest64(const std::string& testName, int debuggingIndex,
 }
 
 void PlaneSetTest1(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2340,7 +2340,7 @@ void PlaneSetTest1(const std::string& testName, int debuggingIndex,
 }
 
 void PlaneSetTest2(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2350,7 +2350,7 @@ void PlaneSetTest2(const std::string& testName, int debuggingIndex,
 }
 
 void PlaneSetTest3(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2361,7 +2361,7 @@ void PlaneSetTest3(const std::string& testName, int debuggingIndex,
 }
 
 void PlaneSetTest4(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2373,7 +2373,7 @@ void PlaneSetTest4(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest1(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2386,7 +2386,7 @@ void PointPlaneTest1(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest2(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2399,7 +2399,7 @@ void PointPlaneTest2(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest3(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2412,7 +2412,7 @@ void PointPlaneTest3(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest4(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2425,7 +2425,7 @@ void PointPlaneTest4(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest5(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2438,7 +2438,7 @@ void PointPlaneTest5(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest6(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2451,7 +2451,7 @@ void PointPlaneTest6(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest7(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2464,7 +2464,7 @@ void PointPlaneTest7(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest8(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2477,7 +2477,7 @@ void PointPlaneTest8(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest9(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2490,7 +2490,7 @@ void PointPlaneTest9(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest10(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2503,7 +2503,7 @@ void PointPlaneTest10(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest11(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2516,7 +2516,7 @@ void PointPlaneTest11(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest12(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2529,7 +2529,7 @@ void PointPlaneTest12(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest13(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2542,7 +2542,7 @@ void PointPlaneTest13(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest14(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2555,7 +2555,7 @@ void PointPlaneTest14(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest15(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2568,7 +2568,7 @@ void PointPlaneTest15(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest16(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2581,7 +2581,7 @@ void PointPlaneTest16(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest17(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2594,7 +2594,7 @@ void PointPlaneTest17(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest18(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2607,7 +2607,7 @@ void PointPlaneTest18(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest19(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2620,7 +2620,7 @@ void PointPlaneTest19(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest20(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2633,7 +2633,7 @@ void PointPlaneTest20(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest21(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2646,7 +2646,7 @@ void PointPlaneTest21(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest22(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2659,7 +2659,7 @@ void PointPlaneTest22(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest23(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2672,7 +2672,7 @@ void PointPlaneTest23(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest24(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2685,7 +2685,7 @@ void PointPlaneTest24(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest25(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2698,7 +2698,7 @@ void PointPlaneTest25(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest26(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2711,7 +2711,7 @@ void PointPlaneTest26(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest27(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2724,7 +2724,7 @@ void PointPlaneTest27(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest28(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2737,7 +2737,7 @@ void PointPlaneTest28(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest29(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2750,7 +2750,7 @@ void PointPlaneTest29(const std::string& testName, int debuggingIndex,
 
 // In front of plane
 void PointPlaneTest30(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2763,7 +2763,7 @@ void PointPlaneTest30(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest31(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2776,7 +2776,7 @@ void PointPlaneTest31(const std::string& testName, int debuggingIndex,
 
 // Behind Plane
 void PointPlaneTest32(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2789,7 +2789,7 @@ void PointPlaneTest32(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest33(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2802,7 +2802,7 @@ void PointPlaneTest33(const std::string& testName, int debuggingIndex,
 
 // Directly on Plane
 void PointPlaneTest34(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2815,7 +2815,7 @@ void PointPlaneTest34(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest35(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2828,7 +2828,7 @@ void PointPlaneTest35(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest36(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2841,7 +2841,7 @@ void PointPlaneTest36(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest37(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2854,7 +2854,7 @@ void PointPlaneTest37(const std::string& testName, int debuggingIndex,
 
 // In front of plane within epsilon
 void PointPlaneTest38(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2867,7 +2867,7 @@ void PointPlaneTest38(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest39(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2880,7 +2880,7 @@ void PointPlaneTest39(const std::string& testName, int debuggingIndex,
 
 // Behind of plane within epsilon
 void PointPlaneTest40(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2892,7 +2892,7 @@ void PointPlaneTest40(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest1(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2903,7 +2903,7 @@ void PointSphereTest1(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest2(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2914,7 +2914,7 @@ void PointSphereTest2(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest3(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2925,7 +2925,7 @@ void PointSphereTest3(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest4(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2936,7 +2936,7 @@ void PointSphereTest4(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest5(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2947,7 +2947,7 @@ void PointSphereTest5(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest6(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2958,7 +2958,7 @@ void PointSphereTest6(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest7(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2969,7 +2969,7 @@ void PointSphereTest7(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest8(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2980,7 +2980,7 @@ void PointSphereTest8(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest9(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -2991,7 +2991,7 @@ void PointSphereTest9(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest10(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3002,7 +3002,7 @@ void PointSphereTest10(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest11(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3013,7 +3013,7 @@ void PointSphereTest11(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest12(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3024,7 +3024,7 @@ void PointSphereTest12(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest13(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3035,7 +3035,7 @@ void PointSphereTest13(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest14(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3046,7 +3046,7 @@ void PointSphereTest14(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest15(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3057,7 +3057,7 @@ void PointSphereTest15(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest16(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3068,7 +3068,7 @@ void PointSphereTest16(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest17(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3079,7 +3079,7 @@ void PointSphereTest17(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest18(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3090,7 +3090,7 @@ void PointSphereTest18(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest19(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3101,7 +3101,7 @@ void PointSphereTest19(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest20(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3112,7 +3112,7 @@ void PointSphereTest20(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest21(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3123,7 +3123,7 @@ void PointSphereTest21(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest22(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3134,7 +3134,7 @@ void PointSphereTest22(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest23(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3145,7 +3145,7 @@ void PointSphereTest23(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest24(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3156,7 +3156,7 @@ void PointSphereTest24(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest25(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3167,7 +3167,7 @@ void PointSphereTest25(const std::string& testName, int debuggingIndex,
 }
 
 void PointSphereTest26(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3178,7 +3178,7 @@ void PointSphereTest26(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest1(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3189,7 +3189,7 @@ void PointAabbTest1(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest2(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3200,7 +3200,7 @@ void PointAabbTest2(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest3(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3211,7 +3211,7 @@ void PointAabbTest3(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest4(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3222,7 +3222,7 @@ void PointAabbTest4(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest5(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3233,7 +3233,7 @@ void PointAabbTest5(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest6(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3244,7 +3244,7 @@ void PointAabbTest6(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest7(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3255,7 +3255,7 @@ void PointAabbTest7(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest8(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3266,7 +3266,7 @@ void PointAabbTest8(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest9(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3277,7 +3277,7 @@ void PointAabbTest9(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest10(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3288,7 +3288,7 @@ void PointAabbTest10(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest11(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3299,7 +3299,7 @@ void PointAabbTest11(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest12(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3310,7 +3310,7 @@ void PointAabbTest12(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest13(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3321,7 +3321,7 @@ void PointAabbTest13(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest14(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3332,7 +3332,7 @@ void PointAabbTest14(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest15(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3343,7 +3343,7 @@ void PointAabbTest15(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest16(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3354,7 +3354,7 @@ void PointAabbTest16(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest17(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3365,7 +3365,7 @@ void PointAabbTest17(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest18(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3376,7 +3376,7 @@ void PointAabbTest18(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest19(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3387,7 +3387,7 @@ void PointAabbTest19(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest20(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3398,7 +3398,7 @@ void PointAabbTest20(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest21(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3409,7 +3409,7 @@ void PointAabbTest21(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest22(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3420,7 +3420,7 @@ void PointAabbTest22(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest23(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3431,7 +3431,7 @@ void PointAabbTest23(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest24(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3442,7 +3442,7 @@ void PointAabbTest24(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest25(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3453,7 +3453,7 @@ void PointAabbTest25(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest26(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3464,7 +3464,7 @@ void PointAabbTest26(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest27(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3475,7 +3475,7 @@ void PointAabbTest27(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest28(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3486,7 +3486,7 @@ void PointAabbTest28(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest29(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3497,7 +3497,7 @@ void PointAabbTest29(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest30(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3508,7 +3508,7 @@ void PointAabbTest30(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest31(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3519,7 +3519,7 @@ void PointAabbTest31(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest32(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3530,7 +3530,7 @@ void PointAabbTest32(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest33(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3541,7 +3541,7 @@ void PointAabbTest33(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest34(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3552,7 +3552,7 @@ void PointAabbTest34(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest35(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3563,7 +3563,7 @@ void PointAabbTest35(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest36(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3574,7 +3574,7 @@ void PointAabbTest36(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest37(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3585,7 +3585,7 @@ void PointAabbTest37(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest38(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3596,7 +3596,7 @@ void PointAabbTest38(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest39(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3607,7 +3607,7 @@ void PointAabbTest39(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest40(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3618,7 +3618,7 @@ void PointAabbTest40(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest41(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3629,7 +3629,7 @@ void PointAabbTest41(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest42(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3640,7 +3640,7 @@ void PointAabbTest42(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest43(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3651,7 +3651,7 @@ void PointAabbTest43(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest44(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3662,7 +3662,7 @@ void PointAabbTest44(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest45(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3673,7 +3673,7 @@ void PointAabbTest45(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest46(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3684,7 +3684,7 @@ void PointAabbTest46(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest47(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3695,7 +3695,7 @@ void PointAabbTest47(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest48(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3706,7 +3706,7 @@ void PointAabbTest48(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest49(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3717,7 +3717,7 @@ void PointAabbTest49(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest50(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3728,7 +3728,7 @@ void PointAabbTest50(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest51(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3739,7 +3739,7 @@ void PointAabbTest51(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest52(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3750,7 +3750,7 @@ void PointAabbTest52(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest53(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3761,7 +3761,7 @@ void PointAabbTest53(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest54(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3772,7 +3772,7 @@ void PointAabbTest54(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest55(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3783,7 +3783,7 @@ void PointAabbTest55(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest56(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3794,7 +3794,7 @@ void PointAabbTest56(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest57(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3805,7 +3805,7 @@ void PointAabbTest57(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest58(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3816,7 +3816,7 @@ void PointAabbTest58(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest59(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3827,7 +3827,7 @@ void PointAabbTest59(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest60(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3838,7 +3838,7 @@ void PointAabbTest60(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest61(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3849,7 +3849,7 @@ void PointAabbTest61(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest62(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3860,7 +3860,7 @@ void PointAabbTest62(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest63(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3871,7 +3871,7 @@ void PointAabbTest63(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest64(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3882,7 +3882,7 @@ void PointAabbTest64(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest65(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3893,7 +3893,7 @@ void PointAabbTest65(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest66(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3904,7 +3904,7 @@ void PointAabbTest66(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest67(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3915,7 +3915,7 @@ void PointAabbTest67(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest68(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3926,7 +3926,7 @@ void PointAabbTest68(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest69(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3937,7 +3937,7 @@ void PointAabbTest69(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest70(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3948,7 +3948,7 @@ void PointAabbTest70(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest71(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3959,7 +3959,7 @@ void PointAabbTest71(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest72(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3970,7 +3970,7 @@ void PointAabbTest72(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest73(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3981,7 +3981,7 @@ void PointAabbTest73(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest74(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -3992,7 +3992,7 @@ void PointAabbTest74(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest75(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4003,7 +4003,7 @@ void PointAabbTest75(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest76(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4014,7 +4014,7 @@ void PointAabbTest76(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest77(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4025,7 +4025,7 @@ void PointAabbTest77(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest78(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4036,7 +4036,7 @@ void PointAabbTest78(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest79(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4047,7 +4047,7 @@ void PointAabbTest79(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest80(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4058,7 +4058,7 @@ void PointAabbTest80(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest81(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4069,7 +4069,7 @@ void PointAabbTest81(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest82(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4080,7 +4080,7 @@ void PointAabbTest82(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest83(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4091,7 +4091,7 @@ void PointAabbTest83(const std::string& testName, int debuggingIndex,
 }
 
 void PointAabbTest84(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4103,7 +4103,7 @@ void PointAabbTest84(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest1(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4115,7 +4115,7 @@ void RayPlaneTest1(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest2(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4127,7 +4127,7 @@ void RayPlaneTest2(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest3(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4139,7 +4139,7 @@ void RayPlaneTest3(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest4(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4151,7 +4151,7 @@ void RayPlaneTest4(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest5(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4163,7 +4163,7 @@ void RayPlaneTest5(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest6(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4175,7 +4175,7 @@ void RayPlaneTest6(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest7(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4187,7 +4187,7 @@ void RayPlaneTest7(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest8(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4199,7 +4199,7 @@ void RayPlaneTest8(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest9(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4211,7 +4211,7 @@ void RayPlaneTest9(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest10(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4223,7 +4223,7 @@ void RayPlaneTest10(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest11(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4235,7 +4235,7 @@ void RayPlaneTest11(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest12(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4247,7 +4247,7 @@ void RayPlaneTest12(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest13(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4259,7 +4259,7 @@ void RayPlaneTest13(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest14(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4271,7 +4271,7 @@ void RayPlaneTest14(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest15(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4283,7 +4283,7 @@ void RayPlaneTest15(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest16(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4295,7 +4295,7 @@ void RayPlaneTest16(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest17(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4307,7 +4307,7 @@ void RayPlaneTest17(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest18(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4319,7 +4319,7 @@ void RayPlaneTest18(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest19(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4331,7 +4331,7 @@ void RayPlaneTest19(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest20(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4343,7 +4343,7 @@ void RayPlaneTest20(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest21(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4355,7 +4355,7 @@ void RayPlaneTest21(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest22(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4367,7 +4367,7 @@ void RayPlaneTest22(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest23(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4379,7 +4379,7 @@ void RayPlaneTest23(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest24(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4391,7 +4391,7 @@ void RayPlaneTest24(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest25(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4403,7 +4403,7 @@ void RayPlaneTest25(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest26(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4415,7 +4415,7 @@ void RayPlaneTest26(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest27(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4427,7 +4427,7 @@ void RayPlaneTest27(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest28(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4439,7 +4439,7 @@ void RayPlaneTest28(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest29(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4451,7 +4451,7 @@ void RayPlaneTest29(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest30(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4463,7 +4463,7 @@ void RayPlaneTest30(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest31(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4475,7 +4475,7 @@ void RayPlaneTest31(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest32(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4487,7 +4487,7 @@ void RayPlaneTest32(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest33(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4499,7 +4499,7 @@ void RayPlaneTest33(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest34(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4511,7 +4511,7 @@ void RayPlaneTest34(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest35(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4523,7 +4523,7 @@ void RayPlaneTest35(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest36(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4535,7 +4535,7 @@ void RayPlaneTest36(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest37(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4547,7 +4547,7 @@ void RayPlaneTest37(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest38(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4559,7 +4559,7 @@ void RayPlaneTest38(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest39(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4571,7 +4571,7 @@ void RayPlaneTest39(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest40(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4583,7 +4583,7 @@ void RayPlaneTest40(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest41(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4595,7 +4595,7 @@ void RayPlaneTest41(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest42(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4607,7 +4607,7 @@ void RayPlaneTest42(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest43(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4619,7 +4619,7 @@ void RayPlaneTest43(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest44(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4631,7 +4631,7 @@ void RayPlaneTest44(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest45(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4643,7 +4643,7 @@ void RayPlaneTest45(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest46(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4655,7 +4655,7 @@ void RayPlaneTest46(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest47(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4667,7 +4667,7 @@ void RayPlaneTest47(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest48(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4679,7 +4679,7 @@ void RayPlaneTest48(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest49(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4691,7 +4691,7 @@ void RayPlaneTest49(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest50(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4703,7 +4703,7 @@ void RayPlaneTest50(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest51(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4715,7 +4715,7 @@ void RayPlaneTest51(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest52(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4727,7 +4727,7 @@ void RayPlaneTest52(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest53(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4739,7 +4739,7 @@ void RayPlaneTest53(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest54(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4752,7 +4752,7 @@ void RayPlaneTest54(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest55(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4765,7 +4765,7 @@ void RayPlaneTest55(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest56(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4778,7 +4778,7 @@ void RayPlaneTest56(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest57(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4790,7 +4790,7 @@ void RayPlaneTest57(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest58(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4802,7 +4802,7 @@ void RayPlaneTest58(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest59(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4814,7 +4814,7 @@ void RayPlaneTest59(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest60(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4826,7 +4826,7 @@ void RayPlaneTest60(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest61(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4839,7 +4839,7 @@ void RayPlaneTest61(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest62(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4851,7 +4851,7 @@ void RayPlaneTest62(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest63(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4864,7 +4864,7 @@ void RayPlaneTest63(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest64(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4877,7 +4877,7 @@ void RayPlaneTest64(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing forward
 void RayPlaneTest65(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4889,7 +4889,7 @@ void RayPlaneTest65(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing forward
 void RayPlaneTest66(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4901,7 +4901,7 @@ void RayPlaneTest66(const std::string& testName, int debuggingIndex,
 
 // Ray in front of plane pointing backwards
 void RayPlaneTest67(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4913,7 +4913,7 @@ void RayPlaneTest67(const std::string& testName, int debuggingIndex,
 
 // Ray behind plane pointing backwards
 void RayPlaneTest68(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4925,7 +4925,7 @@ void RayPlaneTest68(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest69(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4938,7 +4938,7 @@ void RayPlaneTest69(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest70(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4950,7 +4950,7 @@ void RayPlaneTest70(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest71(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4963,7 +4963,7 @@ void RayPlaneTest71(const std::string& testName, int debuggingIndex,
 
 // Ray parallel to plane
 void RayPlaneTest72(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4976,7 +4976,7 @@ void RayPlaneTest72(const std::string& testName, int debuggingIndex,
 
 // Ray behind triangle pointing forwards
 void RayTriangleTest1(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -4988,7 +4988,7 @@ void RayTriangleTest1(const std::string& testName, int debuggingIndex,
 
 // Ray behind triangle pointing backwards
 void RayTriangleTest2(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5000,7 +5000,7 @@ void RayTriangleTest2(const std::string& testName, int debuggingIndex,
 
 // Ray in front of triangle pointing backwards
 void RayTriangleTest3(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5012,7 +5012,7 @@ void RayTriangleTest3(const std::string& testName, int debuggingIndex,
 
 // Ray in front of triangle pointing forwards
 void RayTriangleTest4(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5024,7 +5024,7 @@ void RayTriangleTest4(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 1
 void RayTriangleTest5(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5036,7 +5036,7 @@ void RayTriangleTest5(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 2
 void RayTriangleTest6(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5048,7 +5048,7 @@ void RayTriangleTest6(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 3
 void RayTriangleTest7(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5060,7 +5060,7 @@ void RayTriangleTest7(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge12
 void RayTriangleTest8(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5072,7 +5072,7 @@ void RayTriangleTest8(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge23
 void RayTriangleTest9(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5084,7 +5084,7 @@ void RayTriangleTest9(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge31
 void RayTriangleTest10(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5096,7 +5096,7 @@ void RayTriangleTest10(const std::string& testName, int debuggingIndex,
 
 // Ray behind triangle pointing forwards
 void RayTriangleTest11(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5108,7 +5108,7 @@ void RayTriangleTest11(const std::string& testName, int debuggingIndex,
 
 // Ray behind triangle pointing backwards
 void RayTriangleTest12(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5120,7 +5120,7 @@ void RayTriangleTest12(const std::string& testName, int debuggingIndex,
 
 // Ray in front of triangle pointing backwards
 void RayTriangleTest13(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5132,7 +5132,7 @@ void RayTriangleTest13(const std::string& testName, int debuggingIndex,
 
 // Ray in front of triangle pointing forwards
 void RayTriangleTest14(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5144,7 +5144,7 @@ void RayTriangleTest14(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 1
 void RayTriangleTest15(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5156,7 +5156,7 @@ void RayTriangleTest15(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 2
 void RayTriangleTest16(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5168,7 +5168,7 @@ void RayTriangleTest16(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 3
 void RayTriangleTest17(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5180,7 +5180,7 @@ void RayTriangleTest17(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge12
 void RayTriangleTest18(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5192,7 +5192,7 @@ void RayTriangleTest18(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge23
 void RayTriangleTest19(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5204,7 +5204,7 @@ void RayTriangleTest19(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge31
 void RayTriangleTest20(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5216,7 +5216,7 @@ void RayTriangleTest20(const std::string& testName, int debuggingIndex,
 
 // Ray behind triangle pointing forwards
 void RayTriangleTest21(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5228,7 +5228,7 @@ void RayTriangleTest21(const std::string& testName, int debuggingIndex,
 
 // Ray behind triangle pointing backwards
 void RayTriangleTest22(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5240,7 +5240,7 @@ void RayTriangleTest22(const std::string& testName, int debuggingIndex,
 
 // Ray in front of triangle pointing backwards
 void RayTriangleTest23(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5252,7 +5252,7 @@ void RayTriangleTest23(const std::string& testName, int debuggingIndex,
 
 // Ray in front of triangle pointing forwards
 void RayTriangleTest24(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5264,7 +5264,7 @@ void RayTriangleTest24(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 1
 void RayTriangleTest25(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5276,7 +5276,7 @@ void RayTriangleTest25(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 2
 void RayTriangleTest26(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5288,7 +5288,7 @@ void RayTriangleTest26(const std::string& testName, int debuggingIndex,
 
 // Ray behind point 3
 void RayTriangleTest27(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5300,7 +5300,7 @@ void RayTriangleTest27(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge12
 void RayTriangleTest28(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5312,7 +5312,7 @@ void RayTriangleTest28(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge23
 void RayTriangleTest29(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5324,7 +5324,7 @@ void RayTriangleTest29(const std::string& testName, int debuggingIndex,
 
 // Ray outside edge31
 void RayTriangleTest30(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5336,7 +5336,7 @@ void RayTriangleTest30(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing backwards
 void RaySphereTest1(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5348,7 +5348,7 @@ void RaySphereTest1(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing forwards
 void RaySphereTest2(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5360,7 +5360,7 @@ void RaySphereTest2(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing but not going through the sphere center
 void RaySphereTest3(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5372,7 +5372,7 @@ void RaySphereTest3(const std::string& testName, int debuggingIndex,
 
 // Ray at sphere center
 void RaySphereTest4(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5384,7 +5384,7 @@ void RaySphereTest4(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing backwards
 void RaySphereTest5(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5396,7 +5396,7 @@ void RaySphereTest5(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing forwards
 void RaySphereTest6(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5408,7 +5408,7 @@ void RaySphereTest6(const std::string& testName, int debuggingIndex,
 
 // Ray far behind sphere pointing forwards
 void RaySphereTest7(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5420,7 +5420,7 @@ void RaySphereTest7(const std::string& testName, int debuggingIndex,
 
 // Ray far in front of sphere pointing backwards
 void RaySphereTest8(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5432,7 +5432,7 @@ void RaySphereTest8(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest9(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5444,7 +5444,7 @@ void RaySphereTest9(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest10(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5456,7 +5456,7 @@ void RaySphereTest10(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest11(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5468,7 +5468,7 @@ void RaySphereTest11(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest12(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5480,7 +5480,7 @@ void RaySphereTest12(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest13(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5492,7 +5492,7 @@ void RaySphereTest13(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest14(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5504,7 +5504,7 @@ void RaySphereTest14(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest15(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5516,7 +5516,7 @@ void RaySphereTest15(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest16(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5528,7 +5528,7 @@ void RaySphereTest16(const std::string& testName, int debuggingIndex,
 
 // Ray misses sphere
 void RaySphereTest17(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5540,7 +5540,7 @@ void RaySphereTest17(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing backwards
 void RaySphereTest18(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5552,7 +5552,7 @@ void RaySphereTest18(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing forwards
 void RaySphereTest19(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5564,7 +5564,7 @@ void RaySphereTest19(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing but not going through the sphere center
 void RaySphereTest20(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5576,7 +5576,7 @@ void RaySphereTest20(const std::string& testName, int debuggingIndex,
 
 // Ray at sphere center
 void RaySphereTest21(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5588,7 +5588,7 @@ void RaySphereTest21(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing backwards
 void RaySphereTest22(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5600,7 +5600,7 @@ void RaySphereTest22(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing forwards
 void RaySphereTest23(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5612,7 +5612,7 @@ void RaySphereTest23(const std::string& testName, int debuggingIndex,
 
 // Ray far behind sphere pointing forwards
 void RaySphereTest24(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5624,7 +5624,7 @@ void RaySphereTest24(const std::string& testName, int debuggingIndex,
 
 // Ray far in front of sphere pointing backwards
 void RaySphereTest25(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5636,7 +5636,7 @@ void RaySphereTest25(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest26(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5648,7 +5648,7 @@ void RaySphereTest26(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest27(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5660,7 +5660,7 @@ void RaySphereTest27(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest28(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5672,7 +5672,7 @@ void RaySphereTest28(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest29(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5684,7 +5684,7 @@ void RaySphereTest29(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest30(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5696,7 +5696,7 @@ void RaySphereTest30(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest31(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5708,7 +5708,7 @@ void RaySphereTest31(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest32(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5720,7 +5720,7 @@ void RaySphereTest32(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest33(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5732,7 +5732,7 @@ void RaySphereTest33(const std::string& testName, int debuggingIndex,
 
 // Ray misses sphere
 void RaySphereTest34(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5744,7 +5744,7 @@ void RaySphereTest34(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing backwards
 void RaySphereTest35(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5756,7 +5756,7 @@ void RaySphereTest35(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing forwards
 void RaySphereTest36(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5768,7 +5768,7 @@ void RaySphereTest36(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing but not going through the sphere center
 void RaySphereTest37(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5780,7 +5780,7 @@ void RaySphereTest37(const std::string& testName, int debuggingIndex,
 
 // Ray at sphere center
 void RaySphereTest38(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5792,7 +5792,7 @@ void RaySphereTest38(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing backwards
 void RaySphereTest39(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5804,7 +5804,7 @@ void RaySphereTest39(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing forwards
 void RaySphereTest40(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5816,7 +5816,7 @@ void RaySphereTest40(const std::string& testName, int debuggingIndex,
 
 // Ray far behind sphere pointing forwards
 void RaySphereTest41(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5828,7 +5828,7 @@ void RaySphereTest41(const std::string& testName, int debuggingIndex,
 
 // Ray far in front of sphere pointing backwards
 void RaySphereTest42(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5840,7 +5840,7 @@ void RaySphereTest42(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest43(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5852,7 +5852,7 @@ void RaySphereTest43(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest44(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5864,7 +5864,7 @@ void RaySphereTest44(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest45(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5876,7 +5876,7 @@ void RaySphereTest45(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest46(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5888,7 +5888,7 @@ void RaySphereTest46(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest47(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5900,7 +5900,7 @@ void RaySphereTest47(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest48(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5912,7 +5912,7 @@ void RaySphereTest48(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest49(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5924,7 +5924,7 @@ void RaySphereTest49(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest50(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5936,7 +5936,7 @@ void RaySphereTest50(const std::string& testName, int debuggingIndex,
 
 // Ray misses sphere
 void RaySphereTest51(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5948,7 +5948,7 @@ void RaySphereTest51(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing backwards
 void RaySphereTest52(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5961,7 +5961,7 @@ void RaySphereTest52(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing forwards
 void RaySphereTest53(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5974,7 +5974,7 @@ void RaySphereTest53(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing but not going through the sphere center
 void RaySphereTest54(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5987,7 +5987,7 @@ void RaySphereTest54(const std::string& testName, int debuggingIndex,
 
 // Ray at sphere center
 void RaySphereTest55(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -5999,7 +5999,7 @@ void RaySphereTest55(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing backwards
 void RaySphereTest56(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6012,7 +6012,7 @@ void RaySphereTest56(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing forwards
 void RaySphereTest57(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6025,7 +6025,7 @@ void RaySphereTest57(const std::string& testName, int debuggingIndex,
 
 // Ray far behind sphere pointing forwards
 void RaySphereTest58(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6038,7 +6038,7 @@ void RaySphereTest58(const std::string& testName, int debuggingIndex,
 
 // Ray far in front of sphere pointing backwards
 void RaySphereTest59(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6051,7 +6051,7 @@ void RaySphereTest59(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest60(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6064,7 +6064,7 @@ void RaySphereTest60(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest61(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6077,7 +6077,7 @@ void RaySphereTest61(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest62(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6090,7 +6090,7 @@ void RaySphereTest62(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest63(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6103,7 +6103,7 @@ void RaySphereTest63(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest64(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6116,7 +6116,7 @@ void RaySphereTest64(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest65(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6129,7 +6129,7 @@ void RaySphereTest65(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest66(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6142,7 +6142,7 @@ void RaySphereTest66(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest67(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6155,7 +6155,7 @@ void RaySphereTest67(const std::string& testName, int debuggingIndex,
 
 // Ray misses sphere
 void RaySphereTest68(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6168,7 +6168,7 @@ void RaySphereTest68(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing backwards
 void RaySphereTest69(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6181,7 +6181,7 @@ void RaySphereTest69(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing forwards
 void RaySphereTest70(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6194,7 +6194,7 @@ void RaySphereTest70(const std::string& testName, int debuggingIndex,
 
 // Ray behind sphere pointing but not going through the sphere center
 void RaySphereTest71(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6207,7 +6207,7 @@ void RaySphereTest71(const std::string& testName, int debuggingIndex,
 
 // Ray at sphere center
 void RaySphereTest72(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6219,7 +6219,7 @@ void RaySphereTest72(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing backwards
 void RaySphereTest73(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6232,7 +6232,7 @@ void RaySphereTest73(const std::string& testName, int debuggingIndex,
 
 // Ray in front of sphere pointing forwards
 void RaySphereTest74(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6245,7 +6245,7 @@ void RaySphereTest74(const std::string& testName, int debuggingIndex,
 
 // Ray far behind sphere pointing forwards
 void RaySphereTest75(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6258,7 +6258,7 @@ void RaySphereTest75(const std::string& testName, int debuggingIndex,
 
 // Ray far in front of sphere pointing backwards
 void RaySphereTest76(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6271,7 +6271,7 @@ void RaySphereTest76(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest77(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6284,7 +6284,7 @@ void RaySphereTest77(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest78(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6297,7 +6297,7 @@ void RaySphereTest78(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest79(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6310,7 +6310,7 @@ void RaySphereTest79(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest80(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6323,7 +6323,7 @@ void RaySphereTest80(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest81(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6336,7 +6336,7 @@ void RaySphereTest81(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest82(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6349,7 +6349,7 @@ void RaySphereTest82(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest83(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6362,7 +6362,7 @@ void RaySphereTest83(const std::string& testName, int debuggingIndex,
 
 // Ray Tangent to sphere
 void RaySphereTest84(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6375,7 +6375,7 @@ void RaySphereTest84(const std::string& testName, int debuggingIndex,
 
 // Ray misses sphere
 void RaySphereTest85(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6388,7 +6388,7 @@ void RaySphereTest85(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest1(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6400,7 +6400,7 @@ void RayAabbTest1(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest2(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6412,7 +6412,7 @@ void RayAabbTest2(const std::string& testName, int debuggingIndex,
 
 // Ray at aabb center
 void RayAabbTest3(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6424,7 +6424,7 @@ void RayAabbTest3(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest4(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6436,7 +6436,7 @@ void RayAabbTest4(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest5(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6448,7 +6448,7 @@ void RayAabbTest5(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest6(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6460,7 +6460,7 @@ void RayAabbTest6(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest7(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6472,7 +6472,7 @@ void RayAabbTest7(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest8(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6484,7 +6484,7 @@ void RayAabbTest8(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest9(const std::string& testName, int debuggingIndex,
-                  FILE* file = NULL)
+                  FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6495,7 +6495,7 @@ void RayAabbTest9(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest10(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6506,7 +6506,7 @@ void RayAabbTest10(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest11(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6517,7 +6517,7 @@ void RayAabbTest11(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest12(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6528,7 +6528,7 @@ void RayAabbTest12(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest13(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6540,7 +6540,7 @@ void RayAabbTest13(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest14(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6552,7 +6552,7 @@ void RayAabbTest14(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest15(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6564,7 +6564,7 @@ void RayAabbTest15(const std::string& testName, int debuggingIndex,
 
 // Ray at aabb center
 void RayAabbTest16(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6576,7 +6576,7 @@ void RayAabbTest16(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest17(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6588,7 +6588,7 @@ void RayAabbTest17(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest18(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6600,7 +6600,7 @@ void RayAabbTest18(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest19(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6612,7 +6612,7 @@ void RayAabbTest19(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest20(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6624,7 +6624,7 @@ void RayAabbTest20(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest21(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6636,7 +6636,7 @@ void RayAabbTest21(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest22(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6647,7 +6647,7 @@ void RayAabbTest22(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest23(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6658,7 +6658,7 @@ void RayAabbTest23(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest24(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6669,7 +6669,7 @@ void RayAabbTest24(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest25(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6680,7 +6680,7 @@ void RayAabbTest25(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest26(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6692,7 +6692,7 @@ void RayAabbTest26(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest27(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6704,7 +6704,7 @@ void RayAabbTest27(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest28(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6716,7 +6716,7 @@ void RayAabbTest28(const std::string& testName, int debuggingIndex,
 
 // Ray at aabb center
 void RayAabbTest29(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6728,7 +6728,7 @@ void RayAabbTest29(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest30(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6740,7 +6740,7 @@ void RayAabbTest30(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest31(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6752,7 +6752,7 @@ void RayAabbTest31(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest32(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6764,7 +6764,7 @@ void RayAabbTest32(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest33(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6776,7 +6776,7 @@ void RayAabbTest33(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest34(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6788,7 +6788,7 @@ void RayAabbTest34(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest35(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6799,7 +6799,7 @@ void RayAabbTest35(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest36(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6810,7 +6810,7 @@ void RayAabbTest36(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest37(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6821,7 +6821,7 @@ void RayAabbTest37(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest38(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6832,7 +6832,7 @@ void RayAabbTest38(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest39(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6844,7 +6844,7 @@ void RayAabbTest39(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest40(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6856,7 +6856,7 @@ void RayAabbTest40(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest41(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6868,7 +6868,7 @@ void RayAabbTest41(const std::string& testName, int debuggingIndex,
 
 // Ray at aabb center
 void RayAabbTest42(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6880,7 +6880,7 @@ void RayAabbTest42(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest43(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6892,7 +6892,7 @@ void RayAabbTest43(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest44(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6904,7 +6904,7 @@ void RayAabbTest44(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest45(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6916,7 +6916,7 @@ void RayAabbTest45(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest46(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6928,7 +6928,7 @@ void RayAabbTest46(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest47(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6940,7 +6940,7 @@ void RayAabbTest47(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest48(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6951,7 +6951,7 @@ void RayAabbTest48(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest49(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6962,7 +6962,7 @@ void RayAabbTest49(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest50(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6973,7 +6973,7 @@ void RayAabbTest50(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest51(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6984,7 +6984,7 @@ void RayAabbTest51(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest52(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -6996,7 +6996,7 @@ void RayAabbTest52(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest53(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7008,7 +7008,7 @@ void RayAabbTest53(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest54(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7020,7 +7020,7 @@ void RayAabbTest54(const std::string& testName, int debuggingIndex,
 
 // Ray at aabb center
 void RayAabbTest55(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7032,7 +7032,7 @@ void RayAabbTest55(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest56(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7044,7 +7044,7 @@ void RayAabbTest56(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest57(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7056,7 +7056,7 @@ void RayAabbTest57(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest58(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7068,7 +7068,7 @@ void RayAabbTest58(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest59(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7080,7 +7080,7 @@ void RayAabbTest59(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest60(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7092,7 +7092,7 @@ void RayAabbTest60(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest61(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7103,7 +7103,7 @@ void RayAabbTest61(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest62(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7114,7 +7114,7 @@ void RayAabbTest62(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest63(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7125,7 +7125,7 @@ void RayAabbTest63(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest64(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7136,7 +7136,7 @@ void RayAabbTest64(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest65(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7148,7 +7148,7 @@ void RayAabbTest65(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest66(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7160,7 +7160,7 @@ void RayAabbTest66(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest67(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7172,7 +7172,7 @@ void RayAabbTest67(const std::string& testName, int debuggingIndex,
 
 // Ray at aabb center
 void RayAabbTest68(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7184,7 +7184,7 @@ void RayAabbTest68(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest69(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7196,7 +7196,7 @@ void RayAabbTest69(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest70(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7208,7 +7208,7 @@ void RayAabbTest70(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest71(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7220,7 +7220,7 @@ void RayAabbTest71(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest72(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7232,7 +7232,7 @@ void RayAabbTest72(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest73(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7244,7 +7244,7 @@ void RayAabbTest73(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest74(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7255,7 +7255,7 @@ void RayAabbTest74(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest75(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7266,7 +7266,7 @@ void RayAabbTest75(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest76(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7277,7 +7277,7 @@ void RayAabbTest76(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest77(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7288,7 +7288,7 @@ void RayAabbTest77(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest78(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7300,7 +7300,7 @@ void RayAabbTest78(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest79(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7312,7 +7312,7 @@ void RayAabbTest79(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest80(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7324,7 +7324,7 @@ void RayAabbTest80(const std::string& testName, int debuggingIndex,
 
 // Ray at aabb center
 void RayAabbTest81(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7336,7 +7336,7 @@ void RayAabbTest81(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest82(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7348,7 +7348,7 @@ void RayAabbTest82(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest83(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7360,7 +7360,7 @@ void RayAabbTest83(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing backwards
 void RayAabbTest84(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7372,7 +7372,7 @@ void RayAabbTest84(const std::string& testName, int debuggingIndex,
 
 // Ray in front of aabb pointing forwards
 void RayAabbTest85(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7384,7 +7384,7 @@ void RayAabbTest85(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing backwards
 void RayAabbTest86(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7396,7 +7396,7 @@ void RayAabbTest86(const std::string& testName, int debuggingIndex,
 
 // Ray behind aabb pointing forwards
 void RayAabbTest87(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7407,7 +7407,7 @@ void RayAabbTest87(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest88(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7418,7 +7418,7 @@ void RayAabbTest88(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest89(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7429,7 +7429,7 @@ void RayAabbTest89(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest90(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7441,7 +7441,7 @@ void RayAabbTest90(const std::string& testName, int debuggingIndex,
 }
 
 void RayAabbTest91(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7454,7 +7454,7 @@ void RayAabbTest91(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. Triangle in front of plane
 void PlaneTriangleTest1(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7469,7 +7469,7 @@ void PlaneTriangleTest1(const std::string& testName, int debuggingIndex,
 // Plane of edge edge10. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest2(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7483,7 +7483,7 @@ void PlaneTriangleTest2(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. In the middle of the triangle
 void PlaneTriangleTest3(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7497,7 +7497,7 @@ void PlaneTriangleTest3(const std::string& testName, int debuggingIndex,
 // Plane of edge edge10. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest4(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7511,7 +7511,7 @@ void PlaneTriangleTest4(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. Triangle behind the plane
 void PlaneTriangleTest5(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7525,7 +7525,7 @@ void PlaneTriangleTest5(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest6(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7538,7 +7538,7 @@ void PlaneTriangleTest6(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest7(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7551,7 +7551,7 @@ void PlaneTriangleTest7(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. Triangle in front of plane
 void PlaneTriangleTest8(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7566,7 +7566,7 @@ void PlaneTriangleTest8(const std::string& testName, int debuggingIndex,
 // Plane of edge edge21. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest9(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7580,7 +7580,7 @@ void PlaneTriangleTest9(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. In the middle of the triangle
 void PlaneTriangleTest10(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7594,7 +7594,7 @@ void PlaneTriangleTest10(const std::string& testName, int debuggingIndex,
 // Plane of edge edge21. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest11(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7608,7 +7608,7 @@ void PlaneTriangleTest11(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. Triangle behind the plane
 void PlaneTriangleTest12(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7622,7 +7622,7 @@ void PlaneTriangleTest12(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest13(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7635,7 +7635,7 @@ void PlaneTriangleTest13(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest14(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7648,7 +7648,7 @@ void PlaneTriangleTest14(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. Triangle in front of plane
 void PlaneTriangleTest15(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7663,7 +7663,7 @@ void PlaneTriangleTest15(const std::string& testName, int debuggingIndex,
 // Plane of edge edge02. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest16(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7677,7 +7677,7 @@ void PlaneTriangleTest16(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. In the middle of the triangle
 void PlaneTriangleTest17(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7692,7 +7692,7 @@ void PlaneTriangleTest17(const std::string& testName, int debuggingIndex,
 // Plane of edge edge02. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest18(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7706,7 +7706,7 @@ void PlaneTriangleTest18(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. Triangle behind the plane
 void PlaneTriangleTest19(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7720,7 +7720,7 @@ void PlaneTriangleTest19(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest20(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7733,7 +7733,7 @@ void PlaneTriangleTest20(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest21(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7746,7 +7746,7 @@ void PlaneTriangleTest21(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. Triangle in front of plane
 void PlaneTriangleTest22(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7761,7 +7761,7 @@ void PlaneTriangleTest22(const std::string& testName, int debuggingIndex,
 // Plane of edge edge10. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest23(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7775,7 +7775,7 @@ void PlaneTriangleTest23(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. In the middle of the triangle
 void PlaneTriangleTest24(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7789,7 +7789,7 @@ void PlaneTriangleTest24(const std::string& testName, int debuggingIndex,
 // Plane of edge edge10. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest25(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7803,7 +7803,7 @@ void PlaneTriangleTest25(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. Triangle behind the plane
 void PlaneTriangleTest26(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7817,7 +7817,7 @@ void PlaneTriangleTest26(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest27(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7830,7 +7830,7 @@ void PlaneTriangleTest27(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest28(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7843,7 +7843,7 @@ void PlaneTriangleTest28(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. Triangle in front of plane
 void PlaneTriangleTest29(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7858,7 +7858,7 @@ void PlaneTriangleTest29(const std::string& testName, int debuggingIndex,
 // Plane of edge edge21. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest30(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7872,7 +7872,7 @@ void PlaneTriangleTest30(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. In the middle of the triangle
 void PlaneTriangleTest31(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7886,7 +7886,7 @@ void PlaneTriangleTest31(const std::string& testName, int debuggingIndex,
 // Plane of edge edge21. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest32(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7900,7 +7900,7 @@ void PlaneTriangleTest32(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. Triangle behind the plane
 void PlaneTriangleTest33(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7914,7 +7914,7 @@ void PlaneTriangleTest33(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest34(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7927,7 +7927,7 @@ void PlaneTriangleTest34(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest35(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7940,7 +7940,7 @@ void PlaneTriangleTest35(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. Triangle in front of plane
 void PlaneTriangleTest36(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7955,7 +7955,7 @@ void PlaneTriangleTest36(const std::string& testName, int debuggingIndex,
 // Plane of edge edge02. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest37(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7969,7 +7969,7 @@ void PlaneTriangleTest37(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. In the middle of the triangle
 void PlaneTriangleTest38(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7984,7 +7984,7 @@ void PlaneTriangleTest38(const std::string& testName, int debuggingIndex,
 // Plane of edge edge02. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest39(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -7998,7 +7998,7 @@ void PlaneTriangleTest39(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. Triangle behind the plane
 void PlaneTriangleTest40(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8012,7 +8012,7 @@ void PlaneTriangleTest40(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest41(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8025,7 +8025,7 @@ void PlaneTriangleTest41(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest42(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8038,7 +8038,7 @@ void PlaneTriangleTest42(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. Triangle in front of plane
 void PlaneTriangleTest43(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8053,7 +8053,7 @@ void PlaneTriangleTest43(const std::string& testName, int debuggingIndex,
 // Plane of edge edge10. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest44(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8067,7 +8067,7 @@ void PlaneTriangleTest44(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. In the middle of the triangle
 void PlaneTriangleTest45(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8081,7 +8081,7 @@ void PlaneTriangleTest45(const std::string& testName, int debuggingIndex,
 // Plane of edge edge10. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest46(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8095,7 +8095,7 @@ void PlaneTriangleTest46(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge10. Triangle behind the plane
 void PlaneTriangleTest47(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8109,7 +8109,7 @@ void PlaneTriangleTest47(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest48(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8122,7 +8122,7 @@ void PlaneTriangleTest48(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest49(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8135,7 +8135,7 @@ void PlaneTriangleTest49(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. Triangle in front of plane
 void PlaneTriangleTest50(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8150,7 +8150,7 @@ void PlaneTriangleTest50(const std::string& testName, int debuggingIndex,
 // Plane of edge edge21. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest51(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8164,7 +8164,7 @@ void PlaneTriangleTest51(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. In the middle of the triangle
 void PlaneTriangleTest52(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8178,7 +8178,7 @@ void PlaneTriangleTest52(const std::string& testName, int debuggingIndex,
 // Plane of edge edge21. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest53(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8192,7 +8192,7 @@ void PlaneTriangleTest53(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge21. Triangle behind the plane
 void PlaneTriangleTest54(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8206,7 +8206,7 @@ void PlaneTriangleTest54(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest55(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8219,7 +8219,7 @@ void PlaneTriangleTest55(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest56(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8232,7 +8232,7 @@ void PlaneTriangleTest56(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. Triangle in front of plane
 void PlaneTriangleTest57(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8247,7 +8247,7 @@ void PlaneTriangleTest57(const std::string& testName, int debuggingIndex,
 // Plane of edge edge02. Triangle in front of plane (one point within epsilon
 // behind)
 void PlaneTriangleTest58(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8261,7 +8261,7 @@ void PlaneTriangleTest58(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. In the middle of the triangle
 void PlaneTriangleTest59(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8276,7 +8276,7 @@ void PlaneTriangleTest59(const std::string& testName, int debuggingIndex,
 // Plane of edge edge02. Triangle behind the plane (one point within epsilon in
 // front)
 void PlaneTriangleTest60(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8290,7 +8290,7 @@ void PlaneTriangleTest60(const std::string& testName, int debuggingIndex,
 
 // Plane of edge edge02. Triangle behind the plane
 void PlaneTriangleTest61(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8304,7 +8304,7 @@ void PlaneTriangleTest61(const std::string& testName, int debuggingIndex,
 
 // Triangle in front but coplanar
 void PlaneTriangleTest62(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8317,7 +8317,7 @@ void PlaneTriangleTest62(const std::string& testName, int debuggingIndex,
 
 // Triangle behind but coplanar
 void PlaneTriangleTest63(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8330,7 +8330,7 @@ void PlaneTriangleTest63(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of plane
 void PlaneSphereTest1(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8342,7 +8342,7 @@ void PlaneSphereTest1(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the front)
 void PlaneSphereTest2(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8354,7 +8354,7 @@ void PlaneSphereTest2(const std::string& testName, int debuggingIndex,
 
 // Sphere centered at plane
 void PlaneSphereTest3(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8366,7 +8366,7 @@ void PlaneSphereTest3(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the back)
 void PlaneSphereTest4(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8378,7 +8378,7 @@ void PlaneSphereTest4(const std::string& testName, int debuggingIndex,
 
 // Sphere behind plane
 void PlaneSphereTest5(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8390,7 +8390,7 @@ void PlaneSphereTest5(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of plane
 void PlaneSphereTest6(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8402,7 +8402,7 @@ void PlaneSphereTest6(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the front)
 void PlaneSphereTest7(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8414,7 +8414,7 @@ void PlaneSphereTest7(const std::string& testName, int debuggingIndex,
 
 // Sphere centered at plane
 void PlaneSphereTest8(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8426,7 +8426,7 @@ void PlaneSphereTest8(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the back)
 void PlaneSphereTest9(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8438,7 +8438,7 @@ void PlaneSphereTest9(const std::string& testName, int debuggingIndex,
 
 // Sphere behind plane
 void PlaneSphereTest10(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8450,7 +8450,7 @@ void PlaneSphereTest10(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of plane
 void PlaneSphereTest11(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8462,7 +8462,7 @@ void PlaneSphereTest11(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the front)
 void PlaneSphereTest12(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8474,7 +8474,7 @@ void PlaneSphereTest12(const std::string& testName, int debuggingIndex,
 
 // Sphere centered at plane
 void PlaneSphereTest13(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8486,7 +8486,7 @@ void PlaneSphereTest13(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the back)
 void PlaneSphereTest14(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8498,7 +8498,7 @@ void PlaneSphereTest14(const std::string& testName, int debuggingIndex,
 
 // Sphere behind plane
 void PlaneSphereTest15(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8510,7 +8510,7 @@ void PlaneSphereTest15(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of plane
 void PlaneSphereTest16(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8522,7 +8522,7 @@ void PlaneSphereTest16(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the front)
 void PlaneSphereTest17(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8534,7 +8534,7 @@ void PlaneSphereTest17(const std::string& testName, int debuggingIndex,
 
 // Sphere centered at plane
 void PlaneSphereTest18(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8546,7 +8546,7 @@ void PlaneSphereTest18(const std::string& testName, int debuggingIndex,
 
 // Sphere just touching plane (on the back)
 void PlaneSphereTest19(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8558,7 +8558,7 @@ void PlaneSphereTest19(const std::string& testName, int debuggingIndex,
 
 // Sphere behind plane
 void PlaneSphereTest20(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8570,7 +8570,7 @@ void PlaneSphereTest20(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest1(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8582,7 +8582,7 @@ void PlaneAabbTest1(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest2(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8594,7 +8594,7 @@ void PlaneAabbTest2(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest3(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8606,7 +8606,7 @@ void PlaneAabbTest3(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest4(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8618,7 +8618,7 @@ void PlaneAabbTest4(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest5(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8630,7 +8630,7 @@ void PlaneAabbTest5(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest6(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8642,7 +8642,7 @@ void PlaneAabbTest6(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest7(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8654,7 +8654,7 @@ void PlaneAabbTest7(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest8(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8666,7 +8666,7 @@ void PlaneAabbTest8(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest9(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8678,7 +8678,7 @@ void PlaneAabbTest9(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest10(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8690,7 +8690,7 @@ void PlaneAabbTest10(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest11(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8702,7 +8702,7 @@ void PlaneAabbTest11(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest12(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8714,7 +8714,7 @@ void PlaneAabbTest12(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest13(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8726,7 +8726,7 @@ void PlaneAabbTest13(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest14(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8738,7 +8738,7 @@ void PlaneAabbTest14(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest15(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8750,7 +8750,7 @@ void PlaneAabbTest15(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest16(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8762,7 +8762,7 @@ void PlaneAabbTest16(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest17(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8774,7 +8774,7 @@ void PlaneAabbTest17(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest18(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8786,7 +8786,7 @@ void PlaneAabbTest18(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest19(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8798,7 +8798,7 @@ void PlaneAabbTest19(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest20(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8810,7 +8810,7 @@ void PlaneAabbTest20(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest21(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8822,7 +8822,7 @@ void PlaneAabbTest21(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest22(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8834,7 +8834,7 @@ void PlaneAabbTest22(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest23(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8846,7 +8846,7 @@ void PlaneAabbTest23(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest24(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8858,7 +8858,7 @@ void PlaneAabbTest24(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest25(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8870,7 +8870,7 @@ void PlaneAabbTest25(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest26(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8882,7 +8882,7 @@ void PlaneAabbTest26(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest27(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8894,7 +8894,7 @@ void PlaneAabbTest27(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest28(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8906,7 +8906,7 @@ void PlaneAabbTest28(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest29(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8918,7 +8918,7 @@ void PlaneAabbTest29(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest30(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8930,7 +8930,7 @@ void PlaneAabbTest30(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest31(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8942,7 +8942,7 @@ void PlaneAabbTest31(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest32(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8954,7 +8954,7 @@ void PlaneAabbTest32(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest33(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8966,7 +8966,7 @@ void PlaneAabbTest33(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest34(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8978,7 +8978,7 @@ void PlaneAabbTest34(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest35(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -8990,7 +8990,7 @@ void PlaneAabbTest35(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest36(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9002,7 +9002,7 @@ void PlaneAabbTest36(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest37(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9014,7 +9014,7 @@ void PlaneAabbTest37(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest38(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9026,7 +9026,7 @@ void PlaneAabbTest38(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest39(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9038,7 +9038,7 @@ void PlaneAabbTest39(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest40(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9050,7 +9050,7 @@ void PlaneAabbTest40(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest41(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9062,7 +9062,7 @@ void PlaneAabbTest41(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest42(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9074,7 +9074,7 @@ void PlaneAabbTest42(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest43(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9086,7 +9086,7 @@ void PlaneAabbTest43(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest44(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9098,7 +9098,7 @@ void PlaneAabbTest44(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest45(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9110,7 +9110,7 @@ void PlaneAabbTest45(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest46(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9122,7 +9122,7 @@ void PlaneAabbTest46(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest47(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9134,7 +9134,7 @@ void PlaneAabbTest47(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest48(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9146,7 +9146,7 @@ void PlaneAabbTest48(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest49(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9158,7 +9158,7 @@ void PlaneAabbTest49(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest50(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9170,7 +9170,7 @@ void PlaneAabbTest50(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest51(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9182,7 +9182,7 @@ void PlaneAabbTest51(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest52(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9194,7 +9194,7 @@ void PlaneAabbTest52(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest53(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9206,7 +9206,7 @@ void PlaneAabbTest53(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest54(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9218,7 +9218,7 @@ void PlaneAabbTest54(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest55(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9230,7 +9230,7 @@ void PlaneAabbTest55(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest56(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9242,7 +9242,7 @@ void PlaneAabbTest56(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest57(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9254,7 +9254,7 @@ void PlaneAabbTest57(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest58(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9267,7 +9267,7 @@ void PlaneAabbTest58(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest59(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9279,7 +9279,7 @@ void PlaneAabbTest59(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest60(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9292,7 +9292,7 @@ void PlaneAabbTest60(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest61(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9304,7 +9304,7 @@ void PlaneAabbTest61(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest62(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9316,7 +9316,7 @@ void PlaneAabbTest62(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest63(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9328,7 +9328,7 @@ void PlaneAabbTest63(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest64(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9340,7 +9340,7 @@ void PlaneAabbTest64(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest65(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9352,7 +9352,7 @@ void PlaneAabbTest65(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest66(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9364,7 +9364,7 @@ void PlaneAabbTest66(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest67(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9377,7 +9377,7 @@ void PlaneAabbTest67(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest68(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9389,7 +9389,7 @@ void PlaneAabbTest68(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest69(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9402,7 +9402,7 @@ void PlaneAabbTest69(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest70(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9414,7 +9414,7 @@ void PlaneAabbTest70(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest71(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9426,7 +9426,7 @@ void PlaneAabbTest71(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest72(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9438,7 +9438,7 @@ void PlaneAabbTest72(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest73(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9450,7 +9450,7 @@ void PlaneAabbTest73(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest74(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9462,7 +9462,7 @@ void PlaneAabbTest74(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest75(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9474,7 +9474,7 @@ void PlaneAabbTest75(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest76(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9487,7 +9487,7 @@ void PlaneAabbTest76(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest77(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9499,7 +9499,7 @@ void PlaneAabbTest77(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest78(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9512,7 +9512,7 @@ void PlaneAabbTest78(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest79(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9524,7 +9524,7 @@ void PlaneAabbTest79(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest80(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9536,7 +9536,7 @@ void PlaneAabbTest80(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest81(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9548,7 +9548,7 @@ void PlaneAabbTest81(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest82(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9560,7 +9560,7 @@ void PlaneAabbTest82(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest83(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9572,7 +9572,7 @@ void PlaneAabbTest83(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest84(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9584,7 +9584,7 @@ void PlaneAabbTest84(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest85(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9597,7 +9597,7 @@ void PlaneAabbTest85(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest86(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9609,7 +9609,7 @@ void PlaneAabbTest86(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest87(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9622,7 +9622,7 @@ void PlaneAabbTest87(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest88(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9634,7 +9634,7 @@ void PlaneAabbTest88(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest89(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9646,7 +9646,7 @@ void PlaneAabbTest89(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest90(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9658,7 +9658,7 @@ void PlaneAabbTest90(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest91(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9670,7 +9670,7 @@ void PlaneAabbTest91(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest92(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9682,7 +9682,7 @@ void PlaneAabbTest92(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest93(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9694,7 +9694,7 @@ void PlaneAabbTest93(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest94(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9707,7 +9707,7 @@ void PlaneAabbTest94(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest95(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9719,7 +9719,7 @@ void PlaneAabbTest95(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest96(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9732,7 +9732,7 @@ void PlaneAabbTest96(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest97(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9744,7 +9744,7 @@ void PlaneAabbTest97(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest98(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9756,7 +9756,7 @@ void PlaneAabbTest98(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest99(const std::string& testName, int debuggingIndex,
-                     FILE* file = NULL)
+                     FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9768,7 +9768,7 @@ void PlaneAabbTest99(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest100(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9780,7 +9780,7 @@ void PlaneAabbTest100(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest101(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9792,7 +9792,7 @@ void PlaneAabbTest101(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest102(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9804,7 +9804,7 @@ void PlaneAabbTest102(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest103(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9817,7 +9817,7 @@ void PlaneAabbTest103(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest104(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9829,7 +9829,7 @@ void PlaneAabbTest104(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest105(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9842,7 +9842,7 @@ void PlaneAabbTest105(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest106(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9854,7 +9854,7 @@ void PlaneAabbTest106(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest107(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9866,7 +9866,7 @@ void PlaneAabbTest107(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest108(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9878,7 +9878,7 @@ void PlaneAabbTest108(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest109(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9890,7 +9890,7 @@ void PlaneAabbTest109(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest110(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9902,7 +9902,7 @@ void PlaneAabbTest110(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest111(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9914,7 +9914,7 @@ void PlaneAabbTest111(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest112(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9926,7 +9926,7 @@ void PlaneAabbTest112(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest113(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9938,7 +9938,7 @@ void PlaneAabbTest113(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest114(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9950,7 +9950,7 @@ void PlaneAabbTest114(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest115(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9962,7 +9962,7 @@ void PlaneAabbTest115(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest116(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9974,7 +9974,7 @@ void PlaneAabbTest116(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest117(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9986,7 +9986,7 @@ void PlaneAabbTest117(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest118(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -9998,7 +9998,7 @@ void PlaneAabbTest118(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest119(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10010,7 +10010,7 @@ void PlaneAabbTest119(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest120(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10022,7 +10022,7 @@ void PlaneAabbTest120(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest121(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10034,7 +10034,7 @@ void PlaneAabbTest121(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest122(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10046,7 +10046,7 @@ void PlaneAabbTest122(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest123(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10058,7 +10058,7 @@ void PlaneAabbTest123(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest124(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10070,7 +10070,7 @@ void PlaneAabbTest124(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest125(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10082,7 +10082,7 @@ void PlaneAabbTest125(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest126(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10094,7 +10094,7 @@ void PlaneAabbTest126(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest127(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10106,7 +10106,7 @@ void PlaneAabbTest127(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest128(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10118,7 +10118,7 @@ void PlaneAabbTest128(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest129(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10130,7 +10130,7 @@ void PlaneAabbTest129(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest130(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10142,7 +10142,7 @@ void PlaneAabbTest130(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest131(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10154,7 +10154,7 @@ void PlaneAabbTest131(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest132(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10166,7 +10166,7 @@ void PlaneAabbTest132(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest133(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10178,7 +10178,7 @@ void PlaneAabbTest133(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest134(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10190,7 +10190,7 @@ void PlaneAabbTest134(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest135(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10202,7 +10202,7 @@ void PlaneAabbTest135(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest136(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10214,7 +10214,7 @@ void PlaneAabbTest136(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest137(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10226,7 +10226,7 @@ void PlaneAabbTest137(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest138(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10238,7 +10238,7 @@ void PlaneAabbTest138(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest139(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10250,7 +10250,7 @@ void PlaneAabbTest139(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest140(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10262,7 +10262,7 @@ void PlaneAabbTest140(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest141(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10274,7 +10274,7 @@ void PlaneAabbTest141(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest142(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10286,7 +10286,7 @@ void PlaneAabbTest142(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest143(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10298,7 +10298,7 @@ void PlaneAabbTest143(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest144(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10310,7 +10310,7 @@ void PlaneAabbTest144(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest145(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10322,7 +10322,7 @@ void PlaneAabbTest145(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest146(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10334,7 +10334,7 @@ void PlaneAabbTest146(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest147(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10346,7 +10346,7 @@ void PlaneAabbTest147(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest148(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10358,7 +10358,7 @@ void PlaneAabbTest148(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest149(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10370,7 +10370,7 @@ void PlaneAabbTest149(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest150(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10382,7 +10382,7 @@ void PlaneAabbTest150(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest151(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10394,7 +10394,7 @@ void PlaneAabbTest151(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest152(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10406,7 +10406,7 @@ void PlaneAabbTest152(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest153(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10418,7 +10418,7 @@ void PlaneAabbTest153(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest154(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10430,7 +10430,7 @@ void PlaneAabbTest154(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest155(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10442,7 +10442,7 @@ void PlaneAabbTest155(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest156(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10454,7 +10454,7 @@ void PlaneAabbTest156(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest157(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10466,7 +10466,7 @@ void PlaneAabbTest157(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest158(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10478,7 +10478,7 @@ void PlaneAabbTest158(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest159(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10490,7 +10490,7 @@ void PlaneAabbTest159(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest160(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10502,7 +10502,7 @@ void PlaneAabbTest160(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest161(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10514,7 +10514,7 @@ void PlaneAabbTest161(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest162(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10526,7 +10526,7 @@ void PlaneAabbTest162(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest163(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10539,7 +10539,7 @@ void PlaneAabbTest163(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest164(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10552,7 +10552,7 @@ void PlaneAabbTest164(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest165(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10564,7 +10564,7 @@ void PlaneAabbTest165(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest166(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10576,7 +10576,7 @@ void PlaneAabbTest166(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest167(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10588,7 +10588,7 @@ void PlaneAabbTest167(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest168(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10600,7 +10600,7 @@ void PlaneAabbTest168(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest169(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10612,7 +10612,7 @@ void PlaneAabbTest169(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest170(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10625,7 +10625,7 @@ void PlaneAabbTest170(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest171(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10638,7 +10638,7 @@ void PlaneAabbTest171(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest172(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10651,7 +10651,7 @@ void PlaneAabbTest172(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest173(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10664,7 +10664,7 @@ void PlaneAabbTest173(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest174(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10676,7 +10676,7 @@ void PlaneAabbTest174(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest175(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10688,7 +10688,7 @@ void PlaneAabbTest175(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest176(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10700,7 +10700,7 @@ void PlaneAabbTest176(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest177(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10712,7 +10712,7 @@ void PlaneAabbTest177(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest178(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10724,7 +10724,7 @@ void PlaneAabbTest178(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest179(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10737,7 +10737,7 @@ void PlaneAabbTest179(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest180(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10750,7 +10750,7 @@ void PlaneAabbTest180(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest181(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10763,7 +10763,7 @@ void PlaneAabbTest181(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest182(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10776,7 +10776,7 @@ void PlaneAabbTest182(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest183(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10788,7 +10788,7 @@ void PlaneAabbTest183(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest184(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10800,7 +10800,7 @@ void PlaneAabbTest184(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest185(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10812,7 +10812,7 @@ void PlaneAabbTest185(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest186(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10824,7 +10824,7 @@ void PlaneAabbTest186(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest187(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10836,7 +10836,7 @@ void PlaneAabbTest187(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest188(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10849,7 +10849,7 @@ void PlaneAabbTest188(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest189(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10862,7 +10862,7 @@ void PlaneAabbTest189(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest190(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10875,7 +10875,7 @@ void PlaneAabbTest190(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest191(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10888,7 +10888,7 @@ void PlaneAabbTest191(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest192(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10900,7 +10900,7 @@ void PlaneAabbTest192(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest193(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10912,7 +10912,7 @@ void PlaneAabbTest193(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest194(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10924,7 +10924,7 @@ void PlaneAabbTest194(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest195(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10936,7 +10936,7 @@ void PlaneAabbTest195(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest196(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10948,7 +10948,7 @@ void PlaneAabbTest196(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest197(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10961,7 +10961,7 @@ void PlaneAabbTest197(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest198(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10974,7 +10974,7 @@ void PlaneAabbTest198(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest199(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -10987,7 +10987,7 @@ void PlaneAabbTest199(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest200(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11000,7 +11000,7 @@ void PlaneAabbTest200(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest201(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11012,7 +11012,7 @@ void PlaneAabbTest201(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest202(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11024,7 +11024,7 @@ void PlaneAabbTest202(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest203(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11036,7 +11036,7 @@ void PlaneAabbTest203(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest204(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11048,7 +11048,7 @@ void PlaneAabbTest204(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest205(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11060,7 +11060,7 @@ void PlaneAabbTest205(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest206(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11073,7 +11073,7 @@ void PlaneAabbTest206(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest207(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11086,7 +11086,7 @@ void PlaneAabbTest207(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of plane
 void PlaneAabbTest208(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11099,7 +11099,7 @@ void PlaneAabbTest208(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely in front of plane
 void PlaneAabbTest209(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11112,7 +11112,7 @@ void PlaneAabbTest209(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb on front)
 void PlaneAabbTest210(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11124,7 +11124,7 @@ void PlaneAabbTest210(const std::string& testName, int debuggingIndex,
 
 // Aabb slightly touching plane (aabb on front)
 void PlaneAabbTest211(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11136,7 +11136,7 @@ void PlaneAabbTest211(const std::string& testName, int debuggingIndex,
 
 // Aabb centered on plane
 void PlaneAabbTest212(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11148,7 +11148,7 @@ void PlaneAabbTest212(const std::string& testName, int debuggingIndex,
 
 // Aabb signtly touching plane (aabb in back)
 void PlaneAabbTest213(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11160,7 +11160,7 @@ void PlaneAabbTest213(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely touching plane (aabb in back)
 void PlaneAabbTest214(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11172,7 +11172,7 @@ void PlaneAabbTest214(const std::string& testName, int debuggingIndex,
 
 // Aabb just barely behind plane
 void PlaneAabbTest215(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11185,7 +11185,7 @@ void PlaneAabbTest215(const std::string& testName, int debuggingIndex,
 
 // Aabb behind plane
 void PlaneAabbTest216(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11198,7 +11198,7 @@ void PlaneAabbTest216(const std::string& testName, int debuggingIndex,
 
 // Triangle inside of frustum.
 void FrustumTriangleTest1(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11214,7 +11214,7 @@ void FrustumTriangleTest1(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest2(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11230,7 +11230,7 @@ void FrustumTriangleTest2(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest3(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11246,7 +11246,7 @@ void FrustumTriangleTest3(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest4(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11262,7 +11262,7 @@ void FrustumTriangleTest4(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest5(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11278,7 +11278,7 @@ void FrustumTriangleTest5(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest6(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11294,7 +11294,7 @@ void FrustumTriangleTest6(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest7(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11310,7 +11310,7 @@ void FrustumTriangleTest7(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest8(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11327,7 +11327,7 @@ void FrustumTriangleTest8(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest9(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11344,7 +11344,7 @@ void FrustumTriangleTest9(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest10(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11360,7 +11360,7 @@ void FrustumTriangleTest10(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest11(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11376,7 +11376,7 @@ void FrustumTriangleTest11(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest12(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11392,7 +11392,7 @@ void FrustumTriangleTest12(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest13(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11408,7 +11408,7 @@ void FrustumTriangleTest13(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest14(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11425,7 +11425,7 @@ void FrustumTriangleTest14(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest15(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11441,7 +11441,7 @@ void FrustumTriangleTest15(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest16(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11458,7 +11458,7 @@ void FrustumTriangleTest16(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest17(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11474,7 +11474,7 @@ void FrustumTriangleTest17(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest18(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11491,7 +11491,7 @@ void FrustumTriangleTest18(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest19(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11507,7 +11507,7 @@ void FrustumTriangleTest19(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest20(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11524,7 +11524,7 @@ void FrustumTriangleTest20(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest21(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11540,7 +11540,7 @@ void FrustumTriangleTest21(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest22(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11557,7 +11557,7 @@ void FrustumTriangleTest22(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest23(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11574,7 +11574,7 @@ void FrustumTriangleTest23(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest24(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11591,7 +11591,7 @@ void FrustumTriangleTest24(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest25(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11608,7 +11608,7 @@ void FrustumTriangleTest25(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest26(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11625,7 +11625,7 @@ void FrustumTriangleTest26(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest27(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11642,7 +11642,7 @@ void FrustumTriangleTest27(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest28(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11659,7 +11659,7 @@ void FrustumTriangleTest28(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest29(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11676,7 +11676,7 @@ void FrustumTriangleTest29(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest30(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11693,7 +11693,7 @@ void FrustumTriangleTest30(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest31(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11709,7 +11709,7 @@ void FrustumTriangleTest31(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest32(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11726,7 +11726,7 @@ void FrustumTriangleTest32(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest33(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11742,7 +11742,7 @@ void FrustumTriangleTest33(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest34(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11759,7 +11759,7 @@ void FrustumTriangleTest34(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest35(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11775,7 +11775,7 @@ void FrustumTriangleTest35(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest36(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11792,7 +11792,7 @@ void FrustumTriangleTest36(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest37(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11810,7 +11810,7 @@ void FrustumTriangleTest37(const std::string& testName, int debuggingIndex,
 
 // Triangle inside of frustum.
 void FrustumTriangleTest38(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11826,7 +11826,7 @@ void FrustumTriangleTest38(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest39(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11842,7 +11842,7 @@ void FrustumTriangleTest39(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest40(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11858,7 +11858,7 @@ void FrustumTriangleTest40(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest41(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11875,7 +11875,7 @@ void FrustumTriangleTest41(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest42(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11892,7 +11892,7 @@ void FrustumTriangleTest42(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest43(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11908,7 +11908,7 @@ void FrustumTriangleTest43(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest44(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11924,7 +11924,7 @@ void FrustumTriangleTest44(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest45(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11940,7 +11940,7 @@ void FrustumTriangleTest45(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest46(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11956,7 +11956,7 @@ void FrustumTriangleTest46(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest47(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11972,7 +11972,7 @@ void FrustumTriangleTest47(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest48(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -11988,7 +11988,7 @@ void FrustumTriangleTest48(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest49(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12004,7 +12004,7 @@ void FrustumTriangleTest49(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest50(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12020,7 +12020,7 @@ void FrustumTriangleTest50(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest51(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12037,7 +12037,7 @@ void FrustumTriangleTest51(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest52(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12053,7 +12053,7 @@ void FrustumTriangleTest52(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest53(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12070,7 +12070,7 @@ void FrustumTriangleTest53(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest54(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12086,7 +12086,7 @@ void FrustumTriangleTest54(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest55(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12103,7 +12103,7 @@ void FrustumTriangleTest55(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest56(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12119,7 +12119,7 @@ void FrustumTriangleTest56(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest57(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12136,7 +12136,7 @@ void FrustumTriangleTest57(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest58(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12153,7 +12153,7 @@ void FrustumTriangleTest58(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest59(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12169,7 +12169,7 @@ void FrustumTriangleTest59(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest60(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12186,7 +12186,7 @@ void FrustumTriangleTest60(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest61(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12202,7 +12202,7 @@ void FrustumTriangleTest61(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest62(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12219,7 +12219,7 @@ void FrustumTriangleTest62(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest63(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12235,7 +12235,7 @@ void FrustumTriangleTest63(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest64(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12252,7 +12252,7 @@ void FrustumTriangleTest64(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest65(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12269,7 +12269,7 @@ void FrustumTriangleTest65(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest66(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12286,7 +12286,7 @@ void FrustumTriangleTest66(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest67(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12303,7 +12303,7 @@ void FrustumTriangleTest67(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest68(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12319,7 +12319,7 @@ void FrustumTriangleTest68(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest69(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12336,7 +12336,7 @@ void FrustumTriangleTest69(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest70(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12352,7 +12352,7 @@ void FrustumTriangleTest70(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest71(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12369,7 +12369,7 @@ void FrustumTriangleTest71(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest72(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12385,7 +12385,7 @@ void FrustumTriangleTest72(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest73(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12402,7 +12402,7 @@ void FrustumTriangleTest73(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest74(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12420,7 +12420,7 @@ void FrustumTriangleTest74(const std::string& testName, int debuggingIndex,
 
 // Triangle inside of frustum.
 void FrustumTriangleTest75(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12436,7 +12436,7 @@ void FrustumTriangleTest75(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest76(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12452,7 +12452,7 @@ void FrustumTriangleTest76(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest77(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12468,7 +12468,7 @@ void FrustumTriangleTest77(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest78(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12484,7 +12484,7 @@ void FrustumTriangleTest78(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest79(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12500,7 +12500,7 @@ void FrustumTriangleTest79(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest80(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12516,7 +12516,7 @@ void FrustumTriangleTest80(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest81(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12532,7 +12532,7 @@ void FrustumTriangleTest81(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest82(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12548,7 +12548,7 @@ void FrustumTriangleTest82(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest83(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12564,7 +12564,7 @@ void FrustumTriangleTest83(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest84(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12580,7 +12580,7 @@ void FrustumTriangleTest84(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest85(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12596,7 +12596,7 @@ void FrustumTriangleTest85(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest86(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12612,7 +12612,7 @@ void FrustumTriangleTest86(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest87(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12628,7 +12628,7 @@ void FrustumTriangleTest87(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest88(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12645,7 +12645,7 @@ void FrustumTriangleTest88(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest89(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12661,7 +12661,7 @@ void FrustumTriangleTest89(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest90(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12678,7 +12678,7 @@ void FrustumTriangleTest90(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest91(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12694,7 +12694,7 @@ void FrustumTriangleTest91(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest92(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12711,7 +12711,7 @@ void FrustumTriangleTest92(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest93(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12727,7 +12727,7 @@ void FrustumTriangleTest93(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest94(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12744,7 +12744,7 @@ void FrustumTriangleTest94(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest95(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12760,7 +12760,7 @@ void FrustumTriangleTest95(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest96(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12776,7 +12776,7 @@ void FrustumTriangleTest96(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest97(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12793,7 +12793,7 @@ void FrustumTriangleTest97(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest98(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12809,7 +12809,7 @@ void FrustumTriangleTest98(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest99(const std::string& testName, int debuggingIndex,
-                           FILE* file = NULL)
+                           FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12826,7 +12826,7 @@ void FrustumTriangleTest99(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest100(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12842,7 +12842,7 @@ void FrustumTriangleTest100(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest101(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12859,7 +12859,7 @@ void FrustumTriangleTest101(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest102(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12876,7 +12876,7 @@ void FrustumTriangleTest102(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest103(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12893,7 +12893,7 @@ void FrustumTriangleTest103(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest104(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12910,7 +12910,7 @@ void FrustumTriangleTest104(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest105(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12926,7 +12926,7 @@ void FrustumTriangleTest105(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest106(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12943,7 +12943,7 @@ void FrustumTriangleTest106(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest107(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12959,7 +12959,7 @@ void FrustumTriangleTest107(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest108(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12976,7 +12976,7 @@ void FrustumTriangleTest108(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest109(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -12992,7 +12992,7 @@ void FrustumTriangleTest109(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest110(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13009,7 +13009,7 @@ void FrustumTriangleTest110(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest111(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13026,7 +13026,7 @@ void FrustumTriangleTest111(const std::string& testName, int debuggingIndex,
 
 // Triangle inside of frustum.
 void FrustumTriangleTest112(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13043,7 +13043,7 @@ void FrustumTriangleTest112(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest113(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13061,7 +13061,7 @@ void FrustumTriangleTest113(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest114(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13079,7 +13079,7 @@ void FrustumTriangleTest114(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest115(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13097,7 +13097,7 @@ void FrustumTriangleTest115(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest116(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13115,7 +13115,7 @@ void FrustumTriangleTest116(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest117(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13133,7 +13133,7 @@ void FrustumTriangleTest117(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest118(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13151,7 +13151,7 @@ void FrustumTriangleTest118(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest119(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13169,7 +13169,7 @@ void FrustumTriangleTest119(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest120(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13187,7 +13187,7 @@ void FrustumTriangleTest120(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest121(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13205,7 +13205,7 @@ void FrustumTriangleTest121(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest122(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13223,7 +13223,7 @@ void FrustumTriangleTest122(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest123(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13241,7 +13241,7 @@ void FrustumTriangleTest123(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest124(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13259,7 +13259,7 @@ void FrustumTriangleTest124(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest125(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13277,7 +13277,7 @@ void FrustumTriangleTest125(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest126(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13295,7 +13295,7 @@ void FrustumTriangleTest126(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest127(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13313,7 +13313,7 @@ void FrustumTriangleTest127(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest128(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13331,7 +13331,7 @@ void FrustumTriangleTest128(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest129(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13349,7 +13349,7 @@ void FrustumTriangleTest129(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest130(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13367,7 +13367,7 @@ void FrustumTriangleTest130(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest131(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13385,7 +13385,7 @@ void FrustumTriangleTest131(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest132(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13403,7 +13403,7 @@ void FrustumTriangleTest132(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest133(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13421,7 +13421,7 @@ void FrustumTriangleTest133(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest134(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13439,7 +13439,7 @@ void FrustumTriangleTest134(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest135(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13457,7 +13457,7 @@ void FrustumTriangleTest135(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest136(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13475,7 +13475,7 @@ void FrustumTriangleTest136(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest137(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13493,7 +13493,7 @@ void FrustumTriangleTest137(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest138(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13511,7 +13511,7 @@ void FrustumTriangleTest138(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest139(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13529,7 +13529,7 @@ void FrustumTriangleTest139(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest140(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13547,7 +13547,7 @@ void FrustumTriangleTest140(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest141(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13565,7 +13565,7 @@ void FrustumTriangleTest141(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest142(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13583,7 +13583,7 @@ void FrustumTriangleTest142(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest143(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13601,7 +13601,7 @@ void FrustumTriangleTest143(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest144(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13619,7 +13619,7 @@ void FrustumTriangleTest144(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest145(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13637,7 +13637,7 @@ void FrustumTriangleTest145(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest146(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13655,7 +13655,7 @@ void FrustumTriangleTest146(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest147(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13673,7 +13673,7 @@ void FrustumTriangleTest147(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest148(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13692,7 +13692,7 @@ void FrustumTriangleTest148(const std::string& testName, int debuggingIndex,
 
 // Triangle inside of frustum.
 void FrustumTriangleTest149(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13712,7 +13712,7 @@ void FrustumTriangleTest149(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest150(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13732,7 +13732,7 @@ void FrustumTriangleTest150(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest151(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13752,7 +13752,7 @@ void FrustumTriangleTest151(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest152(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13772,7 +13772,7 @@ void FrustumTriangleTest152(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest153(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13792,7 +13792,7 @@ void FrustumTriangleTest153(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest154(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13812,7 +13812,7 @@ void FrustumTriangleTest154(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest155(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13832,7 +13832,7 @@ void FrustumTriangleTest155(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest156(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13852,7 +13852,7 @@ void FrustumTriangleTest156(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest157(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13872,7 +13872,7 @@ void FrustumTriangleTest157(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest158(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13892,7 +13892,7 @@ void FrustumTriangleTest158(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest159(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13912,7 +13912,7 @@ void FrustumTriangleTest159(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest160(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13932,7 +13932,7 @@ void FrustumTriangleTest160(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest161(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13952,7 +13952,7 @@ void FrustumTriangleTest161(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest162(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13972,7 +13972,7 @@ void FrustumTriangleTest162(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest163(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -13992,7 +13992,7 @@ void FrustumTriangleTest163(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest164(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14012,7 +14012,7 @@ void FrustumTriangleTest164(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest165(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14032,7 +14032,7 @@ void FrustumTriangleTest165(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest166(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14052,7 +14052,7 @@ void FrustumTriangleTest166(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest167(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14072,7 +14072,7 @@ void FrustumTriangleTest167(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest168(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14092,7 +14092,7 @@ void FrustumTriangleTest168(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest169(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14112,7 +14112,7 @@ void FrustumTriangleTest169(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest170(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14132,7 +14132,7 @@ void FrustumTriangleTest170(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest171(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14152,7 +14152,7 @@ void FrustumTriangleTest171(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest172(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14172,7 +14172,7 @@ void FrustumTriangleTest172(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest173(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14192,7 +14192,7 @@ void FrustumTriangleTest173(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest174(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14212,7 +14212,7 @@ void FrustumTriangleTest174(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest175(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14232,7 +14232,7 @@ void FrustumTriangleTest175(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest176(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14252,7 +14252,7 @@ void FrustumTriangleTest176(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest177(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14272,7 +14272,7 @@ void FrustumTriangleTest177(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest178(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14292,7 +14292,7 @@ void FrustumTriangleTest178(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest179(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14312,7 +14312,7 @@ void FrustumTriangleTest179(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest180(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14332,7 +14332,7 @@ void FrustumTriangleTest180(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest181(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14352,7 +14352,7 @@ void FrustumTriangleTest181(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest182(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14372,7 +14372,7 @@ void FrustumTriangleTest182(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest183(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14392,7 +14392,7 @@ void FrustumTriangleTest183(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest184(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14412,7 +14412,7 @@ void FrustumTriangleTest184(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest185(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14433,7 +14433,7 @@ void FrustumTriangleTest185(const std::string& testName, int debuggingIndex,
 
 // Triangle inside of frustum.
 void FrustumTriangleTest186(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14453,7 +14453,7 @@ void FrustumTriangleTest186(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest187(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14473,7 +14473,7 @@ void FrustumTriangleTest187(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest188(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14493,7 +14493,7 @@ void FrustumTriangleTest188(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest189(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14513,7 +14513,7 @@ void FrustumTriangleTest189(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest190(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14533,7 +14533,7 @@ void FrustumTriangleTest190(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest191(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14553,7 +14553,7 @@ void FrustumTriangleTest191(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest192(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14573,7 +14573,7 @@ void FrustumTriangleTest192(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest193(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14593,7 +14593,7 @@ void FrustumTriangleTest193(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest194(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14613,7 +14613,7 @@ void FrustumTriangleTest194(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest195(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14633,7 +14633,7 @@ void FrustumTriangleTest195(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest196(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14653,7 +14653,7 @@ void FrustumTriangleTest196(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest197(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14673,7 +14673,7 @@ void FrustumTriangleTest197(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest198(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14693,7 +14693,7 @@ void FrustumTriangleTest198(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest199(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14713,7 +14713,7 @@ void FrustumTriangleTest199(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest200(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14733,7 +14733,7 @@ void FrustumTriangleTest200(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest201(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14753,7 +14753,7 @@ void FrustumTriangleTest201(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest202(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14773,7 +14773,7 @@ void FrustumTriangleTest202(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest203(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14793,7 +14793,7 @@ void FrustumTriangleTest203(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest204(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14813,7 +14813,7 @@ void FrustumTriangleTest204(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest205(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14833,7 +14833,7 @@ void FrustumTriangleTest205(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest206(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14853,7 +14853,7 @@ void FrustumTriangleTest206(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest207(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14873,7 +14873,7 @@ void FrustumTriangleTest207(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest208(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14893,7 +14893,7 @@ void FrustumTriangleTest208(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest209(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14913,7 +14913,7 @@ void FrustumTriangleTest209(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest210(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14933,7 +14933,7 @@ void FrustumTriangleTest210(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest211(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14953,7 +14953,7 @@ void FrustumTriangleTest211(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest212(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14973,7 +14973,7 @@ void FrustumTriangleTest212(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest213(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -14993,7 +14993,7 @@ void FrustumTriangleTest213(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest214(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15013,7 +15013,7 @@ void FrustumTriangleTest214(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest215(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15033,7 +15033,7 @@ void FrustumTriangleTest215(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest216(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15053,7 +15053,7 @@ void FrustumTriangleTest216(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest217(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15073,7 +15073,7 @@ void FrustumTriangleTest217(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest218(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15093,7 +15093,7 @@ void FrustumTriangleTest218(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest219(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15113,7 +15113,7 @@ void FrustumTriangleTest219(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest220(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15133,7 +15133,7 @@ void FrustumTriangleTest220(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest221(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15153,7 +15153,7 @@ void FrustumTriangleTest221(const std::string& testName, int debuggingIndex,
 }
 
 void FrustumTriangleTest222(const std::string& testName, int debuggingIndex,
-                            FILE* file = NULL)
+                            FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15174,7 +15174,7 @@ void FrustumTriangleTest222(const std::string& testName, int debuggingIndex,
 
 // Aabb inside of frustum.
 void FrustumAabbTest1(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15190,7 +15190,7 @@ void FrustumAabbTest1(const std::string& testName, int debuggingIndex,
 
 // Aabb on right of frustum.
 void FrustumAabbTest2(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15206,7 +15206,7 @@ void FrustumAabbTest2(const std::string& testName, int debuggingIndex,
 
 // Aabb on left of frustum.
 void FrustumAabbTest3(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15222,7 +15222,7 @@ void FrustumAabbTest3(const std::string& testName, int debuggingIndex,
 
 // Aabb on top of frustum.
 void FrustumAabbTest4(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15238,7 +15238,7 @@ void FrustumAabbTest4(const std::string& testName, int debuggingIndex,
 
 // Aabb on bottom of frustum.
 void FrustumAabbTest5(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15254,7 +15254,7 @@ void FrustumAabbTest5(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of frustum.
 void FrustumAabbTest6(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15270,7 +15270,7 @@ void FrustumAabbTest6(const std::string& testName, int debuggingIndex,
 
 // Aabb behind frustum.
 void FrustumAabbTest7(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15286,7 +15286,7 @@ void FrustumAabbTest7(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting right side of frustum.
 void FrustumAabbTest8(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15302,7 +15302,7 @@ void FrustumAabbTest8(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting left side of frustum.
 void FrustumAabbTest9(const std::string& testName, int debuggingIndex,
-                      FILE* file = NULL)
+                      FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15318,7 +15318,7 @@ void FrustumAabbTest9(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting top side of frustum.
 void FrustumAabbTest10(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15334,7 +15334,7 @@ void FrustumAabbTest10(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting bottom side of frustum.
 void FrustumAabbTest11(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15350,7 +15350,7 @@ void FrustumAabbTest11(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting front of frustum.
 void FrustumAabbTest12(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15366,7 +15366,7 @@ void FrustumAabbTest12(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting back of frustum.
 void FrustumAabbTest13(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15382,7 +15382,7 @@ void FrustumAabbTest13(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest14(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15399,7 +15399,7 @@ void FrustumAabbTest14(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest15(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15416,7 +15416,7 @@ void FrustumAabbTest15(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest16(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15432,7 +15432,7 @@ void FrustumAabbTest16(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest17(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15449,7 +15449,7 @@ void FrustumAabbTest17(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest18(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15466,7 +15466,7 @@ void FrustumAabbTest18(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest19(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15483,7 +15483,7 @@ void FrustumAabbTest19(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest20(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15500,7 +15500,7 @@ void FrustumAabbTest20(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest21(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15517,7 +15517,7 @@ void FrustumAabbTest21(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest22(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15533,7 +15533,7 @@ void FrustumAabbTest22(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest23(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15550,7 +15550,7 @@ void FrustumAabbTest23(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest24(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15567,7 +15567,7 @@ void FrustumAabbTest24(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest25(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15584,7 +15584,7 @@ void FrustumAabbTest25(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest26(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15601,7 +15601,7 @@ void FrustumAabbTest26(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest27(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15618,7 +15618,7 @@ void FrustumAabbTest27(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest28(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15635,7 +15635,7 @@ void FrustumAabbTest28(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest29(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15652,7 +15652,7 @@ void FrustumAabbTest29(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest30(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15668,7 +15668,7 @@ void FrustumAabbTest30(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest31(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15684,7 +15684,7 @@ void FrustumAabbTest31(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest32(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15700,7 +15700,7 @@ void FrustumAabbTest32(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest33(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15716,7 +15716,7 @@ void FrustumAabbTest33(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest34(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15732,7 +15732,7 @@ void FrustumAabbTest34(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest35(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15749,7 +15749,7 @@ void FrustumAabbTest35(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest36(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15765,7 +15765,7 @@ void FrustumAabbTest36(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest37(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15782,7 +15782,7 @@ void FrustumAabbTest37(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's near plane.
 void FrustumAabbTest38(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15798,7 +15798,7 @@ void FrustumAabbTest38(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's near plane.
 void FrustumAabbTest39(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15814,7 +15814,7 @@ void FrustumAabbTest39(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's far plane.
 void FrustumAabbTest40(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15830,7 +15830,7 @@ void FrustumAabbTest40(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's far plane.
 void FrustumAabbTest41(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15846,7 +15846,7 @@ void FrustumAabbTest41(const std::string& testName, int debuggingIndex,
 
 // Aabb inside of frustum.
 void FrustumAabbTest42(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15862,7 +15862,7 @@ void FrustumAabbTest42(const std::string& testName, int debuggingIndex,
 
 // Aabb on right of frustum.
 void FrustumAabbTest43(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15878,7 +15878,7 @@ void FrustumAabbTest43(const std::string& testName, int debuggingIndex,
 
 // Aabb on left of frustum.
 void FrustumAabbTest44(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15894,7 +15894,7 @@ void FrustumAabbTest44(const std::string& testName, int debuggingIndex,
 
 // Aabb on top of frustum.
 void FrustumAabbTest45(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15910,7 +15910,7 @@ void FrustumAabbTest45(const std::string& testName, int debuggingIndex,
 
 // Aabb on bottom of frustum.
 void FrustumAabbTest46(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15926,7 +15926,7 @@ void FrustumAabbTest46(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of frustum.
 void FrustumAabbTest47(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15942,7 +15942,7 @@ void FrustumAabbTest47(const std::string& testName, int debuggingIndex,
 
 // Aabb behind frustum.
 void FrustumAabbTest48(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15958,7 +15958,7 @@ void FrustumAabbTest48(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting right side of frustum.
 void FrustumAabbTest49(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15974,7 +15974,7 @@ void FrustumAabbTest49(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting left side of frustum.
 void FrustumAabbTest50(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -15990,7 +15990,7 @@ void FrustumAabbTest50(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting top side of frustum.
 void FrustumAabbTest51(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16006,7 +16006,7 @@ void FrustumAabbTest51(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting bottom side of frustum.
 void FrustumAabbTest52(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16022,7 +16022,7 @@ void FrustumAabbTest52(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting front of frustum.
 void FrustumAabbTest53(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16038,7 +16038,7 @@ void FrustumAabbTest53(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting back of frustum.
 void FrustumAabbTest54(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16054,7 +16054,7 @@ void FrustumAabbTest54(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest55(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16071,7 +16071,7 @@ void FrustumAabbTest55(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest56(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16088,7 +16088,7 @@ void FrustumAabbTest56(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest57(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16104,7 +16104,7 @@ void FrustumAabbTest57(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest58(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16121,7 +16121,7 @@ void FrustumAabbTest58(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest59(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16138,7 +16138,7 @@ void FrustumAabbTest59(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest60(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16155,7 +16155,7 @@ void FrustumAabbTest60(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest61(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16172,7 +16172,7 @@ void FrustumAabbTest61(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest62(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16189,7 +16189,7 @@ void FrustumAabbTest62(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest63(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16205,7 +16205,7 @@ void FrustumAabbTest63(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest64(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16222,7 +16222,7 @@ void FrustumAabbTest64(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest65(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16239,7 +16239,7 @@ void FrustumAabbTest65(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest66(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16256,7 +16256,7 @@ void FrustumAabbTest66(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest67(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16273,7 +16273,7 @@ void FrustumAabbTest67(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest68(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16290,7 +16290,7 @@ void FrustumAabbTest68(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest69(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16307,7 +16307,7 @@ void FrustumAabbTest69(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest70(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16324,7 +16324,7 @@ void FrustumAabbTest70(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest71(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16340,7 +16340,7 @@ void FrustumAabbTest71(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest72(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16356,7 +16356,7 @@ void FrustumAabbTest72(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest73(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16372,7 +16372,7 @@ void FrustumAabbTest73(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest74(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16388,7 +16388,7 @@ void FrustumAabbTest74(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest75(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16404,7 +16404,7 @@ void FrustumAabbTest75(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest76(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16421,7 +16421,7 @@ void FrustumAabbTest76(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest77(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16437,7 +16437,7 @@ void FrustumAabbTest77(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest78(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16454,7 +16454,7 @@ void FrustumAabbTest78(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's near plane.
 void FrustumAabbTest79(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16470,7 +16470,7 @@ void FrustumAabbTest79(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's near plane.
 void FrustumAabbTest80(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16486,7 +16486,7 @@ void FrustumAabbTest80(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's far plane.
 void FrustumAabbTest81(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16502,7 +16502,7 @@ void FrustumAabbTest81(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's far plane.
 void FrustumAabbTest82(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16518,7 +16518,7 @@ void FrustumAabbTest82(const std::string& testName, int debuggingIndex,
 
 // Aabb inside of frustum.
 void FrustumAabbTest83(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16534,7 +16534,7 @@ void FrustumAabbTest83(const std::string& testName, int debuggingIndex,
 
 // Aabb on right of frustum.
 void FrustumAabbTest84(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16550,7 +16550,7 @@ void FrustumAabbTest84(const std::string& testName, int debuggingIndex,
 
 // Aabb on left of frustum.
 void FrustumAabbTest85(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16566,7 +16566,7 @@ void FrustumAabbTest85(const std::string& testName, int debuggingIndex,
 
 // Aabb on top of frustum.
 void FrustumAabbTest86(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16582,7 +16582,7 @@ void FrustumAabbTest86(const std::string& testName, int debuggingIndex,
 
 // Aabb on bottom of frustum.
 void FrustumAabbTest87(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16598,7 +16598,7 @@ void FrustumAabbTest87(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of frustum.
 void FrustumAabbTest88(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16614,7 +16614,7 @@ void FrustumAabbTest88(const std::string& testName, int debuggingIndex,
 
 // Aabb behind frustum.
 void FrustumAabbTest89(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16630,7 +16630,7 @@ void FrustumAabbTest89(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting right side of frustum.
 void FrustumAabbTest90(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16646,7 +16646,7 @@ void FrustumAabbTest90(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting left side of frustum.
 void FrustumAabbTest91(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16662,7 +16662,7 @@ void FrustumAabbTest91(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting top side of frustum.
 void FrustumAabbTest92(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16678,7 +16678,7 @@ void FrustumAabbTest92(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting bottom side of frustum.
 void FrustumAabbTest93(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16694,7 +16694,7 @@ void FrustumAabbTest93(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting front of frustum.
 void FrustumAabbTest94(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16710,7 +16710,7 @@ void FrustumAabbTest94(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting back of frustum.
 void FrustumAabbTest95(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16726,7 +16726,7 @@ void FrustumAabbTest95(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest96(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16743,7 +16743,7 @@ void FrustumAabbTest96(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest97(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16760,7 +16760,7 @@ void FrustumAabbTest97(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest98(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16776,7 +16776,7 @@ void FrustumAabbTest98(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest99(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16793,7 +16793,7 @@ void FrustumAabbTest99(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest100(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16810,7 +16810,7 @@ void FrustumAabbTest100(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest101(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16827,7 +16827,7 @@ void FrustumAabbTest101(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest102(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16844,7 +16844,7 @@ void FrustumAabbTest102(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest103(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16861,7 +16861,7 @@ void FrustumAabbTest103(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest104(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16877,7 +16877,7 @@ void FrustumAabbTest104(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest105(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16894,7 +16894,7 @@ void FrustumAabbTest105(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest106(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16911,7 +16911,7 @@ void FrustumAabbTest106(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest107(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16928,7 +16928,7 @@ void FrustumAabbTest107(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest108(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16945,7 +16945,7 @@ void FrustumAabbTest108(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest109(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16962,7 +16962,7 @@ void FrustumAabbTest109(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest110(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16979,7 +16979,7 @@ void FrustumAabbTest110(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest111(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -16996,7 +16996,7 @@ void FrustumAabbTest111(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest112(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17012,7 +17012,7 @@ void FrustumAabbTest112(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest113(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17028,7 +17028,7 @@ void FrustumAabbTest113(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest114(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17044,7 +17044,7 @@ void FrustumAabbTest114(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest115(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17060,7 +17060,7 @@ void FrustumAabbTest115(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest116(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17076,7 +17076,7 @@ void FrustumAabbTest116(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest117(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17093,7 +17093,7 @@ void FrustumAabbTest117(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest118(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17109,7 +17109,7 @@ void FrustumAabbTest118(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest119(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17126,7 +17126,7 @@ void FrustumAabbTest119(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's near plane.
 void FrustumAabbTest120(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17142,7 +17142,7 @@ void FrustumAabbTest120(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's near plane.
 void FrustumAabbTest121(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17158,7 +17158,7 @@ void FrustumAabbTest121(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's far plane.
 void FrustumAabbTest122(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17174,7 +17174,7 @@ void FrustumAabbTest122(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's far plane.
 void FrustumAabbTest123(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17190,7 +17190,7 @@ void FrustumAabbTest123(const std::string& testName, int debuggingIndex,
 
 // Aabb inside of frustum.
 void FrustumAabbTest124(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17207,7 +17207,7 @@ void FrustumAabbTest124(const std::string& testName, int debuggingIndex,
 
 // Aabb on right of frustum.
 void FrustumAabbTest125(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17225,7 +17225,7 @@ void FrustumAabbTest125(const std::string& testName, int debuggingIndex,
 
 // Aabb on left of frustum.
 void FrustumAabbTest126(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17243,7 +17243,7 @@ void FrustumAabbTest126(const std::string& testName, int debuggingIndex,
 
 // Aabb on top of frustum.
 void FrustumAabbTest127(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17261,7 +17261,7 @@ void FrustumAabbTest127(const std::string& testName, int debuggingIndex,
 
 // Aabb on bottom of frustum.
 void FrustumAabbTest128(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17279,7 +17279,7 @@ void FrustumAabbTest128(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of frustum.
 void FrustumAabbTest129(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17296,7 +17296,7 @@ void FrustumAabbTest129(const std::string& testName, int debuggingIndex,
 
 // Aabb behind frustum.
 void FrustumAabbTest130(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17313,7 +17313,7 @@ void FrustumAabbTest130(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting right side of frustum.
 void FrustumAabbTest131(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17331,7 +17331,7 @@ void FrustumAabbTest131(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting left side of frustum.
 void FrustumAabbTest132(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17349,7 +17349,7 @@ void FrustumAabbTest132(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting top side of frustum.
 void FrustumAabbTest133(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17367,7 +17367,7 @@ void FrustumAabbTest133(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting bottom side of frustum.
 void FrustumAabbTest134(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17385,7 +17385,7 @@ void FrustumAabbTest134(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting front of frustum.
 void FrustumAabbTest135(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17402,7 +17402,7 @@ void FrustumAabbTest135(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting back of frustum.
 void FrustumAabbTest136(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17419,7 +17419,7 @@ void FrustumAabbTest136(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest137(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17437,7 +17437,7 @@ void FrustumAabbTest137(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest138(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17455,7 +17455,7 @@ void FrustumAabbTest138(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest139(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17473,7 +17473,7 @@ void FrustumAabbTest139(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest140(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17491,7 +17491,7 @@ void FrustumAabbTest140(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest141(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17509,7 +17509,7 @@ void FrustumAabbTest141(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest142(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17527,7 +17527,7 @@ void FrustumAabbTest142(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest143(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17545,7 +17545,7 @@ void FrustumAabbTest143(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest144(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17563,7 +17563,7 @@ void FrustumAabbTest144(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest145(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17581,7 +17581,7 @@ void FrustumAabbTest145(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest146(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17599,7 +17599,7 @@ void FrustumAabbTest146(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest147(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17617,7 +17617,7 @@ void FrustumAabbTest147(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest148(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17635,7 +17635,7 @@ void FrustumAabbTest148(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest149(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17653,7 +17653,7 @@ void FrustumAabbTest149(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest150(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17671,7 +17671,7 @@ void FrustumAabbTest150(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest151(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17689,7 +17689,7 @@ void FrustumAabbTest151(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest152(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17707,7 +17707,7 @@ void FrustumAabbTest152(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest153(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17725,7 +17725,7 @@ void FrustumAabbTest153(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest154(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17743,7 +17743,7 @@ void FrustumAabbTest154(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest155(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17761,7 +17761,7 @@ void FrustumAabbTest155(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest156(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17779,7 +17779,7 @@ void FrustumAabbTest156(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest157(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17797,7 +17797,7 @@ void FrustumAabbTest157(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest158(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17815,7 +17815,7 @@ void FrustumAabbTest158(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest159(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17833,7 +17833,7 @@ void FrustumAabbTest159(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest160(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17851,7 +17851,7 @@ void FrustumAabbTest160(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's near plane.
 void FrustumAabbTest161(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17868,7 +17868,7 @@ void FrustumAabbTest161(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's near plane.
 void FrustumAabbTest162(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17885,7 +17885,7 @@ void FrustumAabbTest162(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's far plane.
 void FrustumAabbTest163(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17902,7 +17902,7 @@ void FrustumAabbTest163(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's far plane.
 void FrustumAabbTest164(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17919,7 +17919,7 @@ void FrustumAabbTest164(const std::string& testName, int debuggingIndex,
 
 // Aabb inside of frustum.
 void FrustumAabbTest165(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17938,7 +17938,7 @@ void FrustumAabbTest165(const std::string& testName, int debuggingIndex,
 
 // Aabb on right of frustum.
 void FrustumAabbTest166(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17958,7 +17958,7 @@ void FrustumAabbTest166(const std::string& testName, int debuggingIndex,
 
 // Aabb on left of frustum.
 void FrustumAabbTest167(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17978,7 +17978,7 @@ void FrustumAabbTest167(const std::string& testName, int debuggingIndex,
 
 // Aabb on top of frustum.
 void FrustumAabbTest168(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -17997,7 +17997,7 @@ void FrustumAabbTest168(const std::string& testName, int debuggingIndex,
 
 // Aabb on bottom of frustum.
 void FrustumAabbTest169(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18016,7 +18016,7 @@ void FrustumAabbTest169(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of frustum.
 void FrustumAabbTest170(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18036,7 +18036,7 @@ void FrustumAabbTest170(const std::string& testName, int debuggingIndex,
 
 // Aabb behind frustum.
 void FrustumAabbTest171(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18056,7 +18056,7 @@ void FrustumAabbTest171(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting right side of frustum.
 void FrustumAabbTest172(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18076,7 +18076,7 @@ void FrustumAabbTest172(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting left side of frustum.
 void FrustumAabbTest173(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18096,7 +18096,7 @@ void FrustumAabbTest173(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting top side of frustum.
 void FrustumAabbTest174(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18115,7 +18115,7 @@ void FrustumAabbTest174(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting bottom side of frustum.
 void FrustumAabbTest175(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18134,7 +18134,7 @@ void FrustumAabbTest175(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting front of frustum.
 void FrustumAabbTest176(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18154,7 +18154,7 @@ void FrustumAabbTest176(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting back of frustum.
 void FrustumAabbTest177(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18174,7 +18174,7 @@ void FrustumAabbTest177(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest178(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18194,7 +18194,7 @@ void FrustumAabbTest178(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest179(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18214,7 +18214,7 @@ void FrustumAabbTest179(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest180(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18234,7 +18234,7 @@ void FrustumAabbTest180(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest181(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18254,7 +18254,7 @@ void FrustumAabbTest181(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest182(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18274,7 +18274,7 @@ void FrustumAabbTest182(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest183(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18294,7 +18294,7 @@ void FrustumAabbTest183(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest184(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18314,7 +18314,7 @@ void FrustumAabbTest184(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest185(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18334,7 +18334,7 @@ void FrustumAabbTest185(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest186(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18354,7 +18354,7 @@ void FrustumAabbTest186(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest187(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18374,7 +18374,7 @@ void FrustumAabbTest187(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest188(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18394,7 +18394,7 @@ void FrustumAabbTest188(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest189(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18414,7 +18414,7 @@ void FrustumAabbTest189(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest190(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18434,7 +18434,7 @@ void FrustumAabbTest190(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest191(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18454,7 +18454,7 @@ void FrustumAabbTest191(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest192(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18474,7 +18474,7 @@ void FrustumAabbTest192(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest193(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18494,7 +18494,7 @@ void FrustumAabbTest193(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest194(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18514,7 +18514,7 @@ void FrustumAabbTest194(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest195(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18534,7 +18534,7 @@ void FrustumAabbTest195(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest196(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18554,7 +18554,7 @@ void FrustumAabbTest196(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest197(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18574,7 +18574,7 @@ void FrustumAabbTest197(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest198(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18594,7 +18594,7 @@ void FrustumAabbTest198(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest199(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18614,7 +18614,7 @@ void FrustumAabbTest199(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest200(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18634,7 +18634,7 @@ void FrustumAabbTest200(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest201(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18654,7 +18654,7 @@ void FrustumAabbTest201(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's near plane.
 void FrustumAabbTest202(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18674,7 +18674,7 @@ void FrustumAabbTest202(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's near plane.
 void FrustumAabbTest203(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18694,7 +18694,7 @@ void FrustumAabbTest203(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's far plane.
 void FrustumAabbTest204(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18714,7 +18714,7 @@ void FrustumAabbTest204(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's far plane.
 void FrustumAabbTest205(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18734,7 +18734,7 @@ void FrustumAabbTest205(const std::string& testName, int debuggingIndex,
 
 // Aabb inside of frustum.
 void FrustumAabbTest206(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18753,7 +18753,7 @@ void FrustumAabbTest206(const std::string& testName, int debuggingIndex,
 
 // Aabb on right of frustum.
 void FrustumAabbTest207(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18772,7 +18772,7 @@ void FrustumAabbTest207(const std::string& testName, int debuggingIndex,
 
 // Aabb on left of frustum.
 void FrustumAabbTest208(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18791,7 +18791,7 @@ void FrustumAabbTest208(const std::string& testName, int debuggingIndex,
 
 // Aabb on top of frustum.
 void FrustumAabbTest209(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18811,7 +18811,7 @@ void FrustumAabbTest209(const std::string& testName, int debuggingIndex,
 
 // Aabb on bottom of frustum.
 void FrustumAabbTest210(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18831,7 +18831,7 @@ void FrustumAabbTest210(const std::string& testName, int debuggingIndex,
 
 // Aabb in front of frustum.
 void FrustumAabbTest211(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18851,7 +18851,7 @@ void FrustumAabbTest211(const std::string& testName, int debuggingIndex,
 
 // Aabb behind frustum.
 void FrustumAabbTest212(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18871,7 +18871,7 @@ void FrustumAabbTest212(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting right side of frustum.
 void FrustumAabbTest213(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18890,7 +18890,7 @@ void FrustumAabbTest213(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting left side of frustum.
 void FrustumAabbTest214(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18909,7 +18909,7 @@ void FrustumAabbTest214(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting top side of frustum.
 void FrustumAabbTest215(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18929,7 +18929,7 @@ void FrustumAabbTest215(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting bottom side of frustum.
 void FrustumAabbTest216(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18949,7 +18949,7 @@ void FrustumAabbTest216(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting front of frustum.
 void FrustumAabbTest217(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18969,7 +18969,7 @@ void FrustumAabbTest217(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting back of frustum.
 void FrustumAabbTest218(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -18989,7 +18989,7 @@ void FrustumAabbTest218(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest219(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19009,7 +19009,7 @@ void FrustumAabbTest219(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest220(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19029,7 +19029,7 @@ void FrustumAabbTest220(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest221(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19049,7 +19049,7 @@ void FrustumAabbTest221(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest222(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19069,7 +19069,7 @@ void FrustumAabbTest222(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest223(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19089,7 +19089,7 @@ void FrustumAabbTest223(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest224(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19109,7 +19109,7 @@ void FrustumAabbTest224(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest225(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19129,7 +19129,7 @@ void FrustumAabbTest225(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest226(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19149,7 +19149,7 @@ void FrustumAabbTest226(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest227(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19169,7 +19169,7 @@ void FrustumAabbTest227(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest228(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19189,7 +19189,7 @@ void FrustumAabbTest228(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest229(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19209,7 +19209,7 @@ void FrustumAabbTest229(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest230(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19229,7 +19229,7 @@ void FrustumAabbTest230(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest231(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19249,7 +19249,7 @@ void FrustumAabbTest231(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest232(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19269,7 +19269,7 @@ void FrustumAabbTest232(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest233(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19289,7 +19289,7 @@ void FrustumAabbTest233(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest234(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19309,7 +19309,7 @@ void FrustumAabbTest234(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest235(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19329,7 +19329,7 @@ void FrustumAabbTest235(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest236(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19349,7 +19349,7 @@ void FrustumAabbTest236(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest237(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19369,7 +19369,7 @@ void FrustumAabbTest237(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest238(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19389,7 +19389,7 @@ void FrustumAabbTest238(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest239(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19409,7 +19409,7 @@ void FrustumAabbTest239(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest240(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19429,7 +19429,7 @@ void FrustumAabbTest240(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest241(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19449,7 +19449,7 @@ void FrustumAabbTest241(const std::string& testName, int debuggingIndex,
 
 // Aabb intersecting one plane but outside another.
 void FrustumAabbTest242(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19469,7 +19469,7 @@ void FrustumAabbTest242(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's near plane.
 void FrustumAabbTest243(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19489,7 +19489,7 @@ void FrustumAabbTest243(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's near plane.
 void FrustumAabbTest244(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19509,7 +19509,7 @@ void FrustumAabbTest244(const std::string& testName, int debuggingIndex,
 
 // Aabb just outside frustum's far plane.
 void FrustumAabbTest245(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19529,7 +19529,7 @@ void FrustumAabbTest245(const std::string& testName, int debuggingIndex,
 
 // Aabb just inside frustum's far plane.
 void FrustumAabbTest246(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19549,7 +19549,7 @@ void FrustumAabbTest246(const std::string& testName, int debuggingIndex,
 
 // Sphere inside of frustum.
 void FrustumSphereTest1(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19565,7 +19565,7 @@ void FrustumSphereTest1(const std::string& testName, int debuggingIndex,
 
 // Sphere on right of frustum.
 void FrustumSphereTest2(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19581,7 +19581,7 @@ void FrustumSphereTest2(const std::string& testName, int debuggingIndex,
 
 // Sphere on left of frustum.
 void FrustumSphereTest3(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19597,7 +19597,7 @@ void FrustumSphereTest3(const std::string& testName, int debuggingIndex,
 
 // Sphere on top of frustum.
 void FrustumSphereTest4(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19613,7 +19613,7 @@ void FrustumSphereTest4(const std::string& testName, int debuggingIndex,
 
 // Sphere on bottom of frustum.
 void FrustumSphereTest5(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19629,7 +19629,7 @@ void FrustumSphereTest5(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of frustum.
 void FrustumSphereTest6(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19645,7 +19645,7 @@ void FrustumSphereTest6(const std::string& testName, int debuggingIndex,
 
 // Sphere behind frustum.
 void FrustumSphereTest7(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19661,7 +19661,7 @@ void FrustumSphereTest7(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting right side of frustum.
 void FrustumSphereTest8(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19677,7 +19677,7 @@ void FrustumSphereTest8(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting left side of frustum.
 void FrustumSphereTest9(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19693,7 +19693,7 @@ void FrustumSphereTest9(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting top side of frustum.
 void FrustumSphereTest10(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19709,7 +19709,7 @@ void FrustumSphereTest10(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting bottom side of frustum.
 void FrustumSphereTest11(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19725,7 +19725,7 @@ void FrustumSphereTest11(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting front of frustum.
 void FrustumSphereTest12(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19741,7 +19741,7 @@ void FrustumSphereTest12(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting back of frustum.
 void FrustumSphereTest13(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19757,7 +19757,7 @@ void FrustumSphereTest13(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest14(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19773,7 +19773,7 @@ void FrustumSphereTest14(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest15(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19789,7 +19789,7 @@ void FrustumSphereTest15(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest16(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19805,7 +19805,7 @@ void FrustumSphereTest16(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest17(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19821,7 +19821,7 @@ void FrustumSphereTest17(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest18(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19837,7 +19837,7 @@ void FrustumSphereTest18(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest19(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19853,7 +19853,7 @@ void FrustumSphereTest19(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest20(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19869,7 +19869,7 @@ void FrustumSphereTest20(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest21(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19885,7 +19885,7 @@ void FrustumSphereTest21(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest22(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19901,7 +19901,7 @@ void FrustumSphereTest22(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest23(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19917,7 +19917,7 @@ void FrustumSphereTest23(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest24(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19933,7 +19933,7 @@ void FrustumSphereTest24(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest25(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19949,7 +19949,7 @@ void FrustumSphereTest25(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest26(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19965,7 +19965,7 @@ void FrustumSphereTest26(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest27(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19981,7 +19981,7 @@ void FrustumSphereTest27(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest28(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -19997,7 +19997,7 @@ void FrustumSphereTest28(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest29(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20013,7 +20013,7 @@ void FrustumSphereTest29(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest30(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20029,7 +20029,7 @@ void FrustumSphereTest30(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest31(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20045,7 +20045,7 @@ void FrustumSphereTest31(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest32(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20061,7 +20061,7 @@ void FrustumSphereTest32(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest33(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20077,7 +20077,7 @@ void FrustumSphereTest33(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest34(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20093,7 +20093,7 @@ void FrustumSphereTest34(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest35(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20109,7 +20109,7 @@ void FrustumSphereTest35(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest36(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20125,7 +20125,7 @@ void FrustumSphereTest36(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest37(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20141,7 +20141,7 @@ void FrustumSphereTest37(const std::string& testName, int debuggingIndex,
 
 // Sphere inside of frustum.
 void FrustumSphereTest38(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20157,7 +20157,7 @@ void FrustumSphereTest38(const std::string& testName, int debuggingIndex,
 
 // Sphere on right of frustum.
 void FrustumSphereTest39(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20173,7 +20173,7 @@ void FrustumSphereTest39(const std::string& testName, int debuggingIndex,
 
 // Sphere on left of frustum.
 void FrustumSphereTest40(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20189,7 +20189,7 @@ void FrustumSphereTest40(const std::string& testName, int debuggingIndex,
 
 // Sphere on top of frustum.
 void FrustumSphereTest41(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20205,7 +20205,7 @@ void FrustumSphereTest41(const std::string& testName, int debuggingIndex,
 
 // Sphere on bottom of frustum.
 void FrustumSphereTest42(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20221,7 +20221,7 @@ void FrustumSphereTest42(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of frustum.
 void FrustumSphereTest43(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20237,7 +20237,7 @@ void FrustumSphereTest43(const std::string& testName, int debuggingIndex,
 
 // Sphere behind frustum.
 void FrustumSphereTest44(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20253,7 +20253,7 @@ void FrustumSphereTest44(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting right side of frustum.
 void FrustumSphereTest45(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20269,7 +20269,7 @@ void FrustumSphereTest45(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting left side of frustum.
 void FrustumSphereTest46(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20285,7 +20285,7 @@ void FrustumSphereTest46(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting top side of frustum.
 void FrustumSphereTest47(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20301,7 +20301,7 @@ void FrustumSphereTest47(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting bottom side of frustum.
 void FrustumSphereTest48(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20317,7 +20317,7 @@ void FrustumSphereTest48(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting front of frustum.
 void FrustumSphereTest49(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20333,7 +20333,7 @@ void FrustumSphereTest49(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting back of frustum.
 void FrustumSphereTest50(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20349,7 +20349,7 @@ void FrustumSphereTest50(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest51(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20365,7 +20365,7 @@ void FrustumSphereTest51(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest52(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20381,7 +20381,7 @@ void FrustumSphereTest52(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest53(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20397,7 +20397,7 @@ void FrustumSphereTest53(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest54(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20413,7 +20413,7 @@ void FrustumSphereTest54(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest55(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20429,7 +20429,7 @@ void FrustumSphereTest55(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest56(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20445,7 +20445,7 @@ void FrustumSphereTest56(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest57(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20461,7 +20461,7 @@ void FrustumSphereTest57(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest58(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20477,7 +20477,7 @@ void FrustumSphereTest58(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest59(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20493,7 +20493,7 @@ void FrustumSphereTest59(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest60(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20509,7 +20509,7 @@ void FrustumSphereTest60(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest61(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20525,7 +20525,7 @@ void FrustumSphereTest61(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest62(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20541,7 +20541,7 @@ void FrustumSphereTest62(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest63(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20557,7 +20557,7 @@ void FrustumSphereTest63(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest64(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20573,7 +20573,7 @@ void FrustumSphereTest64(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest65(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20589,7 +20589,7 @@ void FrustumSphereTest65(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest66(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20605,7 +20605,7 @@ void FrustumSphereTest66(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest67(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20621,7 +20621,7 @@ void FrustumSphereTest67(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest68(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20637,7 +20637,7 @@ void FrustumSphereTest68(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest69(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20653,7 +20653,7 @@ void FrustumSphereTest69(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest70(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20669,7 +20669,7 @@ void FrustumSphereTest70(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest71(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20685,7 +20685,7 @@ void FrustumSphereTest71(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest72(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20701,7 +20701,7 @@ void FrustumSphereTest72(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest73(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20717,7 +20717,7 @@ void FrustumSphereTest73(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest74(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20733,7 +20733,7 @@ void FrustumSphereTest74(const std::string& testName, int debuggingIndex,
 
 // Sphere inside of frustum.
 void FrustumSphereTest75(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20749,7 +20749,7 @@ void FrustumSphereTest75(const std::string& testName, int debuggingIndex,
 
 // Sphere on right of frustum.
 void FrustumSphereTest76(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20765,7 +20765,7 @@ void FrustumSphereTest76(const std::string& testName, int debuggingIndex,
 
 // Sphere on left of frustum.
 void FrustumSphereTest77(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20781,7 +20781,7 @@ void FrustumSphereTest77(const std::string& testName, int debuggingIndex,
 
 // Sphere on top of frustum.
 void FrustumSphereTest78(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20797,7 +20797,7 @@ void FrustumSphereTest78(const std::string& testName, int debuggingIndex,
 
 // Sphere on bottom of frustum.
 void FrustumSphereTest79(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20813,7 +20813,7 @@ void FrustumSphereTest79(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of frustum.
 void FrustumSphereTest80(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20829,7 +20829,7 @@ void FrustumSphereTest80(const std::string& testName, int debuggingIndex,
 
 // Sphere behind frustum.
 void FrustumSphereTest81(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20845,7 +20845,7 @@ void FrustumSphereTest81(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting right side of frustum.
 void FrustumSphereTest82(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20861,7 +20861,7 @@ void FrustumSphereTest82(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting left side of frustum.
 void FrustumSphereTest83(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20877,7 +20877,7 @@ void FrustumSphereTest83(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting top side of frustum.
 void FrustumSphereTest84(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20893,7 +20893,7 @@ void FrustumSphereTest84(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting bottom side of frustum.
 void FrustumSphereTest85(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20909,7 +20909,7 @@ void FrustumSphereTest85(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting front of frustum.
 void FrustumSphereTest86(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20925,7 +20925,7 @@ void FrustumSphereTest86(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting back of frustum.
 void FrustumSphereTest87(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20941,7 +20941,7 @@ void FrustumSphereTest87(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest88(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20957,7 +20957,7 @@ void FrustumSphereTest88(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest89(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20973,7 +20973,7 @@ void FrustumSphereTest89(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest90(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -20989,7 +20989,7 @@ void FrustumSphereTest90(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest91(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21005,7 +21005,7 @@ void FrustumSphereTest91(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest92(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21021,7 +21021,7 @@ void FrustumSphereTest92(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest93(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21037,7 +21037,7 @@ void FrustumSphereTest93(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest94(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21053,7 +21053,7 @@ void FrustumSphereTest94(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest95(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21069,7 +21069,7 @@ void FrustumSphereTest95(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest96(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21085,7 +21085,7 @@ void FrustumSphereTest96(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest97(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21101,7 +21101,7 @@ void FrustumSphereTest97(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest98(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21117,7 +21117,7 @@ void FrustumSphereTest98(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest99(const std::string& testName, int debuggingIndex,
-                         FILE* file = NULL)
+                         FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21133,7 +21133,7 @@ void FrustumSphereTest99(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest100(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21149,7 +21149,7 @@ void FrustumSphereTest100(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest101(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21165,7 +21165,7 @@ void FrustumSphereTest101(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest102(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21181,7 +21181,7 @@ void FrustumSphereTest102(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest103(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21197,7 +21197,7 @@ void FrustumSphereTest103(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest104(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21213,7 +21213,7 @@ void FrustumSphereTest104(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest105(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21229,7 +21229,7 @@ void FrustumSphereTest105(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest106(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21245,7 +21245,7 @@ void FrustumSphereTest106(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest107(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21261,7 +21261,7 @@ void FrustumSphereTest107(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest108(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21277,7 +21277,7 @@ void FrustumSphereTest108(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest109(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21293,7 +21293,7 @@ void FrustumSphereTest109(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest110(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21309,7 +21309,7 @@ void FrustumSphereTest110(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest111(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21325,7 +21325,7 @@ void FrustumSphereTest111(const std::string& testName, int debuggingIndex,
 
 // Sphere inside of frustum.
 void FrustumSphereTest112(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21342,7 +21342,7 @@ void FrustumSphereTest112(const std::string& testName, int debuggingIndex,
 
 // Sphere on right of frustum.
 void FrustumSphereTest113(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21359,7 +21359,7 @@ void FrustumSphereTest113(const std::string& testName, int debuggingIndex,
 
 // Sphere on left of frustum.
 void FrustumSphereTest114(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21376,7 +21376,7 @@ void FrustumSphereTest114(const std::string& testName, int debuggingIndex,
 
 // Sphere on top of frustum.
 void FrustumSphereTest115(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21393,7 +21393,7 @@ void FrustumSphereTest115(const std::string& testName, int debuggingIndex,
 
 // Sphere on bottom of frustum.
 void FrustumSphereTest116(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21410,7 +21410,7 @@ void FrustumSphereTest116(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of frustum.
 void FrustumSphereTest117(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21427,7 +21427,7 @@ void FrustumSphereTest117(const std::string& testName, int debuggingIndex,
 
 // Sphere behind frustum.
 void FrustumSphereTest118(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21444,7 +21444,7 @@ void FrustumSphereTest118(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting right side of frustum.
 void FrustumSphereTest119(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21461,7 +21461,7 @@ void FrustumSphereTest119(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting left side of frustum.
 void FrustumSphereTest120(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21478,7 +21478,7 @@ void FrustumSphereTest120(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting top side of frustum.
 void FrustumSphereTest121(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21495,7 +21495,7 @@ void FrustumSphereTest121(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting bottom side of frustum.
 void FrustumSphereTest122(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21512,7 +21512,7 @@ void FrustumSphereTest122(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting front of frustum.
 void FrustumSphereTest123(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21529,7 +21529,7 @@ void FrustumSphereTest123(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting back of frustum.
 void FrustumSphereTest124(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21546,7 +21546,7 @@ void FrustumSphereTest124(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest125(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21563,7 +21563,7 @@ void FrustumSphereTest125(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest126(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21580,7 +21580,7 @@ void FrustumSphereTest126(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest127(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21597,7 +21597,7 @@ void FrustumSphereTest127(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest128(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21614,7 +21614,7 @@ void FrustumSphereTest128(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest129(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21631,7 +21631,7 @@ void FrustumSphereTest129(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest130(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21648,7 +21648,7 @@ void FrustumSphereTest130(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest131(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21665,7 +21665,7 @@ void FrustumSphereTest131(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest132(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21682,7 +21682,7 @@ void FrustumSphereTest132(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest133(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21699,7 +21699,7 @@ void FrustumSphereTest133(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest134(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21716,7 +21716,7 @@ void FrustumSphereTest134(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest135(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21733,7 +21733,7 @@ void FrustumSphereTest135(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest136(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21750,7 +21750,7 @@ void FrustumSphereTest136(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest137(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21767,7 +21767,7 @@ void FrustumSphereTest137(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest138(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21784,7 +21784,7 @@ void FrustumSphereTest138(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest139(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21801,7 +21801,7 @@ void FrustumSphereTest139(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest140(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21818,7 +21818,7 @@ void FrustumSphereTest140(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest141(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21835,7 +21835,7 @@ void FrustumSphereTest141(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest142(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21852,7 +21852,7 @@ void FrustumSphereTest142(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest143(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21869,7 +21869,7 @@ void FrustumSphereTest143(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest144(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21886,7 +21886,7 @@ void FrustumSphereTest144(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest145(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21903,7 +21903,7 @@ void FrustumSphereTest145(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest146(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21920,7 +21920,7 @@ void FrustumSphereTest146(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest147(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21937,7 +21937,7 @@ void FrustumSphereTest147(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest148(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21954,7 +21954,7 @@ void FrustumSphereTest148(const std::string& testName, int debuggingIndex,
 
 // Sphere inside of frustum.
 void FrustumSphereTest149(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21973,7 +21973,7 @@ void FrustumSphereTest149(const std::string& testName, int debuggingIndex,
 
 // Sphere on right of frustum.
 void FrustumSphereTest150(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -21992,7 +21992,7 @@ void FrustumSphereTest150(const std::string& testName, int debuggingIndex,
 
 // Sphere on left of frustum.
 void FrustumSphereTest151(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22011,7 +22011,7 @@ void FrustumSphereTest151(const std::string& testName, int debuggingIndex,
 
 // Sphere on top of frustum.
 void FrustumSphereTest152(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22030,7 +22030,7 @@ void FrustumSphereTest152(const std::string& testName, int debuggingIndex,
 
 // Sphere on bottom of frustum.
 void FrustumSphereTest153(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22049,7 +22049,7 @@ void FrustumSphereTest153(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of frustum.
 void FrustumSphereTest154(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22068,7 +22068,7 @@ void FrustumSphereTest154(const std::string& testName, int debuggingIndex,
 
 // Sphere behind frustum.
 void FrustumSphereTest155(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22087,7 +22087,7 @@ void FrustumSphereTest155(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting right side of frustum.
 void FrustumSphereTest156(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22106,7 +22106,7 @@ void FrustumSphereTest156(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting left side of frustum.
 void FrustumSphereTest157(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22125,7 +22125,7 @@ void FrustumSphereTest157(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting top side of frustum.
 void FrustumSphereTest158(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22144,7 +22144,7 @@ void FrustumSphereTest158(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting bottom side of frustum.
 void FrustumSphereTest159(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22163,7 +22163,7 @@ void FrustumSphereTest159(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting front of frustum.
 void FrustumSphereTest160(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22182,7 +22182,7 @@ void FrustumSphereTest160(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting back of frustum.
 void FrustumSphereTest161(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22201,7 +22201,7 @@ void FrustumSphereTest161(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest162(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22220,7 +22220,7 @@ void FrustumSphereTest162(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest163(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22239,7 +22239,7 @@ void FrustumSphereTest163(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest164(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22258,7 +22258,7 @@ void FrustumSphereTest164(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest165(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22277,7 +22277,7 @@ void FrustumSphereTest165(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest166(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22296,7 +22296,7 @@ void FrustumSphereTest166(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest167(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22315,7 +22315,7 @@ void FrustumSphereTest167(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest168(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22334,7 +22334,7 @@ void FrustumSphereTest168(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest169(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22353,7 +22353,7 @@ void FrustumSphereTest169(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest170(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22372,7 +22372,7 @@ void FrustumSphereTest170(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest171(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22391,7 +22391,7 @@ void FrustumSphereTest171(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest172(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22410,7 +22410,7 @@ void FrustumSphereTest172(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest173(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22429,7 +22429,7 @@ void FrustumSphereTest173(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest174(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22448,7 +22448,7 @@ void FrustumSphereTest174(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest175(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22467,7 +22467,7 @@ void FrustumSphereTest175(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest176(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22486,7 +22486,7 @@ void FrustumSphereTest176(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest177(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22505,7 +22505,7 @@ void FrustumSphereTest177(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest178(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22524,7 +22524,7 @@ void FrustumSphereTest178(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest179(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22543,7 +22543,7 @@ void FrustumSphereTest179(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest180(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22562,7 +22562,7 @@ void FrustumSphereTest180(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest181(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22581,7 +22581,7 @@ void FrustumSphereTest181(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest182(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22600,7 +22600,7 @@ void FrustumSphereTest182(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest183(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22619,7 +22619,7 @@ void FrustumSphereTest183(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest184(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22638,7 +22638,7 @@ void FrustumSphereTest184(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest185(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22657,7 +22657,7 @@ void FrustumSphereTest185(const std::string& testName, int debuggingIndex,
 
 // Sphere inside of frustum.
 void FrustumSphereTest186(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22676,7 +22676,7 @@ void FrustumSphereTest186(const std::string& testName, int debuggingIndex,
 
 // Sphere on right of frustum.
 void FrustumSphereTest187(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22695,7 +22695,7 @@ void FrustumSphereTest187(const std::string& testName, int debuggingIndex,
 
 // Sphere on left of frustum.
 void FrustumSphereTest188(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22714,7 +22714,7 @@ void FrustumSphereTest188(const std::string& testName, int debuggingIndex,
 
 // Sphere on top of frustum.
 void FrustumSphereTest189(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22733,7 +22733,7 @@ void FrustumSphereTest189(const std::string& testName, int debuggingIndex,
 
 // Sphere on bottom of frustum.
 void FrustumSphereTest190(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22752,7 +22752,7 @@ void FrustumSphereTest190(const std::string& testName, int debuggingIndex,
 
 // Sphere in front of frustum.
 void FrustumSphereTest191(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22771,7 +22771,7 @@ void FrustumSphereTest191(const std::string& testName, int debuggingIndex,
 
 // Sphere behind frustum.
 void FrustumSphereTest192(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22790,7 +22790,7 @@ void FrustumSphereTest192(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting right side of frustum.
 void FrustumSphereTest193(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22809,7 +22809,7 @@ void FrustumSphereTest193(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting left side of frustum.
 void FrustumSphereTest194(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22828,7 +22828,7 @@ void FrustumSphereTest194(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting top side of frustum.
 void FrustumSphereTest195(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22847,7 +22847,7 @@ void FrustumSphereTest195(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting bottom side of frustum.
 void FrustumSphereTest196(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22866,7 +22866,7 @@ void FrustumSphereTest196(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting front of frustum.
 void FrustumSphereTest197(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22885,7 +22885,7 @@ void FrustumSphereTest197(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting back of frustum.
 void FrustumSphereTest198(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22904,7 +22904,7 @@ void FrustumSphereTest198(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest199(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22923,7 +22923,7 @@ void FrustumSphereTest199(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest200(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22942,7 +22942,7 @@ void FrustumSphereTest200(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest201(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22961,7 +22961,7 @@ void FrustumSphereTest201(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest202(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22980,7 +22980,7 @@ void FrustumSphereTest202(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest203(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -22999,7 +22999,7 @@ void FrustumSphereTest203(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest204(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23018,7 +23018,7 @@ void FrustumSphereTest204(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest205(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23037,7 +23037,7 @@ void FrustumSphereTest205(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest206(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23056,7 +23056,7 @@ void FrustumSphereTest206(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest207(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23075,7 +23075,7 @@ void FrustumSphereTest207(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest208(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23094,7 +23094,7 @@ void FrustumSphereTest208(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest209(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23113,7 +23113,7 @@ void FrustumSphereTest209(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest210(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23132,7 +23132,7 @@ void FrustumSphereTest210(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest211(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23151,7 +23151,7 @@ void FrustumSphereTest211(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest212(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23170,7 +23170,7 @@ void FrustumSphereTest212(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest213(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23189,7 +23189,7 @@ void FrustumSphereTest213(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest214(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23208,7 +23208,7 @@ void FrustumSphereTest214(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest215(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23227,7 +23227,7 @@ void FrustumSphereTest215(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest216(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23246,7 +23246,7 @@ void FrustumSphereTest216(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest217(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23265,7 +23265,7 @@ void FrustumSphereTest217(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest218(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23284,7 +23284,7 @@ void FrustumSphereTest218(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest219(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23303,7 +23303,7 @@ void FrustumSphereTest219(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest220(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23322,7 +23322,7 @@ void FrustumSphereTest220(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest221(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23341,7 +23341,7 @@ void FrustumSphereTest221(const std::string& testName, int debuggingIndex,
 
 // Sphere intersecting one plane but outside another.
 void FrustumSphereTest222(const std::string& testName, int debuggingIndex,
-                          FILE* file = NULL)
+                          FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23360,7 +23360,7 @@ void FrustumSphereTest222(const std::string& testName, int debuggingIndex,
 
 // Spheres separating
 void SphereSphereTest1(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23372,7 +23372,7 @@ void SphereSphereTest1(const std::string& testName, int debuggingIndex,
 
 // Spheres separating
 void SphereSphereTest2(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23384,7 +23384,7 @@ void SphereSphereTest2(const std::string& testName, int debuggingIndex,
 
 // Spheres just touching
 void SphereSphereTest3(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23396,7 +23396,7 @@ void SphereSphereTest3(const std::string& testName, int debuggingIndex,
 
 // Spheres overlapping a bit
 void SphereSphereTest4(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23408,7 +23408,7 @@ void SphereSphereTest4(const std::string& testName, int debuggingIndex,
 
 // Spheres at the same center
 void SphereSphereTest5(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23420,7 +23420,7 @@ void SphereSphereTest5(const std::string& testName, int debuggingIndex,
 
 // Spheres separating
 void SphereSphereTest6(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23432,7 +23432,7 @@ void SphereSphereTest6(const std::string& testName, int debuggingIndex,
 
 // Spheres separating
 void SphereSphereTest7(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23444,7 +23444,7 @@ void SphereSphereTest7(const std::string& testName, int debuggingIndex,
 
 // Spheres just touching
 void SphereSphereTest8(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23456,7 +23456,7 @@ void SphereSphereTest8(const std::string& testName, int debuggingIndex,
 
 // Spheres overlapping a bit
 void SphereSphereTest9(const std::string& testName, int debuggingIndex,
-                       FILE* file = NULL)
+                       FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23468,7 +23468,7 @@ void SphereSphereTest9(const std::string& testName, int debuggingIndex,
 
 // Spheres at the same center
 void SphereSphereTest10(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23480,7 +23480,7 @@ void SphereSphereTest10(const std::string& testName, int debuggingIndex,
 
 // Spheres separating
 void SphereSphereTest11(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23492,7 +23492,7 @@ void SphereSphereTest11(const std::string& testName, int debuggingIndex,
 
 // Spheres separating
 void SphereSphereTest12(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23504,7 +23504,7 @@ void SphereSphereTest12(const std::string& testName, int debuggingIndex,
 
 // Spheres just touching
 void SphereSphereTest13(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23516,7 +23516,7 @@ void SphereSphereTest13(const std::string& testName, int debuggingIndex,
 
 // Spheres overlapping a bit
 void SphereSphereTest14(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23528,7 +23528,7 @@ void SphereSphereTest14(const std::string& testName, int debuggingIndex,
 
 // Spheres at the same center
 void SphereSphereTest15(const std::string& testName, int debuggingIndex,
-                        FILE* file = NULL)
+                        FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23540,7 +23540,7 @@ void SphereSphereTest15(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest1(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23552,7 +23552,7 @@ void AabbAabbTest1(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest2(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23564,7 +23564,7 @@ void AabbAabbTest2(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest3(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23576,7 +23576,7 @@ void AabbAabbTest3(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest4(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23588,7 +23588,7 @@ void AabbAabbTest4(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest5(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23600,7 +23600,7 @@ void AabbAabbTest5(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest6(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23612,7 +23612,7 @@ void AabbAabbTest6(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest7(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23624,7 +23624,7 @@ void AabbAabbTest7(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest8(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23636,7 +23636,7 @@ void AabbAabbTest8(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest9(const std::string& testName, int debuggingIndex,
-                   FILE* file = NULL)
+                   FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23648,7 +23648,7 @@ void AabbAabbTest9(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest10(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23660,7 +23660,7 @@ void AabbAabbTest10(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest11(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23672,7 +23672,7 @@ void AabbAabbTest11(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest12(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23684,7 +23684,7 @@ void AabbAabbTest12(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest13(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23696,7 +23696,7 @@ void AabbAabbTest13(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest14(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23708,7 +23708,7 @@ void AabbAabbTest14(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest15(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23720,7 +23720,7 @@ void AabbAabbTest15(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest16(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23732,7 +23732,7 @@ void AabbAabbTest16(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest17(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23744,7 +23744,7 @@ void AabbAabbTest17(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest18(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23756,7 +23756,7 @@ void AabbAabbTest18(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest19(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23768,7 +23768,7 @@ void AabbAabbTest19(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest20(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23780,7 +23780,7 @@ void AabbAabbTest20(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest21(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23792,7 +23792,7 @@ void AabbAabbTest21(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest22(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23804,7 +23804,7 @@ void AabbAabbTest22(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest23(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23816,7 +23816,7 @@ void AabbAabbTest23(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest24(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23830,7 +23830,7 @@ void AabbAabbTest24(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest25(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23844,7 +23844,7 @@ void AabbAabbTest25(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest26(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23856,7 +23856,7 @@ void AabbAabbTest26(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest27(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23868,7 +23868,7 @@ void AabbAabbTest27(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest28(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23880,7 +23880,7 @@ void AabbAabbTest28(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest29(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23892,7 +23892,7 @@ void AabbAabbTest29(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest30(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23904,7 +23904,7 @@ void AabbAabbTest30(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest31(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23918,7 +23918,7 @@ void AabbAabbTest31(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest32(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23932,7 +23932,7 @@ void AabbAabbTest32(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest33(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23944,7 +23944,7 @@ void AabbAabbTest33(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest34(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23956,7 +23956,7 @@ void AabbAabbTest34(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest35(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23968,7 +23968,7 @@ void AabbAabbTest35(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest36(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23980,7 +23980,7 @@ void AabbAabbTest36(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest37(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -23992,7 +23992,7 @@ void AabbAabbTest37(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest38(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24006,7 +24006,7 @@ void AabbAabbTest38(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest39(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24020,7 +24020,7 @@ void AabbAabbTest39(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest40(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24032,7 +24032,7 @@ void AabbAabbTest40(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest41(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24044,7 +24044,7 @@ void AabbAabbTest41(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest42(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24056,7 +24056,7 @@ void AabbAabbTest42(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest43(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24068,7 +24068,7 @@ void AabbAabbTest43(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest44(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24080,7 +24080,7 @@ void AabbAabbTest44(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest45(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24092,7 +24092,7 @@ void AabbAabbTest45(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest46(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24104,7 +24104,7 @@ void AabbAabbTest46(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest47(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24116,7 +24116,7 @@ void AabbAabbTest47(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest48(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24128,7 +24128,7 @@ void AabbAabbTest48(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest49(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24140,7 +24140,7 @@ void AabbAabbTest49(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest50(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24152,7 +24152,7 @@ void AabbAabbTest50(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest51(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24164,7 +24164,7 @@ void AabbAabbTest51(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest52(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24176,7 +24176,7 @@ void AabbAabbTest52(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest53(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24188,7 +24188,7 @@ void AabbAabbTest53(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest54(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24200,7 +24200,7 @@ void AabbAabbTest54(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest55(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24212,7 +24212,7 @@ void AabbAabbTest55(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest56(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24224,7 +24224,7 @@ void AabbAabbTest56(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest57(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24236,7 +24236,7 @@ void AabbAabbTest57(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest58(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24248,7 +24248,7 @@ void AabbAabbTest58(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest59(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24260,7 +24260,7 @@ void AabbAabbTest59(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest60(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24272,7 +24272,7 @@ void AabbAabbTest60(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest61(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24284,7 +24284,7 @@ void AabbAabbTest61(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest62(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24296,7 +24296,7 @@ void AabbAabbTest62(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest63(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24308,7 +24308,7 @@ void AabbAabbTest63(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest64(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24320,7 +24320,7 @@ void AabbAabbTest64(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest65(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24332,7 +24332,7 @@ void AabbAabbTest65(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest66(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24346,7 +24346,7 @@ void AabbAabbTest66(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest67(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24360,7 +24360,7 @@ void AabbAabbTest67(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest68(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24372,7 +24372,7 @@ void AabbAabbTest68(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest69(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24384,7 +24384,7 @@ void AabbAabbTest69(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest70(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24396,7 +24396,7 @@ void AabbAabbTest70(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest71(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24408,7 +24408,7 @@ void AabbAabbTest71(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest72(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24420,7 +24420,7 @@ void AabbAabbTest72(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest73(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24432,7 +24432,7 @@ void AabbAabbTest73(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest74(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24444,7 +24444,7 @@ void AabbAabbTest74(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest75(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24456,7 +24456,7 @@ void AabbAabbTest75(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest76(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24468,7 +24468,7 @@ void AabbAabbTest76(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest77(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24480,7 +24480,7 @@ void AabbAabbTest77(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb0 behind aabb1)
 void AabbAabbTest78(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24492,7 +24492,7 @@ void AabbAabbTest78(const std::string& testName, int debuggingIndex,
 
 // Aabbs separating (with aabb1 behind aabb0)
 void AabbAabbTest79(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24504,7 +24504,7 @@ void AabbAabbTest79(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb0 behind aabb1)
 void AabbAabbTest80(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24516,7 +24516,7 @@ void AabbAabbTest80(const std::string& testName, int debuggingIndex,
 
 // Aabbs just touching (with aabb1 behind aabb0)
 void AabbAabbTest81(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24528,7 +24528,7 @@ void AabbAabbTest81(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb0 behind aabb1)
 void AabbAabbTest82(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24540,7 +24540,7 @@ void AabbAabbTest82(const std::string& testName, int debuggingIndex,
 
 // Aabbs overlapping (with aabb1 behind aabb0)
 void AabbAabbTest83(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 
@@ -24552,7 +24552,7 @@ void AabbAabbTest83(const std::string& testName, int debuggingIndex,
 
 // Aabbs at the same center
 void AabbAabbTest84(const std::string& testName, int debuggingIndex,
-                    FILE* file = NULL)
+                    FILE* file = nullptr)
 {
     PrintTestHeader(file, testName);
 

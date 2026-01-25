@@ -24,7 +24,9 @@ class Application;
 class Level
 {
 public:
-    virtual ~Level() {};
+    virtual ~Level()
+    {
+    };
     virtual void Load(Application* application) = 0;
     virtual std::string GetName() const = 0;
 };
@@ -90,7 +92,7 @@ public:
     void LoadDataFiles();
     void LoadMeshes();
 
-    Ray GetRayFromScreenCoords(const Math::Vector2& screenPos);
+    Ray GetRayFromScreenCoords(const Vector2& screenPos);
 
     // This function gets called every frame
     void Update(float frameTime);
@@ -117,7 +119,7 @@ public:
 
     GameObject* CreateObject(const std::string& name, Mesh* mesh,
                              const Vector3& scale,
-                             const Math::Quaternion& rotation,
+                             const Quaternion& rotation,
                              const Vector3& translation);
     GameObject* CreateEmptyObject(const std::string& name);
 
@@ -151,7 +153,6 @@ public:
     void OnMouseScroll(int x, int y);
     void OnCreateCube();
 
-private:
 public:
     std::vector<GameObject*> mGameObjects;
 
@@ -176,8 +177,8 @@ public:
     bool mDragging;
     bool mMouseDown;
     bool mRefineCasts;
-    Math::Vector2 mStart;
-    Math::Vector2 mEnd;
+    Vector2 mStart;
+    Vector2 mEnd;
 
     std::vector<Mesh*> mMeshes;
     std::vector<Gizmo*> mGizmos;

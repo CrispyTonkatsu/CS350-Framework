@@ -18,7 +18,7 @@
 Model::Model()
 {
     mOverlap = 0;
-    mMidPhase = NULL;
+    mMidPhase = nullptr;
     mMidphaseDrawLevel = 0;
 }
 
@@ -94,9 +94,9 @@ void Model::UpdateAabb()
 
     Transform* transform = mOwner->has(Transform);
 
-    Math::Matrix3 rotation = Math::ToMatrix3(transform->mRotation);
-    Math::Vector3 scale = transform->mScale;
-    Math::Vector3 translation = transform->mTranslation;
+    Matrix3 rotation = Math::ToMatrix3(transform->mRotation);
+    Vector3 scale = transform->mScale;
+    Vector3 translation = transform->mTranslation;
 
     mAabb.Transform(scale, rotation, translation);
 }
@@ -146,12 +146,12 @@ bool Model::CastRayMidphase(const Ray& localRay, CastResult& castInfo)
 
 bool Model::CastRay(const Ray& worldRay, CastResult& castInfo)
 {
-    Math::Matrix4 toWorldMat = mOwner->has(Transform)->GetTransform();
-    Math::Matrix4 toLocalMat = toWorldMat.Inverted();
+    Matrix4 toWorldMat = mOwner->has(Transform)->GetTransform();
+    Matrix4 toLocalMat = toWorldMat.Inverted();
 
     Ray localRay = worldRay.Transform(toLocalMat);
 
-    if (mMidPhase != NULL)
+    if (mMidPhase != nullptr)
         return CastRayMidphase(worldRay, castInfo);
 
     float minT = Math::PositiveMax();
@@ -170,7 +170,7 @@ bool Model::CastRay(const Ray& worldRay, CastResult& castInfo)
 
 void Model::SetMidPhase(SpatialPartition* midPhase)
 {
-    if (mMidPhase != NULL)
+    if (mMidPhase != nullptr)
         delete mMidPhase;
 
     mMidPhase = midPhase;
@@ -247,8 +247,8 @@ void Model::Draw()
 
 void Model::DrawTriangle(Triangle& tri)
 {
-    Math::Vector3 normal = Math::Cross(tri.mPoints[1] - tri.mPoints[0],
-                                       tri.mPoints[2] - tri.mPoints[0]);
+    Vector3 normal = Math::Cross(tri.mPoints[1] - tri.mPoints[0],
+                                 tri.mPoints[2] - tri.mPoints[0]);
     normal.AttemptNormalize();
 
     glNormal3f(normal.x, normal.y, normal.z);
@@ -259,7 +259,7 @@ void Model::DrawTriangle(Triangle& tri)
 std::vector<Triangle> Model::GetWorldTriangles()
 {
     std::vector<Triangle> results;
-    Math::Matrix4 worldMat = mOwner->has(Transform)->GetTransform();
+    Matrix4 worldMat = mOwner->has(Transform)->GetTransform();
     for (size_t i = 0; i < mMesh->mIndices.size(); i += 3)
     {
         Vector3 p0 = Math::TransformPoint(
@@ -283,7 +283,7 @@ void Model::SetWorldTriangles(const std::vector<Triangle>& tris)
     mMesh->mDynamic = true;
     mMesh->mType = -1;
 
-    Math::Matrix4 localMat = mOwner->has(Transform)->GetTransform().Inverted();
+    Matrix4 localMat = mOwner->has(Transform)->GetTransform().Inverted();
 
     mMesh->mIndices.clear();
     mMesh->mVertices.clear();

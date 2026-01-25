@@ -77,17 +77,27 @@ class Component
 public:
     virtual const char* GetName() = 0;
     // Some time has passed, run update logic if desired.
-    virtual void Update(float dt) {};
+    virtual void Update(float dt)
+    {
+    };
     // This object has been moved (by anttweakbar or the simple mover for
     // example). The flags specify what was changed in case special logic is
     // needed.
-    virtual void TransformUpdate(TransformUpdateFlags::Enum flags) {};
+    virtual void TransformUpdate(TransformUpdateFlags::Enum flags)
+    {
+    };
     // Add any debug drawing if desired.
-    virtual void DebugDraw() {}
+    virtual void DebugDraw()
+    {
+    }
 
-    virtual void DisplayProperties(TwBar* bar) {};
+    virtual void DisplayProperties(TwBar* bar)
+    {
+    };
 
-    virtual void ProcessKeyboardInput(unsigned int key, int x, int y) {};
+    virtual void ProcessKeyboardInput(unsigned int key, int x, int y)
+    {
+    };
 
     GameObject* mOwner = nullptr;
 };
@@ -142,14 +152,14 @@ public:
 
 // Generic Implementation of looking up a component by name
 template <typename ComponentType>
-inline ComponentType* GameObject::QueryComponentType(const std::string& name)
+ComponentType* GameObject::QueryComponentType(const std::string& name)
 {
     for (size_t i = 0; i < mGameplayComponents.size(); ++i)
     {
         if (mGameplayComponents->GetName() == name)
             return mGameplayComponents;
     }
-    return NULL;
+    return nullptr;
 }
 
 // Transform is statically composited

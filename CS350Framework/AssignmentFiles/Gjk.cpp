@@ -157,7 +157,9 @@ Vector3& searchDirection)
     return VoronoiRegion::Unknown;
 }
 
-Gjk::Gjk() {}
+Gjk::Gjk()
+{
+}
 
 bool Gjk::Intersect(const SupportShape* shapeA, const SupportShape* shapeB,
                     unsigned int maxIterations, CsoPoint& closestPoint,

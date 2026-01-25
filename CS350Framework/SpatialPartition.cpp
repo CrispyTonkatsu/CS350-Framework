@@ -11,10 +11,10 @@
 #include "Precompiled.hpp"
 
 //-----------------------------------------------------------------------------SpatialPartitionKey
-SpatialPartitionKey::SpatialPartitionKey() { mVoidKey = NULL; }
+SpatialPartitionKey::SpatialPartitionKey() { mVoidKey = nullptr; }
 
 //-----------------------------------------------------------------------------SpatialPartitionData
-SpatialPartitionData::SpatialPartitionData() { mClientData = NULL; }
+SpatialPartitionData::SpatialPartitionData() { mClientData = nullptr; }
 
 SpatialPartitionData::SpatialPartitionData(void* clientData, const Aabb& aabb)
 {

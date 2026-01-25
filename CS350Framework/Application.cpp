@@ -15,10 +15,10 @@ class Level1 : public Level
     void Load(Application* application) override
     {
         application->CreateObject("Cube1", application->mMeshes[0],
-                                  Vector3(1.0f), Math::Quaternion::cIdentity,
+                                  Vector3(1.0f), Quaternion::cIdentity,
                                   Vector3(0.5f, 0.5f, 0));
         application->CreateObject("Cube2", application->mMeshes[0],
-                                  Vector3(1.0f), Math::Quaternion::cIdentity,
+                                  Vector3(1.0f), Quaternion::cIdentity,
                                   Vector3(0, -0.5f, 0));
     }
 
@@ -46,7 +46,9 @@ class BigLevel : public Level
 
                     std::string objName = "Cube" + std::to_string(index);
 
-                    Vector3 translation((float)x, (float)y, (float)z);
+                    Vector3 translation(static_cast<float>(x),
+                                        static_cast<float>(y),
+                                        static_cast<float>(z));
                     translation *= 4 * scale;
                     application->CreateObject(objName, application->mMeshes[0],
                                               scale, rotation, translation);
@@ -251,7 +253,7 @@ Application::~Application()
 std::string Application::GetApplicationDirectory()
 {
     char temp[MAX_PATH + 1];
-    GetModuleFileName(NULL, temp, MAX_PATH);
+    GetModuleFileName(nullptr, temp, MAX_PATH);
     auto fileName = std::string(temp);
 
     size_t index = fileName.find_last_of('\\');
@@ -336,7 +338,7 @@ void Application::CreateCylinderMesh()
     mesh->mVertices[1] = Vector3(0, -height, 0);
     for (size_t i = 0; i < slices; ++i)
     {
-        float radians = Math::cTwoPi * (i / (float)slices);
+        float radians = Math::cTwoPi * (i / static_cast<float>(slices));
 
         float sin = Math::Sin(radians);
         float cos = Math::Cos(radians);
@@ -377,7 +379,7 @@ void Application::CreateCylinderMesh()
 void Application::LoadMesh(const std::string& path, const std::string& meshName,
                            const std::string& ext)
 {
-    const size_t bufferSize = 1000;
+    constexpr size_t bufferSize = 1000;
     char buffer[bufferSize];
     size_t size;
 
@@ -385,7 +387,7 @@ void Application::LoadMesh(const std::string& path, const std::string& meshName,
     std::string fileName = (path + "\\" + meshName + ext);
     FILE* file;
     fopen_s(&file, fileName.c_str(), "r");
-    if (file == NULL)
+    if (file == nullptr)
         return;
 
     do
@@ -463,7 +465,7 @@ void Application::LoadMeshes()
     mMeshTypesEnum = TwDefineEnumFromString("MeshType", meshTypes.c_str());
 }
 
-Ray Application::GetRayFromScreenCoords(const Math::Vector2& screenPos)
+Ray Application::GetRayFromScreenCoords(const Vector2& screenPos)
 {
     GLint viewport[4];
     GLdouble modelview[16];
@@ -473,7 +475,8 @@ Ray Application::GetRayFromScreenCoords(const Math::Vector2& screenPos)
     glGetDoublev(GL_PROJECTION_MATRIX, projection);
 
     GLfloat z_cursor;
-    glReadPixels((GLint)screenPos.x, (GLint)screenPos.y, 1, 1,
+    glReadPixels(static_cast<GLint>(screenPos.x),
+                 static_cast<GLint>(screenPos.y), 1, 1,
                  GL_DEPTH_COMPONENT, GL_FLOAT, &z_cursor);
 
     // obtain the world coordinates
@@ -485,7 +488,8 @@ Ray Application::GetRayFromScreenCoords(const Math::Vector2& screenPos)
     Ray ray;
     ray.mStart = mCamera.mTranslation;
     ray.mDirection =
-    Vector3((float)rayX, (float)rayY, (float)rayZ) - ray.mStart;
+    Vector3(static_cast<float>(rayX), static_cast<float>(rayY),
+            static_cast<float>(rayZ)) - ray.mStart;
     ray.mDirection.AttemptNormalize();
     return ray;
 }
@@ -507,12 +511,12 @@ void Application::Update(float frameTime)
 
     if (mDragging)
     {
-        Math::Vector2 min = Math::Min(mStart, mEnd);
-        Math::Vector2 max = Math::Max(mStart, mEnd);
+        Vector2 min = Math::Min(mStart, mEnd);
+        Vector2 max = Math::Max(mStart, mEnd);
 
         Ray bl = GetRayFromScreenCoords(min);
-        Ray br = GetRayFromScreenCoords(Math::Vector2(max.x, min.y));
-        Ray tl = GetRayFromScreenCoords(Math::Vector2(min.x, max.y));
+        Ray br = GetRayFromScreenCoords(Vector2(max.x, min.y));
+        Ray tl = GetRayFromScreenCoords(Vector2(min.x, max.y));
         Ray tr = GetRayFromScreenCoords(max);
 
         Vector3 nbl = bl.GetPoint(mCamera.mNearPlane);
@@ -551,9 +555,9 @@ void Application::Update(float frameTime)
             QueryResult& r1 = results.mResults[j];
 
             if ((r0.mClientData0 == r1.mClientData0 &&
-                 r0.mClientData1 == r1.mClientData1) ||
+                    r0.mClientData1 == r1.mClientData1) ||
                 (r0.mClientData0 == r1.mClientData1 &&
-                 r0.mClientData1 == r1.mClientData0))
+                    r0.mClientData1 == r1.mClientData0))
                 __debugbreak();
         }
     }
@@ -640,7 +644,7 @@ void Application::SetAssignmentNumber(const int& assignmentNumber)
     }
 }
 
-int Application::GetBroadphaseType() { return (int)mDynamicBroadphase->mType; }
+int Application::GetBroadphaseType() { return mDynamicBroadphase->mType; }
 
 void Application::SetBroadphaseType(const int& type)
 {
@@ -777,7 +781,7 @@ void Application::Reshape(int width, int height, float aspectRatio)
     mCamera.mFarPlane = 1000.0f;
     // Set the correct perspective
     gluPerspective(45.0f, aspectRatio, mCamera.mNearPlane, mCamera.mFarPlane);
-    mSize = Math::Vector2((float)width, (float)height);
+    mSize = Vector2(static_cast<float>(width), static_cast<float>(height));
 
     // Get back to the Modelview
     glMatrixMode(GL_MODELVIEW);
@@ -785,7 +789,7 @@ void Application::Reshape(int width, int height, float aspectRatio)
 
 GameObject* Application::CreateObject(const std::string& name, Mesh* mesh,
                                       const Vector3& scale,
-                                      const Math::Quaternion& rotation,
+                                      const Quaternion& rotation,
                                       const Vector3& translation)
 {
     auto obj = new GameObject(this);
@@ -886,7 +890,7 @@ void Application::DisplayCastResult(GameObject* gameObject)
 void Application::DisplayCastResults(const Ray& worldRay, CastResults& results)
 {
     TwRemoveAllVars(mSelectionBar);
-    mActiveGizmo->Select(NULL);
+    mActiveGizmo->Select(nullptr);
 
     for (size_t i = 0; i < results.mResults.size(); ++i)
     {
@@ -913,7 +917,7 @@ void Application::DisplayCastResults(const Frustum& worldFrustum,
                                      CastResults& results)
 {
     TwRemoveAllVars(mSelectionBar);
-    mActiveGizmo->Select(NULL);
+    mActiveGizmo->Select(nullptr);
 
     for (size_t i = 0; i < results.mResults.size(); ++i)
     {
@@ -1087,12 +1091,12 @@ void Application::Subtract(GameObject* gameObject)
 
 Frustum Application::BuildFrustum(const Vector2& start, const Vector2& end)
 {
-    Math::Vector2 min = Math::Min(start, end);
-    Math::Vector2 max = Math::Max(start, end);
+    Vector2 min = Math::Min(start, end);
+    Vector2 max = Math::Max(start, end);
 
     Ray bl = GetRayFromScreenCoords(min);
-    Ray br = GetRayFromScreenCoords(Math::Vector2(max.x, min.y));
-    Ray tl = GetRayFromScreenCoords(Math::Vector2(min.x, max.y));
+    Ray br = GetRayFromScreenCoords(Vector2(max.x, min.y));
+    Ray tl = GetRayFromScreenCoords(Vector2(min.x, max.y));
     Ray tr = GetRayFromScreenCoords(max);
 
     Vector3 nbl = bl.GetPoint(mCamera.mNearPlane);
@@ -1122,7 +1126,7 @@ void Application::OnKeyUp(unsigned int key, int x, int y)
 {
     mCamera.ProcessKeyUp(key, x, y);
 
-    int index = (int)key - '0';
+    int index = static_cast<int>(key) - '0';
     if (index >= 0 && index <= 9)
     {
         int mask = 1 << index;
@@ -1136,26 +1140,26 @@ void Application::OnKeyUp(unsigned int key, int x, int y)
         ChangeLevel((mCurrentLevelIndex + 1) % mLevels.size());
     else if (key == SDLK_MINUS || key == SDLK_KP_MINUS)
         ChangeLevel((mCurrentLevelIndex + mLevels.size() - 1) %
-                    static_cast<int>(mLevels.size()));
+        static_cast<int>(mLevels.size()));
 }
 
-Math::Vector2 GetScreenPosition(int x, int y)
+Vector2 GetScreenPosition(int x, int y)
 {
     GLint viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
 
-    Math::Vector2 screenPos;
-    screenPos.x = (float)x;
-    screenPos.y = (float)viewport[3] - (float)y;
+    Vector2 screenPos;
+    screenPos.x = static_cast<float>(x);
+    screenPos.y = static_cast<float>(viewport[3]) - static_cast<float>(y);
     return screenPos;
 }
 
 void Application::OnMouseInput(unsigned int button, bool isDown, int x, int y)
 {
-    Math::Vector2 screenPos = GetScreenPosition(x, y);
+    Vector2 screenPos = GetScreenPosition(x, y);
     Ray worldRay = GetRayFromScreenCoords(screenPos);
 
-    mCamera.ProcessMouseInput(button, (int)isDown, x, y);
+    mCamera.ProcessMouseInput(button, isDown, x, y);
 
     bool handled = mActiveGizmo->OnMouseInput(this, button, isDown, worldRay);
     if (handled == true)
@@ -1188,7 +1192,7 @@ void Application::OnMouseInput(unsigned int button, bool isDown, int x, int y)
 //-----------------------------------------------------------------------------
 void Application::OnMouseMove(int x, int y)
 {
-    Math::Vector2 screenPos = GetScreenPosition(x, y);
+    Vector2 screenPos = GetScreenPosition(x, y);
     Ray worldRay = GetRayFromScreenCoords(screenPos);
 
     bool handled = mActiveGizmo->OnMouseMove(this, worldRay);
@@ -1219,14 +1223,14 @@ void Application::OnCreateCube()
 {
     size_t index = mGameObjects.size();
     std::string name = FormatString("Cube%d", index + 1);
-    CreateObject(name, mMeshes[0], Vector3(1.0f), Math::Quaternion::cIdentity,
+    CreateObject(name, mMeshes[0], Vector3(1.0f), Quaternion::cIdentity,
                  Vector3(0, 0, 0));
 }
 
 void Application::ChangeLevel(int levelIndex)
 {
-    if (mActiveGizmo != NULL)
-        mActiveGizmo->Select(NULL);
+    if (mActiveGizmo != nullptr)
+        mActiveGizmo->Select(nullptr);
 
     TwRemoveAllVars(mSelectionBar);
 

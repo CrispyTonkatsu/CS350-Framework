@@ -23,7 +23,7 @@ public:
                     SpatialPartitionData& data) override;
     void RemoveData(SpatialPartitionKey& key) override;
 
-    void DebugDraw(int level, const Math::Matrix4& transform,
+    void DebugDraw(int level, const Matrix4& transform,
                    const Vector4& color = Vector4(1), int bitMask = 0) override;
 
     void CastRay(const Ray& ray, CastResults& results) override;
@@ -53,7 +53,7 @@ public:
                     SpatialPartitionData& data) override;
     void RemoveData(SpatialPartitionKey& key) override;
 
-    void DebugDraw(int level, const Math::Matrix4& transform,
+    void DebugDraw(int level, const Matrix4& transform,
                    const Vector4& color = Vector4(1), int bitMask = 0) override;
 
     void CastRay(const Ray& ray, CastResults& results) override;
