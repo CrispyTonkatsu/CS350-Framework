@@ -5,8 +5,6 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "Geometry.hpp"
-#include <cstddef>
 #include "Precompiled.hpp"
 
 Vector3 ProjectPointOnPlane(const Vector3& point, const Vector3& normal,
