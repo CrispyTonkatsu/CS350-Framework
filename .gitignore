@@ -1,6 +1,5 @@
 external/
 .vs/
-.vscode/
 .cache/
 x64/
 Build/
