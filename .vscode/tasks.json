@@ -4,13 +4,13 @@
 		{
 			"label": "Test (Release)",
 			"type": "shell",
-			"command": "delta .\\Test${input:assignment_number}_0.txt .\\Assignments\\A1\\Assignment${input:assignment_number}_MasterResults.txt",
+			"command": "delta .\\Test${input:assignment_number}_0.txt .\\Assignments\\A${input:assignment_number}\\Assignment${input:assignment_number}_MasterResults.txt",
 			"dependsOn": ["Run (Release)"]
 		},
 		{
 			"label": "Test (Debug)",
 			"type": "shell",
-			"command": "delta .\\Test${input:assignment_number}_0.txt .\\Assignments\\A1\\Assignment${input:assignment_number}_MasterResults.txt",
+			"command": "delta .\\Test${input:assignment_number}_0.txt .\\Assignments\\A${input:assignment_number}\\Assignment${input:assignment_number}_MasterResults.txt",
 			"dependsOn": ["Run (Debug)"]
 		},
 		{
