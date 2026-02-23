@@ -155,13 +155,9 @@ DebugShape& DebugDrawer::DrawLine(const LineSegment& line)
 
 DebugShape& DebugDrawer::DrawRay(const Ray& ray, float t)
 {
-    /******Student:Assignment2******/
     // Draw a ray to a given t-length. The ray must have an arrow head for
     // visualization
     DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
-
     const Vector3 ray_end{ray.mStart + (t * ray.mDirection)};
 
     shape.mSegments.emplace_back(ray.mStart, ray_end);
@@ -203,13 +199,68 @@ DebugShape& DebugDrawer::DrawRay(const Ray& ray, float t)
 
 DebugShape& DebugDrawer::DrawSphere(const Sphere& sphere)
 {
-    /******Student:Assignment2******/
     // Draw a sphere with 4 rings: x-axis, y-axis, z-axis, and the horizon disc.
     // Note: To access the camera's position for the horizon disc calculation
     // use mApplication->mCamera.mTranslation
     DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
+
+    const auto DrawDisc{
+    [](DebugShape& shape, const Vector3 center, const Vector3 dir,
+       const float r)
+    {
+        Vector3 w{1, 1, 1};
+        w = (w - w.Project(dir)).Normalized();
+
+        const Vector3 v{
+        dir.Cross(w).Normalized(),
+        };
+
+        std::vector<Vector3> points{};
+        const size_t stacks{12};
+
+        for (size_t i{0}; i < stacks; i++)
+        {
+            const float theta{2.f * Math::cPi *
+                              (static_cast<float>(i) / stacks)};
+            points.emplace_back(r *
+                                (v * Math::Cos(theta) + w * Math::Sin(theta)));
+        }
+
+        for (size_t i{0}; i < points.size(); i++)
+        {
+            const Vector3 curr_point{center + points[i]};
+            const Vector3 next_point{center + points[(i + 1) % points.size()]};
+
+            shape.mSegments.emplace_back(curr_point, next_point);
+        }
+    },
+    };
+
+    DrawDisc(shape, sphere.mCenter, Vector3(1, 0, 0), sphere.mRadius);
+    DrawDisc(shape, sphere.mCenter, Vector3(0, 1, 0), sphere.mRadius);
+    DrawDisc(shape, sphere.mCenter, Vector3(0, 0, 1), sphere.mRadius);
+
+    // TODO: Implement the horizon disc
+
+    const Vector3 e{mApplication->mCamera.mTranslation};
+    const float l{
+    Math::Sqrt((e - sphere.mCenter).LengthSq() - Math::Sq(sphere.mRadius)),
+    };
+
+    const float horizon_radius{
+    (sphere.mRadius * l) / (e - sphere.mCenter).Length(),
+    };
+
+    const float offset{
+    Math::Sqrt(Math::Sq(sphere.mRadius) - Math::Sq(horizon_radius)),
+    };
+
+    const Vector3 center{
+    sphere.mCenter - offset * (sphere.mCenter - e).Normalized(),
+    };
+
+    DrawDisc(shape, center, (sphere.mCenter - e).Normalized(), horizon_radius);
+
     return shape;
 }
 
@@ -260,11 +311,35 @@ DebugShape& DebugDrawer::DrawTriangle(const Triangle& triangle)
 
 DebugShape& DebugDrawer::DrawPlane(const Plane& plane, float sizeX, float sizeY)
 {
-    /******Student:Assignment2******/
     // Draw a quad with a normal at the plane's center.
-    DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
+    const Vector3 normal{plane.mData.x, plane.mData.y, plane.mData.z};
+    const Vector3 center{normal * plane.GetDistance()};
+
+    DebugShape& shape{DrawRay({center, normal}, 5.f)};
+
+    Vector3 w{1, 1, 1};
+    w = (w - w.Project(normal)).Normalized();
+
+    const Vector3 v{
+    normal.Cross(w).Normalized(),
+    };
+
+    const float half_x{sizeX / 2.f};
+    const float half_y{sizeY / 2.f};
+
+    std::array<Vector3, 4> points{
+    center + w * half_x + v * half_y,
+    center - w * half_x + v * half_y,
+    center - w * half_x - v * half_y,
+    center + w * half_x - v * half_y,
+    };
+
+    for (size_t i{0}; i < points.size(); i++)
+    {
+        shape.mSegments.emplace_back(points[i],
+                                     points[(i + 1) % points.size()]);
+    }
+
     return shape;
 }
 
