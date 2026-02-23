@@ -6,7 +6,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include "Precompiled.hpp"
 
-#define ShowDebugDrawWarnings false
+#include "DebugDraw.hpp"
+
+#include <Math/Math.hpp>
+#include <Math/Reals.hpp>
+#include <array>
+#include <cstddef>
+#include <vector>
+
+#define ShowDebugDrawWarnings true
 
 DebugDrawer* gDebugDrawer = new DebugDrawer();
 
@@ -138,11 +146,10 @@ DebugShape& DebugDrawer::DrawPoint(const Vector3& point)
 
 DebugShape& DebugDrawer::DrawLine(const LineSegment& line)
 {
-    /******Student:Assignment2******/
     // Draw a simple line
     DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
+    shape.mSegments.push_back(line);
+
     return shape;
 }
 
@@ -154,6 +161,43 @@ DebugShape& DebugDrawer::DrawRay(const Ray& ray, float t)
     DebugShape& shape = GetNewShape();
     WarnIf(ShowDebugDrawWarnings,
            "Assignment2: Required function un-implemented");
+
+    const Vector3 ray_end{ray.mStart + (t * ray.mDirection)};
+
+    shape.mSegments.emplace_back(ray.mStart, ray_end);
+
+    Vector3 w{1, 1, 1};
+    w = w - w.Project(ray.mDirection);
+
+    const Vector3 v{
+    ray.mDirection.Cross(w),
+    };
+
+    const float r{0.1f * t};
+    const size_t stacks{12};
+
+    std::vector<Vector3> points{};
+
+    for (size_t i{0}; i < stacks; i++)
+    {
+        const float theta{2.f * Math::cPi * (static_cast<float>(i) / stacks)};
+        points.emplace_back(r * (v * Math::Cos(theta) + w * Math::Sin(theta)));
+    }
+
+    const float hat_length{0.1f * t};
+
+    for (size_t i{0}; i < points.size(); i++)
+    {
+        const Vector3 curr_point{(ray_end + -hat_length * ray.mDirection) +
+                                 points[i]};
+
+        const Vector3 next_point{(ray_end + -hat_length * ray.mDirection) +
+                                 points[(i + 1) % points.size()]};
+
+        shape.mSegments.emplace_back(ray_end, curr_point);
+        shape.mSegments.emplace_back(curr_point, next_point);
+    }
+
     return shape;
 }
 
@@ -171,21 +215,46 @@ DebugShape& DebugDrawer::DrawSphere(const Sphere& sphere)
 
 DebugShape& DebugDrawer::DrawAabb(const Aabb& aabb)
 {
-    /******Student:Assignment2******/
     // Draw all edges of an aabb. Make sure to not mis-match edges!
     DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
+    const Vector3 extent{2.f * aabb.GetHalfSize()};
+
+    const std::array<Vector3, 4> top{
+    aabb.mMax,
+    aabb.mMax - Vector3(extent.x, 0, 0),
+    aabb.mMax - Vector3(extent.x, 0, extent.z),
+    aabb.mMax - Vector3(0, 0, extent.z),
+    };
+
+    const std::array<Vector3, 4> bottom{
+    aabb.mMin + Vector3(extent.x, 0, extent.z),
+    aabb.mMin + Vector3(0, 0, extent.z),
+    aabb.mMin,
+    aabb.mMin + Vector3(extent.x, 0, 0),
+    };
+
+    for (size_t i{0}; i < top.size(); i++)
+    {
+        const size_t next_i{(i + 1) % top.size()};
+        shape.mSegments.emplace_back(top[i], top[next_i]);
+        shape.mSegments.emplace_back(bottom[i], bottom[next_i]);
+        shape.mSegments.emplace_back(top[i], bottom[i]);
+    }
+
     return shape;
 }
 
 DebugShape& DebugDrawer::DrawTriangle(const Triangle& triangle)
 {
-    /******Student:Assignment2******/
     // Draw the 3 edges of a triangles
     DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
+
+    for (size_t i{0}; i < 3; i++)
+    {
+        shape.mSegments.emplace_back(triangle.mPoints[i],
+                                     triangle.mPoints[(i + 1) % 3]);
+    }
+
     return shape;
 }
 
@@ -202,23 +271,32 @@ DebugShape& DebugDrawer::DrawPlane(const Plane& plane, float sizeX, float sizeY)
 DebugShape& DebugDrawer::DrawQuad(const Vector3& p0, const Vector3& p1,
                                   const Vector3& p2, const Vector3& p3)
 {
-    /******Student:Assignment2******/
     // Draw the4 edges of a quad. Make sure to look at this and make sure the
     // quad is not bow-tied.
     DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
+
+    shape.mSegments.emplace_back(p0, p1);
+    shape.mSegments.emplace_back(p1, p2);
+    shape.mSegments.emplace_back(p2, p3);
+    shape.mSegments.emplace_back(p3, p0);
+
     return shape;
 }
 
 DebugShape& DebugDrawer::DrawFrustum(const Frustum& frustum)
 {
-    /******Student:Assignment2******/
     // Draw the 6 faces of the frustum using the 8 frustum points.
-    // See Frustum.Set for the point order. For example, Points[4] is
+    // See Frustum::Set for the point order. For example, Points[4] is
     // left-bottom-front.
     DebugShape& shape = GetNewShape();
-    WarnIf(ShowDebugDrawWarnings,
-           "Assignment2: Required function un-implemented");
+    const Vector3* points{frustum.mPoints};
+
+    for (size_t i{0}; i < 4; i++)
+    {
+        shape.mSegments.emplace_back(points[i], points[(i + 1) % 4]);
+        shape.mSegments.emplace_back(points[i + 4], points[((i + 1) % 4) + 4]);
+        shape.mSegments.emplace_back(points[i], points[i + 4]);
+    }
+
     return shape;
 }
