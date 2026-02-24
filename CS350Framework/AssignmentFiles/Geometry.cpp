@@ -10,6 +10,11 @@
 Vector3 ProjectPointOnPlane(const Vector3& point, const Vector3& normal,
                             float planeDistance)
 {
+    if (normal.LengthSq() == 0.f)
+    {
+        return Vector3{};
+    }
+
     const Vector3 unit_normal{normal.Normalized()};
     const float difference{planeDistance - point.Dot(unit_normal)};
 

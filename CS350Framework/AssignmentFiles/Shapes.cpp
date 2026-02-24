@@ -68,9 +68,9 @@ Matrix3 ComputeCovarianceMatrix(const std::vector<Vector3>& points)
                         const Vector3 v{val - mean};
 
                         const Matrix3 mat{
-                        Math::Sq(v.x), v.x * v.y, v.x * v.z,
-                        v.x * v.y, Math::Sq(v.y), v.y * v.z,
-                        v.x * v.z, v.y * v.z, Math::Sq(v.z),
+                        Math::Sq(v.x), v.x * v.y,     v.x * v.z,
+                        v.x * v.y,     Math::Sq(v.y), v.y * v.z,
+                        v.x * v.z,     v.y * v.z,     Math::Sq(v.z),
                         };
 
                         return acc + mat;
@@ -203,10 +203,9 @@ Sphere::Sphere(const Vector3& center, float radius)
  * @param start_radius The starting radius of the sphere
  * @return pair of center and radius for the sphere
  */
-std::pair<Vector3, float> sphere_expansion(
-const std::vector<Vector3>& points,
-const Vector3& start_center,
-const float start_radius)
+std::pair<Vector3, float> sphere_expansion(const std::vector<Vector3>& points,
+                                           const Vector3& start_center,
+                                           const float start_radius)
 {
     Vector3 center{start_center};
     float radius{start_radius};
@@ -229,7 +228,6 @@ const float start_radius)
         radius = 0.5f * Math::Distance(bound_point, point);
     }
 
-    // TODO: Left off here repairing the method
     return {center, radius};
 }
 
@@ -241,17 +239,13 @@ void Sphere::ComputeCentroid(const std::vector<Vector3>& points)
     const Vector3 max{
     std::accumulate(points.begin(), points.end(), Vector3(),
                     [](const Vector3& acc, const Vector3& val)
-                    {
-                        return Math::Max(acc, val);
-                    }),
+                    { return Math::Max(acc, val); }),
     };
 
     const Vector3 min{
     std::accumulate(points.begin(), points.end(), Vector3(),
                     [](const Vector3& acc, const Vector3& val)
-                    {
-                        return Math::Min(acc, val);
-                    }),
+                    { return Math::Min(acc, val); }),
     };
 
     const Vector3 centroid{0.5f * (max + min)};
@@ -267,24 +261,19 @@ void Sphere::ComputeCentroid(const std::vector<Vector3>& points)
     mCenter = centroid;
 }
 
-std::pair<Vector3, Vector3> find_min_max_on_axis(
-const std::vector<Vector3>& points,
-const Vector3& axis)
+std::pair<Vector3, Vector3>
+find_min_max_on_axis(const std::vector<Vector3>& points, const Vector3& axis)
 {
     const Vector3 max_point{
     *std::max_element(points.begin(), points.end(),
                       [axis](const Vector3& a, const Vector3& b)
-                      {
-                          return a.Dot(axis) < b.Dot(axis);
-                      }),
+                      { return a.Dot(axis) < b.Dot(axis); }),
     };
 
     const Vector3 min_point{
     *std::min_element(points.begin(), points.end(),
                       [axis](const Vector3& a, const Vector3& b)
-                      {
-                          return a.Dot(axis) < b.Dot(axis);
-                      }),
+                      { return a.Dot(axis) < b.Dot(axis); }),
     };
 
     return {min_point, max_point};
@@ -304,18 +293,14 @@ void Sphere::ComputeRitter(const std::vector<Vector3>& points)
     find_min_max_on_axis(points, Vector3::cZAxis),
     };
 
-    const std::pair<Vector3, Vector3> extrema_to_use{*std::max_element(
-    axis_extrema.begin(),
-    axis_extrema.end(),
-    [](const std::pair<
-           Vector3, Vector3>& a,
-       const std::pair<
-           Vector3, Vector3>& b)
-    {
-        return (a.first - a.second).
-        LengthSq() < (b.first - b.
-            second).LengthSq();
-    })};
+    const std::pair<Vector3, Vector3> extrema_to_use{
+    *std::max_element(axis_extrema.begin(), axis_extrema.end(),
+                      [](const std::pair<Vector3, Vector3>& a,
+                         const std::pair<Vector3, Vector3>& b)
+                      {
+                          return (a.first - a.second).LengthSq() <
+                          (b.first - b.second).LengthSq();
+                      })};
 
     const auto min{extrema_to_use.first};
     const auto max{extrema_to_use.second};
@@ -361,13 +346,9 @@ void Sphere::ComputePCA(const std::vector<Vector3>& points)
     const Vector3 min{extrema.first};
     const Vector3 max{extrema.second};
 
-    const Vector3 center{
-    0.5f * (min + max)
-    };
+    const Vector3 center{0.5f * (min + max)};
 
-    const float radius{
-    0.5f * (max - min).Length()
-    };
+    const float radius{0.5f * (max - min).Length()};
 
     const std::pair<Vector3, float> final_sphere{
     sphere_expansion(points, center, radius),
@@ -434,7 +415,7 @@ float Aabb::GetSurfaceArea() const
     const Vector3 lengths{2.f * GetHalfSize()};
     return 2.f *
     ((lengths.x * lengths.y) + (lengths.x * lengths.z) +
-        (lengths.y * lengths.z));
+     (lengths.y * lengths.z));
 }
 
 bool Aabb::Contains(const Aabb& aabb) const
@@ -474,11 +455,25 @@ bool Aabb::Compare(const Aabb& rhs, float epsilon) const
 void Aabb::Transform(const Vector3& scale, const Matrix3& rotation,
                      const Vector3& translation)
 {
-    /******Student:Assignment2******/
     // Compute aabb of this aabb after it is transformed.
     // You should use the optimize method discussed in class (not transforming
     // all 8 points).
-    Warn("Assignment2: Required function un-implemented");
+
+    const Vector3 new_center{
+    translation +
+    Math::Transform(rotation, Math::ScaledByVector(GetCenter(), scale)),
+    };
+
+    Matrix3 abs_rotation{rotation};
+    std::for_each(abs_rotation.array, abs_rotation.array + 9,
+                  [](float& val) { val = Math::Abs(val); });
+
+    const Vector3 new_extents{
+    Math::Transform(abs_rotation, Math::ScaledByVector(GetHalfSize(), scale)),
+    };
+
+    mMin = new_center - new_extents;
+    mMax = new_center + new_extents;
 }
 
 Vector3 Aabb::GetMin() const { return mMin; }
@@ -526,6 +521,11 @@ void Plane::Set(const Vector3& p0, const Vector3& p1, const Vector3& p2)
 
 void Plane::Set(const Vector3& normal, const Vector3& point)
 {
+    if (normal.LengthSq() == 0.f)
+    {
+        return;
+    }
+
     const Vector3 unit_normal = normal.Normalized();
 
     mData = Vector4{

@@ -4,6 +4,7 @@
 /// Copyright 2015, DigiPen Institute of Technology
 ///
 ///////////////////////////////////////////////////////////////////////////////
+#include "Geometry.hpp"
 #include "Precompiled.hpp"
 
 //-----------------------------------------------------------------------------NSquaredSpatialPartition
@@ -131,9 +132,9 @@ void BoundingSphereSpatialPartition::DebugDraw(int level,
     for (auto& partition : partitions)
     {
         gDebugDrawer->DrawSphere(partition.second.mBoundingSphere)
-                    .SetTransform(transform)
-                    .Color(color)
-                    .SetMaskBit(bitMask);
+        .SetTransform(transform)
+        .Color(color)
+        .SetMaskBit(bitMask);
     }
 }
 
@@ -158,9 +159,15 @@ void BoundingSphereSpatialPartition::CastFrustum(const Frustum& frustum,
     for (auto& partition : partitions)
     {
         const Sphere& sphere{partition.second.mBoundingSphere};
+
         size_t last_axis{0};
-        if (FrustumSphere(frustum.GetPlanes(), sphere.GetCenter(),
-                          sphere.GetRadius(), last_axis))
+        const IntersectionType::Type intersection_type{
+        FrustumSphere(frustum.GetPlanes(), sphere.GetCenter(),
+                      sphere.GetRadius(), last_axis),
+        };
+
+        if (intersection_type == IntersectionType::Inside ||
+            intersection_type == IntersectionType::Overlaps)
         {
             results.AddResult({partition.second.mClientData, 0.f});
         }
@@ -193,7 +200,7 @@ std::vector<SpatialPartitionQueryData>& results) const
         SpatialPartitionQueryData data;
         data.mClientData = partition.second.mClientData;
         data.mBoundingSphere = partition.second.mBoundingSphere;
-        
+
         results.push_back(data);
     }
 }

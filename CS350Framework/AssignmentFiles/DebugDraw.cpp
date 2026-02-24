@@ -10,6 +10,7 @@
 
 #include <Math/Math.hpp>
 #include <Math/Reals.hpp>
+#include <Math/Vector3.hpp>
 #include <array>
 #include <cstddef>
 #include <vector>
@@ -162,8 +163,10 @@ DebugShape& DebugDrawer::DrawRay(const Ray& ray, float t)
 
     shape.mSegments.emplace_back(ray.mStart, ray_end);
 
-    // TODO: Hard code a check becaue hairy ball theorem
-    Vector3 w{1, 1, 1};
+    Vector3 w{
+    Math::DebugIsZero(ray.mDirection.Dot(Vector3{1, 0, 0})) ? Vector3{1, 0, 0}
+                                                            : Vector3{0, 1, 0},
+    };
     w = w - w.Project(ray.mDirection);
 
     const Vector3 v{
@@ -209,9 +212,11 @@ DebugShape& DebugDrawer::DrawSphere(const Sphere& sphere)
     [](DebugShape& shape, const Vector3 center, const Vector3 dir,
        const float r)
     {
-        // TODO: Hard code check because hairy ball theorem
-        Vector3 w{1, 1, 1};
-        w = (w - w.Project(dir)).Normalized();
+        Vector3 w{
+        Math::DebugIsZero(dir.Dot(Vector3{1, 0, 0})) ? Vector3{1, 0, 0}
+                                                     : Vector3{0, 1, 0},
+        };
+        w = w - w.Project(dir);
 
         const Vector3 v{
         dir.Cross(w).Normalized(),
@@ -242,8 +247,9 @@ DebugShape& DebugDrawer::DrawSphere(const Sphere& sphere)
     DrawDisc(shape, sphere.mCenter, Vector3(0, 1, 0), sphere.mRadius);
     DrawDisc(shape, sphere.mCenter, Vector3(0, 0, 1), sphere.mRadius);
 
-    if (mApplication == nullptr) return shape;
-    
+    if (mApplication == nullptr)
+        return shape;
+
     const Vector3 e{mApplication->mCamera.mTranslation};
     const float l{
     Math::Sqrt((e - sphere.mCenter).LengthSq() - Math::Sq(sphere.mRadius)),
@@ -319,9 +325,11 @@ DebugShape& DebugDrawer::DrawPlane(const Plane& plane, float sizeX, float sizeY)
 
     DebugShape& shape{DrawRay({center, normal}, 5.f)};
 
-    // TODO: Hard code check because hairy ball theorem
-    Vector3 w{1, 1, 1};
-    w = (w - w.Project(normal)).Normalized();
+    Vector3 w{
+    Math::DebugIsZero(normal.Dot(Vector3{1, 0, 0})) ? Vector3{1, 0, 0}
+                                                    : Vector3{0, 1, 0},
+    };
+    w = w - w.Project(normal);
 
     const Vector3 v{
     normal.Cross(w).Normalized(),
