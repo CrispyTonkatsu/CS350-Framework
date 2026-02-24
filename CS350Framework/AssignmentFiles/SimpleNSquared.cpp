@@ -41,8 +41,7 @@ void NSquaredSpatialPartition::RemoveData(SpatialPartitionKey& key)
     }
 }
 
-void NSquaredSpatialPartition::DebugDraw(int level,
-                                         const Matrix4& transform,
+void NSquaredSpatialPartition::DebugDraw(int level, const Matrix4& transform,
                                          const Vector4& color, int bitMask)
 {
     // Nothing to debug draw
@@ -109,18 +108,19 @@ BoundingSphereSpatialPartition::BoundingSphereSpatialPartition()
 void BoundingSphereSpatialPartition::InsertData(SpatialPartitionKey& key,
                                                 SpatialPartitionData& data)
 {
-    Warn("Assignment2: Required function un-implemented");
+    key.mVoidKey = data.mClientData;
+    partitions.insert_or_assign(key.mVoidKey, data);
 }
 
 void BoundingSphereSpatialPartition::UpdateData(SpatialPartitionKey& key,
                                                 SpatialPartitionData& data)
 {
-    Warn("Assignment2: Required function un-implemented");
+    partitions.at(key.mVoidKey) = data;
 }
 
 void BoundingSphereSpatialPartition::RemoveData(SpatialPartitionKey& key)
 {
-    Warn("Assignment2: Required function un-implemented");
+    partitions.erase(key.mVoidKey);
 }
 
 void BoundingSphereSpatialPartition::DebugDraw(int level,
@@ -128,28 +128,72 @@ void BoundingSphereSpatialPartition::DebugDraw(int level,
                                                const Vector4& color,
                                                int bitMask)
 {
-    Warn("Assignment2: Required function un-implemented");
+    for (auto& partition : partitions)
+    {
+        gDebugDrawer->DrawSphere(partition.second.mBoundingSphere)
+                    .SetTransform(transform)
+                    .Color(color)
+                    .SetMaskBit(bitMask);
+    }
 }
 
 void BoundingSphereSpatialPartition::CastRay(const Ray& ray,
                                              CastResults& results)
 {
-    Warn("Assignment2: Required function un-implemented");
+    for (auto& partition : partitions)
+    {
+        const Sphere& sphere{partition.second.mBoundingSphere};
+        float t{0.f};
+        if (RaySphere(ray.mStart, ray.mDirection, sphere.GetCenter(),
+                      sphere.GetRadius(), t))
+        {
+            results.AddResult({partition.second.mClientData, t});
+        }
+    }
 }
 
 void BoundingSphereSpatialPartition::CastFrustum(const Frustum& frustum,
                                                  CastResults& results)
 {
-    Warn("Assignment2: Required function un-implemented");
+    for (auto& partition : partitions)
+    {
+        const Sphere& sphere{partition.second.mBoundingSphere};
+        size_t last_axis{0};
+        if (FrustumSphere(frustum.GetPlanes(), sphere.GetCenter(),
+                          sphere.GetRadius(), last_axis))
+        {
+            results.AddResult({partition.second.mClientData, 0.f});
+        }
+    }
 }
 
 void BoundingSphereSpatialPartition::SelfQuery(QueryResults& results)
 {
-    Warn("Assignment2: Required function un-implemented");
+    for (auto i{partitions.begin()}; i != partitions.end(); ++i)
+    {
+        const auto& sphere_a{i->second.mBoundingSphere};
+        for (auto j{std::next(i)}; j != partitions.end(); ++j)
+        {
+            const auto& sphere_b{j->second.mBoundingSphere};
+            if (SphereSphere(sphere_a.GetCenter(), sphere_a.GetRadius(),
+                             sphere_b.GetCenter(), sphere_b.GetRadius()))
+            {
+                results.AddResult(
+                {i->second.mClientData, j->second.mClientData});
+            }
+        }
+    }
 }
 
 void BoundingSphereSpatialPartition::FilloutData(
 std::vector<SpatialPartitionQueryData>& results) const
 {
-    Warn("Assignment2: Required function un-implemented");
+    for (auto& partition : partitions)
+    {
+        SpatialPartitionQueryData data;
+        data.mClientData = partition.second.mClientData;
+        data.mBoundingSphere = partition.second.mBoundingSphere;
+        
+        results.push_back(data);
+    }
 }

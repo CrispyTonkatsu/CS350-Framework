@@ -6,6 +6,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include <unordered_map>
 #include "SpatialPartition.hpp"
 
 //-----------------------------------------------------------------------------BoundingSphereSpatialPartition
@@ -65,4 +66,6 @@ public:
     FilloutData(std::vector<SpatialPartitionQueryData>& results) const override;
 
     // Add your implementation here
+
+    std::unordered_map<void*, SpatialPartitionData> partitions;
 };

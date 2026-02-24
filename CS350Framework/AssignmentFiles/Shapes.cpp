@@ -7,6 +7,12 @@
 
 #include "Precompiled.hpp"
 
+#include <algorithm>
+#include <array>
+#include <iostream>
+#include <limits>
+#include <numeric>
+
 //-----------------------------------------------------------------------------LineSegment
 LineSegment::LineSegment() { mStart = mEnd = Vector3::cZero; }
 
@@ -49,29 +55,132 @@ DebugShape& Ray::DebugDraw(float t) const
 // Helpers
 Matrix3 ComputeCovarianceMatrix(const std::vector<Vector3>& points)
 {
-    /******Student:Assignment2******/
-    Warn("Assignment2: Required function un-implemented");
-    return Matrix3::cIdentity;
+    const Vector3 mean{
+    (1.f / static_cast<float>(points.size())) *
+    std::accumulate(points.begin(), points.end(), Vector3()),
+    };
+
+    return {
+    (1.f / static_cast<float>(points.size())) *
+    std::accumulate(points.begin(), points.end(), Matrix3(), //
+                    [mean](const Matrix3& acc, const Vector3& val)
+                    {
+                        const Vector3 v{val - mean};
+
+                        const Matrix3 mat{
+                        Math::Sq(v.x), v.x * v.y, v.x * v.z,
+                        v.x * v.y, Math::Sq(v.y), v.y * v.z,
+                        v.x * v.z, v.y * v.z, Math::Sq(v.z),
+                        };
+
+                        return acc + mat;
+                    }),
+    };
 }
 
 Matrix3 ComputeJacobiRotation(const Matrix3& matrix)
 {
-    /******Student:Assignment2******/
     // Compute the jacobi rotation matrix that will turn the largest (magnitude)
     // off-diagonal element of the input matrix into zero. Note: the input
     // matrix should always be (near) symmetric.
-    Warn("Assignment2: Required function un-implemented");
-    return Matrix3::cIdentity;
+
+    // Getter to simplify the look of the method
+    const auto get_index{[](size_t i, size_t j) { return i + (3 * j); }};
+
+    float max_val{std::numeric_limits<float>::min()};
+    size_t max_i{0};
+    size_t max_j{0};
+
+    for (size_t i{0}; i < 3; i++)
+    {
+        for (size_t j{i + 1}; j < 3; j++)
+        {
+            const float abs_val{Math::Abs(matrix.array[get_index(i, j)])};
+            if (abs_val > max_val)
+            {
+                max_val = abs_val;
+                max_i = i;
+                max_j = j;
+            }
+        }
+    }
+
+    // Getting the local matrix abcd, b == c as it is near symmetric
+    const float a{matrix.array[get_index(max_i, max_i)]};
+    const float b{matrix.array[get_index(max_i, max_j)]};
+    const float d{matrix.array[get_index(max_j, max_j)]};
+
+    // Calculating beta and the tangents with the formulas from the slides
+    const float beta{(d - a) / (2.f * b)};
+    const float tangent{
+    (Math::GetSign(beta)) / (Math::Abs(beta) + Math::Sqrt(Math::Sq(beta) + 1)),
+    };
+
+    // Using the formulas for the cosine and sine values from wikipedia
+    const float cosine{1.f / (Math::Sqrt(Math::Sq(tangent) + 1))};
+    const float sine{cosine * tangent};
+
+    // Creating the rotation matrix
+    Matrix3 output{Matrix3::cIdentity};
+    output.array[get_index(max_i, max_i)] = cosine;
+    output.array[get_index(max_i, max_j)] = sine;
+    output.array[get_index(max_j, max_i)] = -sine;
+    output.array[get_index(max_j, max_j)] = cosine;
+
+    return output;
 }
 
 void ComputeEigenValuesAndVectors(const Matrix3& covariance,
                                   Vector3& eigenValues, Matrix3& eigenVectors,
                                   int maxIterations)
 {
-    /******Student:Assignment2******/
     // Iteratively rotate off the largest off-diagonal elements until the
     // resultant matrix is diagonal or maxIterations.
-    Warn("Assignment2: Required function un-implemented");
+
+    const float epsilon{Math::DebugEpsilon()};
+
+    const auto is_diagonal{
+    [epsilon](const Matrix3& mat)
+    {
+        for (size_t i{0}; i < 3; i++)
+        {
+            for (size_t j{0}; j < 3; j++)
+            {
+                if (i == j)
+                {
+                    continue;
+                }
+
+                if (mat.array[i + (3 * j)] > epsilon)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    },
+    };
+
+    Matrix3 diagonal_mat{covariance};
+    eigenVectors = Matrix3::cIdentity;
+
+    for (int i{0}; i < maxIterations; i++)
+    {
+        if (is_diagonal(diagonal_mat))
+        {
+            break;
+        }
+
+        const Matrix3 jacobi{ComputeJacobiRotation(covariance)};
+
+        diagonal_mat = jacobi.Transposed() * diagonal_mat * jacobi;
+        eigenVectors = eigenVectors * jacobi;
+    }
+
+    eigenValues.x = diagonal_mat.m00;
+    eigenValues.y = diagonal_mat.m11;
+    eigenValues.z = diagonal_mat.m22;
 }
 
 //-----------------------------------------------------------------------------Sphere
@@ -87,33 +196,185 @@ Sphere::Sphere(const Vector3& center, float radius)
     mRadius = radius;
 }
 
+/**
+ * Method to expand a sphere with a given start start_center and start radius
+ * @param points The points to expand the sphere on
+ * @param start_center The starting center of the sphere
+ * @param start_radius The starting radius of the sphere
+ * @return pair of center and radius for the sphere
+ */
+std::pair<Vector3, float> sphere_expansion(
+const std::vector<Vector3>& points,
+const Vector3& start_center,
+const float start_radius)
+{
+    Vector3 center{start_center};
+    float radius{start_radius};
+
+    for (Vector3 point : points)
+    {
+        const Vector3 to_point{(point - center)};
+        const float distance{to_point.Length()};
+
+        if (distance <= radius)
+        {
+            continue;
+        }
+
+        const Vector3 bound_point{
+        center - ((radius / distance) * to_point),
+        };
+
+        center = 0.5f * (bound_point + point);
+        radius = 0.5f * Math::Distance(bound_point, point);
+    }
+
+    // TODO: Left off here repairing the method
+    return {center, radius};
+}
+
 void Sphere::ComputeCentroid(const std::vector<Vector3>& points)
 {
-    /******Student:Assignment2******/
     // The centroid method is roughly describe as: find the centroid (not mean)
     // of all points and then find the furthest away point from the centroid.
-    Warn("Assignment2: Required function un-implemented");
+
+    const Vector3 max{
+    std::accumulate(points.begin(), points.end(), Vector3(),
+                    [](const Vector3& acc, const Vector3& val)
+                    {
+                        return Math::Max(acc, val);
+                    }),
+    };
+
+    const Vector3 min{
+    std::accumulate(points.begin(), points.end(), Vector3(),
+                    [](const Vector3& acc, const Vector3& val)
+                    {
+                        return Math::Min(acc, val);
+                    }),
+    };
+
+    const Vector3 centroid{0.5f * (max + min)};
+
+    float max_distance{std::numeric_limits<float>::lowest()};
+    for (Vector3 point : points)
+    {
+        const float distance{Math::Distance(centroid, point)};
+        max_distance = Math::Max(distance, max_distance);
+    }
+
+    mRadius = max_distance;
+    mCenter = centroid;
+}
+
+std::pair<Vector3, Vector3> find_min_max_on_axis(
+const std::vector<Vector3>& points,
+const Vector3& axis)
+{
+    const Vector3 max_point{
+    *std::max_element(points.begin(), points.end(),
+                      [axis](const Vector3& a, const Vector3& b)
+                      {
+                          return a.Dot(axis) < b.Dot(axis);
+                      }),
+    };
+
+    const Vector3 min_point{
+    *std::min_element(points.begin(), points.end(),
+                      [axis](const Vector3& a, const Vector3& b)
+                      {
+                          return a.Dot(axis) < b.Dot(axis);
+                      }),
+    };
+
+    return {min_point, max_point};
 }
 
 void Sphere::ComputeRitter(const std::vector<Vector3>& points)
 {
-    /******Student:Assignment2******/
     // The ritter method:
     // Find the largest spread on each axis.
-    // Find which axis' pair of points are the furthest (euclidean distance)
+    // Find which axis' pair of points are the furthest (Euclidean distance)
     // apart. Choose the center of this line as the sphere center. Now
     // incrementally expand the sphere.
-    Warn("Assignment2: Required function un-implemented");
+
+    const std::array<std::pair<Vector3, Vector3>, 3> axis_extrema{
+    find_min_max_on_axis(points, Vector3::cXAxis),
+    find_min_max_on_axis(points, Vector3::cYAxis),
+    find_min_max_on_axis(points, Vector3::cZAxis),
+    };
+
+    const std::pair<Vector3, Vector3> extrema_to_use{*std::max_element(
+    axis_extrema.begin(),
+    axis_extrema.end(),
+    [](const std::pair<
+           Vector3, Vector3>& a,
+       const std::pair<
+           Vector3, Vector3>& b)
+    {
+        return (a.first - a.second).
+        LengthSq() < (b.first - b.
+            second).LengthSq();
+    })};
+
+    const auto min{extrema_to_use.first};
+    const auto max{extrema_to_use.second};
+
+    const std::pair<Vector3, float> final_sphere{
+    sphere_expansion(points, 0.5f * (min + max), 0.5f * (max - min).Length()),
+    };
+
+    mCenter = final_sphere.first;
+    mRadius = final_sphere.second;
 }
 
 void Sphere::ComputePCA(const std::vector<Vector3>& points)
 {
-    // The PCA method:
     // Compute the eigen values and vectors. Take the largest eigen vector as
     // the axis of largest spread. Compute the sphere center as the center of
     // this axis then expand by all points.
-    /******Student:Assignment2******/
-    Warn("Assignment2: Required function un-implemented");
+
+    const Matrix3 covariance{ComputeCovarianceMatrix(points)};
+
+    Vector3 eigen_values{};
+    Matrix3 eigen_vectors{};
+
+    ComputeEigenValuesAndVectors(covariance, eigen_values, eigen_vectors, 1000);
+
+    int max_spread_index{0};
+    float max_eigen{eigen_values.x};
+
+    for (int i{1}; i < 3; i++)
+    {
+        if (eigen_values.array[i] > max_eigen)
+        {
+            max_spread_index = i;
+            max_eigen = eigen_values.array[i];
+        }
+    }
+
+    const Vector3 axis{eigen_vectors.Basis(max_spread_index)};
+
+    const std::pair<Vector3, Vector3> extrema{
+    find_min_max_on_axis(points, axis)};
+
+    const Vector3 min{extrema.first};
+    const Vector3 max{extrema.second};
+
+    const Vector3 center{
+    0.5f * (min + max)
+    };
+
+    const float radius{
+    0.5f * (max - min).Length()
+    };
+
+    const std::pair<Vector3, float> final_sphere{
+    sphere_expansion(points, center, radius),
+    };
+
+    mCenter = final_sphere.first;
+    mRadius = final_sphere.second;
 }
 
 bool Sphere::ContainsPoint(const Vector3& point)
@@ -161,26 +422,25 @@ Aabb Aabb::BuildFromCenterAndHalfExtents(const Vector3& center,
 
 float Aabb::GetVolume() const
 {
-    /******Student:Assignment2******/
     // Return the aabb's volume
-    Warn("Assignment2: Required function un-implemented");
-    return 0;
+    const Vector3 lengths{2.f * GetHalfSize()};
+    return std::accumulate(lengths.array, lengths.array + 3, 1.f,
+                           [](float acc, float val) { return acc * val; });
 }
 
 float Aabb::GetSurfaceArea() const
 {
-    /******Student:Assignment2******/
     // Return the aabb's surface area
-    Warn("Assignment2: Required function un-implemented");
-    return 0;
+    const Vector3 lengths{2.f * GetHalfSize()};
+    return 2.f *
+    ((lengths.x * lengths.y) + (lengths.x * lengths.z) +
+        (lengths.y * lengths.z));
 }
 
 bool Aabb::Contains(const Aabb& aabb) const
 {
-    /******Student:Assignment2******/
     // Return if aabb is completely contained in this
-    Warn("Assignment2: Required function un-implemented");
-    return false;
+    return PointAabb(aabb.mMin, mMin, mMax) && PointAabb(aabb.mMax, mMin, mMax);
 }
 
 void Aabb::Expand(const Vector3& point)
@@ -215,7 +475,7 @@ void Aabb::Transform(const Vector3& scale, const Matrix3& rotation,
                      const Vector3& translation)
 {
     /******Student:Assignment2******/
-    // Compute aabb of the this aabb after it is transformed.
+    // Compute aabb of this aabb after it is transformed.
     // You should use the optimize method discussed in class (not transforming
     // all 8 points).
     Warn("Assignment2: Required function un-implemented");

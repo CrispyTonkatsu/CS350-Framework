@@ -33,7 +33,7 @@ public:
 
     // Transforms this ray to another space by the given matrix 4
     Ray Transform(const Matrix4& transform) const;
-    // Returns the a point at the given t value.
+    // Returns a point at the given t value.
     Vector3 GetPoint(float t) const;
     // Draws this ray up to a given t value.
     DebugShape& DebugDraw(float t) const;

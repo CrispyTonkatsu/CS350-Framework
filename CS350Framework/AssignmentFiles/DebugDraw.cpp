@@ -162,6 +162,7 @@ DebugShape& DebugDrawer::DrawRay(const Ray& ray, float t)
 
     shape.mSegments.emplace_back(ray.mStart, ray_end);
 
+    // TODO: Hard code a check becaue hairy ball theorem
     Vector3 w{1, 1, 1};
     w = w - w.Project(ray.mDirection);
 
@@ -208,6 +209,7 @@ DebugShape& DebugDrawer::DrawSphere(const Sphere& sphere)
     [](DebugShape& shape, const Vector3 center, const Vector3 dir,
        const float r)
     {
+        // TODO: Hard code check because hairy ball theorem
         Vector3 w{1, 1, 1};
         w = (w - w.Project(dir)).Normalized();
 
@@ -240,8 +242,8 @@ DebugShape& DebugDrawer::DrawSphere(const Sphere& sphere)
     DrawDisc(shape, sphere.mCenter, Vector3(0, 1, 0), sphere.mRadius);
     DrawDisc(shape, sphere.mCenter, Vector3(0, 0, 1), sphere.mRadius);
 
-    // TODO: Implement the horizon disc
-
+    if (mApplication == nullptr) return shape;
+    
     const Vector3 e{mApplication->mCamera.mTranslation};
     const float l{
     Math::Sqrt((e - sphere.mCenter).LengthSq() - Math::Sq(sphere.mRadius)),
@@ -317,6 +319,7 @@ DebugShape& DebugDrawer::DrawPlane(const Plane& plane, float sizeX, float sizeY)
 
     DebugShape& shape{DrawRay({center, normal}, 5.f)};
 
+    // TODO: Hard code check because hairy ball theorem
     Vector3 w{1, 1, 1};
     w = (w - w.Project(normal)).Normalized();
 
