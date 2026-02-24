@@ -1,9 +1,13 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// Authors: Joshua Davis
-/// Copyright 2015, DigiPen Institute of Technology
-///
-///////////////////////////////////////////////////////////////////////////////
+/* Start Header ------------------------------------------------------
+Copyright (C) 2026 DigiPen Institute of Technology.
+File Name: Geometry.hpp
+Purpose: Declaration of the available intersection tests
+Language: C++
+Platform: Windows MSVC version: 18.0.5.56406
+Project: e.donosomansilla_CS350_2
+Author: Edgar Jose Donoso Mansilla, e.donosomansilla, id: 0066578
+Creation date: 24-Feb-2026
+End Header -------------------------------------------------------*/
 #pragma once
 
 #include "Math/Math.hpp"

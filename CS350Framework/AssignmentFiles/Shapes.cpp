@@ -1,9 +1,13 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// Authors: Joshua Davis, Edgar Jose Donoso Mansilla
-/// Copyright 2015, DigiPen Institute of Technology
-///
-///////////////////////////////////////////////////////////////////////////////
+/* Start Header ------------------------------------------------------
+Copyright (C) 2026 DigiPen Institute of Technology.
+File Name: Shapes.cpp
+Purpose: Implementing the shapes the program can handle
+Language: C++
+Platform: Windows MSVC version: 18.0.5.56406
+Project: e.donosomansilla_CS350_2
+Author: Edgar Jose Donoso Mansilla, e.donosomansilla, id: 0066578
+Creation date: 24-Feb-2026
+End Header -------------------------------------------------------*/
 
 #include "Precompiled.hpp"
 
