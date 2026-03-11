@@ -6,6 +6,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include <memory>
+#include <set>
 #include <unordered_map>
 #include "Shapes.hpp"
 #include "SpatialPartition.hpp"
@@ -45,10 +47,14 @@ public:
     class Tree
     {
         Node* root{nullptr};
-        std::unordered_map<void*, Node> nodes{};
+        // TODO: This doesn't handle 2 keys with null on them, which causes a circular reference
+        std::set<std::unique_ptr<Node>> nodes{};
 
     public:
-        Node& create_node(void* key, void* data, Aabb bounds);
+        void set_root(Node* new_root);
+        Node* get_root() const;
+
+        Node& create_node(void* data, const Aabb& bounds);
 
         void insert_node(Node& node);
 
@@ -71,17 +77,21 @@ public:
         size_t height{0};
 
     public:
+        void* get_data() const;
+        Aabb get_bounds() const;
+
         void set_data(void* new_data);
         void set_tree(Tree* new_tree);
+        void set_bounds(const Aabb& new_bounds);
 
         Node* get_sibling() const;
-        Node* replace_child(Node& child, Node& replacement);
+        Node* replace_child(Node& to_replace, Node* replacement);
 
         bool is_root() const;
         bool is_leaf() const;
         Node& split(Node& other);
 
-        Node* select_path(Node* left, Node* right) const;
+        Node* select_path(const Node* left_path, const Node* right_path) const;
         float get_current_cost() const;
         float get_possible_cost(const Node& other) const;
         void refit_bounds();
@@ -90,18 +100,20 @@ public:
         Node* get_left() const;
         Node* get_right() const;
 
-        enum class RotationType
+        // TODO: Replace rotation type with a struct that can be used to just execute the rotation instead
+
+        struct RotationData
         {
-            LEFT_TO_RIGHTRIGHT,
-            LEFT_TO_RIGHTLEFT,
-            RIGHT_TO_LEFTLEFT,
-            RIGHT_TO_LEFTRIGHT,
-            NO_ROTATION,
+            float cost_delta{0.f};
+            Node* small_child{nullptr};
+            Node* pivot{nullptr};
+            bool is_valid{false};
         };
 
-        RotationType should_rotate() const;
-        float rotation_cost_delta(Node& to_rotate, Node& to_stay,
-                                  Node& sibling) const;
-        void rotate(Node& grandchild, Node& subtree);
+        RotationData should_rotate() const;
+        float rotation_cost_delta(const Node* big_child,
+                                  const Node* small_child,
+                                  const Node* sibling) const;
+        void rotate(Node& small_child, Node& pivot);
     };
 };

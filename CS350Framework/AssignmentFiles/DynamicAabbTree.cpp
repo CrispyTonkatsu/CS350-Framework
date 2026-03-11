@@ -15,23 +15,25 @@ const float DynamicAabbTree::mFatteningFactor = 1.1f;
 
 DynamicAabbTree::DynamicAabbTree() { mType = SpatialPartitionTypes::AabbTree; }
 
-DynamicAabbTree::~DynamicAabbTree() {}
+DynamicAabbTree::~DynamicAabbTree()
+{
+}
 
 void DynamicAabbTree::InsertData(SpatialPartitionKey& key,
                                  SpatialPartitionData& data)
 {
     Warn("Assignment3: Required function un-implemented");
 
-    key.mVoidKey = data.mClientData;
-
     const Vector3 center{data.mAabb.GetCenter()};
     const Vector3 padded_extents{data.mAabb.GetHalfSize() * mFatteningFactor};
 
     Node& node{
     tree.create_node(
-    key.mVoidKey, data.mClientData,
+    data.mClientData,
     Aabb::BuildFromCenterAndHalfExtents(center, padded_extents)),
     };
+
+    key.mVoidKey = &node;
 
     tree.insert_node(node);
 }
@@ -72,17 +74,59 @@ void DynamicAabbTree::FilloutData(
 std::vector<SpatialPartitionQueryData>& results) const
 {
     Warn("Assignment3: Required function un-implemented");
+
+    const Node* root{tree.get_root()};
+
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    std::vector<const Node*> to_visit{};
+    to_visit.emplace_back(root);
+
+    while (!to_visit.empty())
+    {
+        const Node* current_node{to_visit.back()};
+        to_visit.pop_back();
+
+        results.emplace_back(
+        SpatialPartitionQueryData({current_node->get_data(),
+                                   current_node->get_bounds()}));
+
+        if (current_node->get_right())
+        {
+            to_visit.emplace_back(current_node->get_right());
+        }
+
+        if (current_node->get_left())
+        {
+            to_visit.emplace_back(current_node->get_left());
+        }
+    }
 }
 
-DynamicAabbTree::Node& DynamicAabbTree::Tree::create_node(void* key, void* data,
-                                                          Aabb bounds)
+void DynamicAabbTree::Tree::set_root(Node* new_root)
 {
-    Node to_insert{};
-    to_insert.set_data(data);
-    to_insert.set_tree(this);
+    root = new_root;
+}
 
-    auto insert_location{nodes.insert({key, std::move(to_insert)})};
-    return insert_location.first->second;
+DynamicAabbTree::Node* DynamicAabbTree::Tree::get_root() const
+{
+    return root;
+}
+
+DynamicAabbTree::Node& DynamicAabbTree::Tree::create_node(void* data,
+    const Aabb& bounds)
+{
+    auto to_insert{std::make_unique<Node>()};
+    to_insert->set_data(data);
+    to_insert->set_tree(this);
+    to_insert->set_bounds(bounds);
+
+    const auto insert_location
+    {nodes.insert(std::move(to_insert))};
+    return *insert_location.first->get();
 }
 
 void DynamicAabbTree::Tree::insert_node(Node& node)
@@ -97,7 +141,8 @@ void DynamicAabbTree::Tree::insert_node(Node& node)
     while (!current_node->is_leaf())
     {
         current_node =
-        node.select_path(current_node->get_left(), current_node->get_right());
+        current_node->select_path(current_node->get_left(),
+                                  current_node->get_right());
     }
 
     current_node->split(node);
@@ -107,44 +152,47 @@ void DynamicAabbTree::Tree::insert_node(Node& node)
 
 void DynamicAabbTree::Tree::update_nodes(Node& node)
 {
-    Node* current_node{&node};
 
-    while (!current_node->is_root())
+    for (Node* current_node{&node}; !current_node->is_root();
+         current_node = current_node->get_parent())
     {
-        // TODO: check whether it is ok to refit as we go up
         current_node->refit_bounds();
 
-        DynamicAabbTree::Node::RotationType rotation_type{
+        Node::RotationData rotation{
         current_node->should_rotate(),
         };
 
         // TODO: Do the rotation
-        // TODO: Consider refitting the stuff again if a rotation does occurr
-        switch (rotation_type)
+        if (!rotation.is_valid)
         {
-        case Node::RotationType::LEFT_TO_RIGHTRIGHT:
-            break;
-
-        case Node::RotationType::LEFT_TO_RIGHTLEFT:
-            break;
-
-        case Node::RotationType::RIGHT_TO_LEFTLEFT:
-            break;
-
-        case Node::RotationType::RIGHT_TO_LEFTRIGHT:
-            break;
-
-        case Node::RotationType::NO_ROTATION:
-            break;
+            continue;
         }
 
-        current_node = current_node->get_parent();
+        current_node->rotate(*rotation.small_child, *rotation.pivot);
+
+        // TODO: Consider refitting the stuff again if a rotation does occur
+        current_node->refit_bounds();
     }
+}
+
+void* DynamicAabbTree::Node::get_data() const
+{
+    return data;
+}
+
+Aabb DynamicAabbTree::Node::get_bounds() const
+{
+    return bounds;
 }
 
 void DynamicAabbTree::Node::set_data(void* new_data) { data = new_data; }
 
 void DynamicAabbTree::Node::set_tree(Tree* new_tree) { tree = new_tree; }
+
+void DynamicAabbTree::Node::set_bounds(const Aabb& new_bounds)
+{
+    bounds = new_bounds;
+}
 
 DynamicAabbTree::Node* DynamicAabbTree::Node::get_sibling() const
 {
@@ -161,21 +209,30 @@ DynamicAabbTree::Node* DynamicAabbTree::Node::get_sibling() const
     return nullptr;
 }
 
-DynamicAabbTree::Node* DynamicAabbTree::Node::replace_child(Node& child,
-                                                            Node& replacement)
+DynamicAabbTree::Node* DynamicAabbTree::Node::replace_child(Node& to_replace,
+    Node* replacement)
 {
-    Node* output{replacement.parent};
+    Node* output{replacement ? replacement->parent : nullptr};
 
-    replacement.parent = this;
+    to_replace.parent = nullptr;
 
-    if (left == &child)
+    if (replacement)
     {
-        left = &replacement;
+        if (replacement == tree->get_root())
+        {
+            tree->set_root(this);
+        }
+        replacement->parent = this;
     }
 
-    if (right == &child)
+    if (left == &to_replace)
     {
-        right = &replacement;
+        left = replacement;
+    }
+
+    if (right == &to_replace)
+    {
+        right = replacement;
     }
 
     return output;
@@ -188,25 +245,35 @@ bool DynamicAabbTree::Node::is_leaf() const { return !left && !right; }
 DynamicAabbTree::Node& DynamicAabbTree::Node::split(Node& other)
 {
     Node& new_node{
-    tree->create_node(nullptr, nullptr, Aabb::Combine(bounds, other.bounds)),
+    tree->create_node(nullptr, Aabb::Combine(bounds, other.bounds)),
     };
 
-    new_node.parent = parent;
+    if (parent != nullptr)
+    {
+        parent->replace_child(*this, &new_node);
+    }
+
     parent = &new_node;
+    other.parent = &new_node;
 
     new_node.left = this;
     new_node.right = &other;
 
+    if (tree->get_root() == this)
+    {
+        tree->set_root(&new_node);
+    }
+
     return new_node;
 }
 
-DynamicAabbTree::Node* DynamicAabbTree::Node::select_path(Node* left,
-                                                          Node* right) const
+DynamicAabbTree::Node* DynamicAabbTree::Node::select_path(const Node* left_path,
+    const Node* right_path) const
 {
     // TODO: Add the cases where the left or right are null
 
-    const float diff_left{get_possible_cost(*left)};
-    const float diff_right{get_possible_cost(*right)};
+    const float diff_left{get_possible_cost(*left_path)};
+    const float diff_right{get_possible_cost(*right_path)};
 
     if (diff_left < diff_right)
     {
@@ -241,59 +308,82 @@ DynamicAabbTree::Node* DynamicAabbTree::Node::get_right() const
 
 void DynamicAabbTree::Node::refit_bounds()
 {
+    if (is_leaf())
+    {
+        return;
+    }
+
     // TODO: Add the cases where the left or right are null
     bounds = Aabb::Combine(left->bounds, right->bounds);
 }
 
-DynamicAabbTree::Node::RotationType DynamicAabbTree::Node::should_rotate() const
+DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
 {
-    using CostSolution = std::pair<float, RotationType>;
+    if (is_leaf())
+    {
+        return {};
+    }
 
-    std::array<CostSolution, 5> possible_rotations{
+    std::array<RotationData, 5> possible_rotations{
     {
     // Possible rotations with their associated costs
 
-    {rotation_cost_delta(*left->left, *left->right, *right),
-     DynamicAabbTree::Node::RotationType::RIGHT_TO_LEFTLEFT},
+    {rotation_cost_delta(left->left, left->right, right),
+     left->right, left, true},
 
-    {rotation_cost_delta(*left->right, *left->left, *right),
-     DynamicAabbTree::Node::RotationType::RIGHT_TO_LEFTRIGHT},
+    {rotation_cost_delta(left->right, left->left, right),
+     left->left, left, true},
 
-    {rotation_cost_delta(*right->left, *right->right, *left),
-     RotationType::LEFT_TO_RIGHTLEFT},
+    {rotation_cost_delta(right->left, right->right, left),
+     right->right, right, true},
 
-    {rotation_cost_delta(*right->right, *right->left, *left),
-     RotationType::LEFT_TO_RIGHTRIGHT},
+    {rotation_cost_delta(right->right, right->left, left),
+     right->left, right, true},
 
     // The element for no good rotations the change in cost has to be negative
     // to make it a better state for the tree
 
-    {0.f, RotationType::NO_ROTATION},
+    {},
     },
     };
 
-    const CostSolution& output{
+    return {
     *std::min_element( //
     possible_rotations.begin(), possible_rotations.end(),
-    [](const CostSolution& a, const CostSolution& b)
-    { return a.first < b.first; }),
+    [](const RotationData& a, const RotationData& b)
+    {
+        return a.cost_delta < b.cost_delta;
+    }),
     };
-
-    return output.second;
 }
 
-float DynamicAabbTree::Node::rotation_cost_delta(Node& to_rotate, Node& to_stay,
-                                                 Node& sibling) const
+float DynamicAabbTree::Node::rotation_cost_delta(
+const Node* big_child, const Node* small_child,
+const Node* sibling) const
 {
-    return (to_rotate.get_current_cost() + to_stay.get_possible_cost(sibling)) -
+    if (!big_child || !small_child || !sibling)
+    {
+        // Any number larger than 0.f should do
+        return 1.f;
+    }
+
+    return (big_child->get_current_cost() + small_child->
+        get_possible_cost(*sibling)) -
     get_current_cost();
 }
 
-void DynamicAabbTree::Node::rotate(Node& grandchild, Node& child)
+// NOTE: This is from the perspective of the old parent
+void DynamicAabbTree::Node::rotate(Node& small_child, Node& pivot)
 {
-    // TODO: Add cases where the sibling is nullptr (this should never happen at
+    // TODO: Left off here:
+    // fixing the rotations so they exactly match the slides
+    // it seems to be an issue we have in the way we are getting 
+    // the points of rotation in the should_rotate() function
+
+    // TODO: Add cases where the child is nullptr (this should never happen at
     // least to simple intuition but we'll see)
 
-    child.parent->replace_child(child, grandchild);
-    grandchild.parent->replace_child(grandchild, child);
+    parent->replace_child(*this, &pivot);
+    pivot.replace_child(small_child, this);
+    replace_child(pivot, &small_child);
 }
