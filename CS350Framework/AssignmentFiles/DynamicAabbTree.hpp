@@ -6,8 +6,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include <map>
 #include <memory>
-#include <set>
 #include <unordered_map>
 #include "Shapes.hpp"
 #include "SpatialPartition.hpp"
@@ -23,8 +23,10 @@ public:
     // Spatial Partition Interface
     void InsertData(SpatialPartitionKey& key,
                     SpatialPartitionData& data) override;
+
     void UpdateData(SpatialPartitionKey& key,
                     SpatialPartitionData& data) override;
+
     void RemoveData(SpatialPartitionKey& key) override;
 
     void DebugDraw(int level, const Matrix4& transform,
@@ -47,16 +49,20 @@ public:
     class Tree
     {
         Node* root{nullptr};
-        // TODO: This doesn't handle 2 keys with null on them, which causes a circular reference
-        std::set<std::unique_ptr<Node>> nodes{};
 
     public:
+        std::map<Node*, std::unique_ptr<Node>> nodes{};
+
         void set_root(Node* new_root);
         Node* get_root() const;
 
         Node& create_node(void* data, const Aabb& bounds);
 
         void insert_node(Node& node);
+
+        void remove_node(Node& node);
+
+        void delete_node(Node& node);
 
         void update_nodes(Node& node);
     };
@@ -74,14 +80,15 @@ public:
         Node* left{nullptr};
         Node* right{nullptr};
 
-        size_t height{0};
-
     public:
+        int height{0};
+
         void* get_data() const;
         Aabb get_bounds() const;
 
         void set_data(void* new_data);
         void set_tree(Tree* new_tree);
+        void set_parent(Node* new_parent);
         void set_bounds(const Aabb& new_bounds);
 
         Node* get_sibling() const;
@@ -91,10 +98,15 @@ public:
         bool is_leaf() const;
         Node& split(Node& other);
 
-        Node* select_path(const Node* left_path, const Node* right_path) const;
+        Node* select_path(Node* left_path, Node* right_path) const;
         float get_current_cost() const;
         float get_possible_cost(const Node& other) const;
+        float get_possible_cost_delta(const Node& other) const;
+
         void refit_bounds();
+        void update_height();
+
+        int get_depth() const;
 
         Node* get_parent() const;
         Node* get_left() const;
@@ -105,7 +117,7 @@ public:
         struct RotationData
         {
             float cost_delta{0.f};
-            Node* small_child{nullptr};
+            Node* big_child{nullptr};
             Node* pivot{nullptr};
             bool is_valid{false};
         };
@@ -113,7 +125,8 @@ public:
         RotationData should_rotate() const;
         float rotation_cost_delta(const Node* big_child,
                                   const Node* small_child,
+                                  const Node* pivot,
                                   const Node* sibling) const;
-        void rotate(Node& small_child, Node& pivot);
+        void rotate(Node& big_child, Node& pivot);
     };
 };

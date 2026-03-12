@@ -7,8 +7,9 @@
 /// Copyright 2013, DigiPen Institute of Technology
 ///
 ///////////////////////////////////////////////////////////////////////////////
-#include "Application.hpp"
 #include "Precompiled.hpp"
+
+#include "Application.hpp"
 
 class Level1 : public Level
 {
