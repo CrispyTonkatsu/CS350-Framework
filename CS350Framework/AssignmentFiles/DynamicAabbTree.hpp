@@ -117,16 +117,22 @@ public:
         struct RotationData
         {
             float cost_delta{0.f};
-            Node* big_child{nullptr};
+            Node* child_to_rotate{nullptr};
             Node* pivot{nullptr};
+            Node* sibling_to_rotate{nullptr};
+
             bool is_valid{false};
         };
 
         RotationData should_rotate() const;
-        float rotation_cost_delta(const Node* big_child,
-                                  const Node* small_child,
-                                  const Node* pivot,
-                                  const Node* sibling) const;
-        void rotate(Node& big_child, Node& pivot);
+        void add_rotations(std::vector<RotationData>& rotations);
+
+        static float rotation_cost_delta(
+        const Node* big_child,
+        const Node* small_child,
+        const Node* pivot,
+        const Node* sibling);
+
+        void rotate(Node& small_child, Node& sibling, Node& pivot);
     };
 };

@@ -57,13 +57,14 @@ void DynamicAabbTree::UpdateData(SpatialPartitionKey& key,
         return;
     }
 
+    tree.remove_node(node);
+
     const Vector3 center{data.mAabb.GetCenter()};
     const Vector3 padded_extents{data.mAabb.GetHalfSize() * mFatteningFactor};
 
     node.set_bounds(
     Aabb::BuildFromCenterAndHalfExtents(center, padded_extents));
 
-    tree.remove_node(node);
     tree.insert_node(node);
 }
 
@@ -235,14 +236,9 @@ void DynamicAabbTree::Tree::delete_node(Node& node)
 
 void DynamicAabbTree::Tree::update_nodes(Node& node)
 {
-    Node* next_node;
-
-    for (Node* current_node{node.get_parent()};
-         current_node != nullptr;
-         current_node = next_node)
+    Node* current_node{node.get_parent()};
+    while (current_node != nullptr)
     {
-        next_node = current_node->get_parent();
-
         current_node->refit_bounds();
         current_node->update_height();
 
@@ -250,13 +246,16 @@ void DynamicAabbTree::Tree::update_nodes(Node& node)
 
         if (!rotation.is_valid)
         {
+            current_node = current_node->get_parent();
             continue;
         }
 
-        current_node->rotate(*rotation.big_child, *rotation.pivot);
+        current_node->rotate(
+        *rotation.child_to_rotate,
+        *rotation.sibling_to_rotate,
+        *rotation.pivot);
 
-        current_node->refit_bounds();
-        current_node->update_height();
+        current_node = rotation.pivot->get_parent();
     }
 }
 
@@ -449,36 +448,37 @@ DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
         return {};
     }
 
-    // TODO: See how to rotate in the right direction here:
-    // I am a bit confused as to how exactly the driver wants that to be 
+    // TODO: Find out how to get the last part of test 3 to work as intended:
+    // The issue seems to be that there is a rotation that is being miscalculated
 
     const int balance{left->height - right->height};
-    if (balance <= 1 && balance >= -1)
+    if (Math::Abs(balance) > 1)
     {
         return {};
     }
 
-    std::array<RotationData, 5> possible_rotations{
+    std::vector<RotationData> possible_rotations;
+    left->add_rotations(possible_rotations);
+    right->add_rotations(possible_rotations);
+
+    // if (balance > 1 || balance < -1)
+    // {
+    //     return {
+    //     *std::min_element( //
+    //     possible_rotations.begin(), possible_rotations.end(),
+    //     [](const RotationData& a, const RotationData& b)
+    //     {
+    //         return a.cost_delta < b.cost_delta;
+    //     }),
+    //     };
+    // }
+
+    // if we must not rotate then we will not do it 
+    // (this is the same as the height < 2 check)
+    if (left->height != 0 && right->height != 0)
     {
-    // Possible rotations with their associated costs:
-
-    {rotation_cost_delta(left->left, left->right, left, right),
-     left->right, left, true},
-
-    {rotation_cost_delta(left->right, left->left, left, right),
-     left->left, left, true},
-
-    {rotation_cost_delta(right->left, right->right, right, left),
-     right->left, right, true},
-
-    {rotation_cost_delta(right->right, right->left, right, left),
-     right->right, right, true},
-
-    // The element for no good rotations the change in cost has to be negative
-    // to make it a better state for the tree
-    {},
-    },
-    };
+        possible_rotations.emplace_back();
+    }
 
     return {
     *std::min_element( //
@@ -490,25 +490,36 @@ DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
     };
 }
 
+void DynamicAabbTree::Node::add_rotations(std::vector<RotationData>& rotations)
+{
+    rotations.push_back({
+    rotation_cost_delta(left, right, this, get_sibling()),
+    left, this, get_sibling(), true});
+
+    rotations.push_back(
+    {rotation_cost_delta(right, left, this, get_sibling()),
+     right, this, get_sibling(), true}
+    );
+}
+
 float DynamicAabbTree::Node::rotation_cost_delta(
 const Node* big_child,
 const Node* small_child,
 const Node* pivot,
-const Node* sibling) const
+const Node* sibling)
 {
-    if (!big_child || !small_child || !sibling || !pivot)
+    if (!big_child || !small_child || !sibling)
     {
         // Any number larger than 0.f should do
-        return 1.f;
+        return std::numeric_limits<float>::max();
     }
 
     return (big_child->get_current_cost() + small_child->
         get_possible_cost(*sibling)) -
-    get_current_cost();
-    // (left->get_current_cost() + right->get_current_cost());
+    (sibling->get_current_cost() + pivot->get_current_cost());
 }
 
-void DynamicAabbTree::Node::rotate(Node& big_child,
+void DynamicAabbTree::Node::rotate(Node& small_child, Node& sibling,
                                    Node& pivot)
 {
     if (is_root())
@@ -521,8 +532,8 @@ void DynamicAabbTree::Node::rotate(Node& big_child,
         parent->replace_child(*this, &pivot);
     }
 
-    replace_child(pivot, &big_child);
-    pivot.replace_child(big_child, this);
+    pivot.replace_child(small_child, this);
+    replace_child(pivot, &small_child);
 
     update_height();
     refit_bounds();
