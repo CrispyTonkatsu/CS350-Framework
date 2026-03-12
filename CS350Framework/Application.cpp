@@ -168,7 +168,7 @@ Application::Application()
     // Bind what spatial partion is being used
     TwType spatialPartitionType = TwDefineEnumFromString(
     "SpatialPartitionType",
-    "NSquared,NSquaredSphere,NSquaredAabb,DynamicAabbTree");
+    "NSquared,NSquaredSphere,DynamicAabbTree");
     BindPropertyInGroup(mBar, Application, BroadphaseType, int,
                         spatialPartitionType, miscPropertiesGroup);
     // Bind what method of bounding sphere computation is used

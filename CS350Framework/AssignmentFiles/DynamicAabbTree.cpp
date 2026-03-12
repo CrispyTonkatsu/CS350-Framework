@@ -11,6 +11,8 @@
 #include <array>
 #include "DynamicAabbTree.hpp"
 
+#include <queue>
+
 const float DynamicAabbTree::mFatteningFactor = 1.1f;
 
 DynamicAabbTree::DynamicAabbTree() { mType = SpatialPartitionTypes::AabbTree; }
@@ -39,8 +41,6 @@ void DynamicAabbTree::InsertData(SpatialPartitionKey& key,
 void DynamicAabbTree::UpdateData(SpatialPartitionKey& key,
                                  SpatialPartitionData& data)
 {
-    Warn("Assignment3: Required function un-implemented");
-
     const auto search{tree.nodes.find(static_cast<Node*>(key.mVoidKey))};
     if (search == tree.nodes.end())
     {
@@ -85,12 +85,44 @@ void DynamicAabbTree::RemoveData(SpatialPartitionKey& key)
 void DynamicAabbTree::DebugDraw(int level, const Matrix4& transform,
                                 const Vector4& color, int bitMask)
 {
-    // TODO: Implement this again
-    // for (const std::unique_ptr<Node>& node : tree.nodes)
-    // {
-    //     node->get_bounds().DebugDraw().Color(color).SetMaskBit(bitMask).
-    //           SetTransform(transform);
-    // }
+    if (tree.get_root() == nullptr)
+    {
+        return;
+    }
+
+    std::queue<const Node*> to_visit{};
+    to_visit.push(tree.get_root());
+
+    while (!to_visit.empty())
+    {
+        const Node* node{to_visit.front()};
+        to_visit.pop();
+
+        const int node_level{node->get_depth()};
+        const bool should_draw{level == -1 ? true : node_level == level};
+
+        if (should_draw)
+        {
+            node->get_bounds()
+                .DebugDraw()
+                .Color(color)
+                .SetTransform(transform).
+                SetMaskBit(bitMask);
+        }
+
+        if (node->is_leaf())
+        {
+            continue;
+        }
+
+        if (node_level == level)
+        {
+            continue;
+        }
+
+        to_visit.push(node->get_left());
+        to_visit.push(node->get_right());
+    }
 }
 
 void DynamicAabbTree::CastRay(const Ray& ray, CastResults& results)
@@ -448,9 +480,6 @@ DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
         return {};
     }
 
-    // TODO: Find out how to get the last part of test 3 to work as intended:
-    // The issue seems to be that there is a rotation that is being miscalculated
-
     const int balance{left->height - right->height};
     if (balance <= 1 && balance >= -1)
     {
@@ -473,6 +502,13 @@ DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
     possible_rotations.begin(), possible_rotations.end(),
     [](const RotationData& a, const RotationData& b)
     {
+        return a.height_delta < b.height_delta;
+
+        if (a.height_delta != b.height_delta)
+        {
+            return true;
+        }
+
         return a.cost_delta < b.cost_delta;
     }),
     };
@@ -482,11 +518,13 @@ void DynamicAabbTree::Node::add_rotations(std::vector<RotationData>& rotations)
 {
     rotations.push_back({
     rotation_cost_delta(left, right, this, get_sibling()),
-    left, this, get_sibling(), true});
+    height_cost_delta(left, right),
+    right, this, get_sibling(), true});
 
     rotations.push_back(
     {rotation_cost_delta(right, left, this, get_sibling()),
-     right, this, get_sibling(), true}
+     height_cost_delta(right, left),
+     left, this, get_sibling(), true}
     );
 }
 
@@ -502,14 +540,30 @@ const Node* sibling)
         return std::numeric_limits<float>::max();
     }
 
-    return (big_child->get_current_cost() + small_child->
-        get_possible_cost(*sibling)) -
+    return
+    (big_child->get_current_cost() +
+        small_child->get_possible_cost(*sibling)) -
     (sibling->get_current_cost() + pivot->get_current_cost());
+}
+
+int DynamicAabbTree::Node::height_cost_delta(const Node* big_child,
+                                             const Node* small_child)
+{
+    if (!big_child || !small_child)
+    {
+        // Any number larger than 0.f should do
+        return std::numeric_limits<int>::max();
+    }
+
+    return small_child->height - big_child->height;
 }
 
 void DynamicAabbTree::Node::rotate(Node& small_child, Node& sibling,
                                    Node& pivot)
 {
+    // TODO: Left off here trying to fix the rotation:
+    // which has something wrong somewhere
+
     if (is_root())
     {
         tree->set_root(&pivot);

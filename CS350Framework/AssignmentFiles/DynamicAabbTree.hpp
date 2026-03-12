@@ -117,6 +117,8 @@ public:
         struct RotationData
         {
             float cost_delta{0.f};
+            int height_delta{0};
+
             Node* child_to_rotate{nullptr};
             Node* pivot{nullptr};
             Node* sibling_to_rotate{nullptr};
@@ -132,6 +134,10 @@ public:
         const Node* small_child,
         const Node* pivot,
         const Node* sibling);
+
+        static int height_cost_delta(
+        const Node* big_child,
+        const Node* small_child);
 
         void rotate(Node& small_child, Node& sibling, Node& pivot);
     };

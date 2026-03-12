@@ -137,9 +137,9 @@ void BoundingSphereSpatialPartition::DebugDraw(int level,
     for (auto& partition : partitions)
     {
         gDebugDrawer->DrawSphere(partition.second.mBoundingSphere)
-        .SetTransform(transform)
-        .Color(color)
-        .SetMaskBit(bitMask);
+                    .SetTransform(transform)
+                    .Color(color)
+                    .SetMaskBit(bitMask);
     }
 }
 
