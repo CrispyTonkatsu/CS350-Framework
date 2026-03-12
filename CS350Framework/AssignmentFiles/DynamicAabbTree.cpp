@@ -236,9 +236,14 @@ void DynamicAabbTree::Tree::delete_node(Node& node)
 
 void DynamicAabbTree::Tree::update_nodes(Node& node)
 {
-    Node* current_node{node.get_parent()};
-    while (current_node != nullptr)
+    Node* next_node;
+
+    for (Node* current_node{node.get_parent()};
+         current_node != nullptr;
+         current_node = next_node)
     {
+        next_node = current_node->get_parent();
+
         current_node->refit_bounds();
         current_node->update_height();
 
@@ -246,16 +251,11 @@ void DynamicAabbTree::Tree::update_nodes(Node& node)
 
         if (!rotation.is_valid)
         {
-            current_node = current_node->get_parent();
             continue;
         }
 
-        current_node->rotate(
-        *rotation.child_to_rotate,
-        *rotation.sibling_to_rotate,
-        *rotation.pivot);
-
-        current_node = rotation.pivot->get_parent();
+        current_node->rotate(*rotation.child_to_rotate,
+                             *rotation.sibling_to_rotate, *rotation.pivot);
     }
 }
 
@@ -452,7 +452,7 @@ DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
     // The issue seems to be that there is a rotation that is being miscalculated
 
     const int balance{left->height - right->height};
-    if (Math::Abs(balance) > 1)
+    if (balance <= 1 && balance >= -1)
     {
         return {};
     }
@@ -460,18 +460,6 @@ DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
     std::vector<RotationData> possible_rotations;
     left->add_rotations(possible_rotations);
     right->add_rotations(possible_rotations);
-
-    // if (balance > 1 || balance < -1)
-    // {
-    //     return {
-    //     *std::min_element( //
-    //     possible_rotations.begin(), possible_rotations.end(),
-    //     [](const RotationData& a, const RotationData& b)
-    //     {
-    //         return a.cost_delta < b.cost_delta;
-    //     }),
-    //     };
-    // }
 
     // if we must not rotate then we will not do it 
     // (this is the same as the height < 2 check)
