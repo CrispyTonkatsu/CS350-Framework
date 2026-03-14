@@ -80,8 +80,15 @@ public:
         Node* left{nullptr};
         Node* right{nullptr};
 
+        size_t last_axis{6};
+
     public:
         int height{0};
+
+        std::vector<Node*> get_leaves();
+
+        void set_last_axis(size_t new_last_axis);
+        size_t& get_last_axis();
 
         void* get_data() const;
         Aabb get_bounds() const;
@@ -112,33 +119,17 @@ public:
         Node* get_left() const;
         Node* get_right() const;
 
-        // TODO: Replace rotation type with a struct that can be used to just execute the rotation instead
-
         struct RotationData
         {
-            float cost_delta{0.f};
-            int height_delta{0};
-
-            Node* child_to_rotate{nullptr};
+            Node* big_child{nullptr};
             Node* pivot{nullptr};
-            Node* sibling_to_rotate{nullptr};
 
             bool is_valid{false};
         };
 
         RotationData should_rotate() const;
-        void add_rotations(std::vector<RotationData>& rotations);
+        RotationData generate_rotation();
 
-        static float rotation_cost_delta(
-        const Node* big_child,
-        const Node* small_child,
-        const Node* pivot,
-        const Node* sibling);
-
-        static int height_cost_delta(
-        const Node* big_child,
-        const Node* small_child);
-
-        void rotate(Node& small_child, Node& sibling, Node& pivot);
+        void rotate(Node& small_child, Node& pivot);
     };
 };

@@ -8,7 +8,6 @@
 #include "Precompiled.hpp"
 
 #include <algorithm>
-#include <array>
 #include "DynamicAabbTree.hpp"
 
 #include <queue>
@@ -127,17 +126,143 @@ void DynamicAabbTree::DebugDraw(int level, const Matrix4& transform,
 
 void DynamicAabbTree::CastRay(const Ray& ray, CastResults& results)
 {
-    Warn("Assignment3: Required function un-implemented");
+    std::vector<const Node*> to_visit{};
+    to_visit.emplace_back(tree.get_root());
+
+    while (!to_visit.empty())
+    {
+        const Node* current_node{to_visit.back()};
+        to_visit.pop_back();
+
+        const Aabb aabb{current_node->get_bounds()};
+
+        float t{0.f};
+        if (!RayAabb(ray.mStart, ray.mDirection, aabb.mMin, aabb.mMax, t))
+        {
+            continue;
+        }
+
+        if (current_node->is_leaf())
+        {
+            results.AddResult(CastResult{current_node->get_data(), t});
+            continue;
+        }
+
+        to_visit.push_back(current_node->get_left());
+        to_visit.push_back(current_node->get_right());
+    }
 }
 
-void DynamicAabbTree::CastFrustum(const Frustum& frustum, CastResults& results)
+void DynamicAabbTree::CastFrustum(const Frustum& frustum,
+                                  CastResults& results)
 {
-    Warn("Assignment3: Required function un-implemented");
+    std::vector<Node*> to_visit{};
+    to_visit.emplace_back(tree.get_root());
+
+    while (!to_visit.empty())
+    {
+        Node* current_node{to_visit.back()};
+        to_visit.pop_back();
+
+        const Aabb aabb{current_node->get_bounds()};
+
+        IntersectionType::Type cast_result{FrustumAabb(
+        frustum.GetPlanes(), aabb.mMin, aabb.mMax,
+        current_node->get_last_axis())};
+
+        if (cast_result == IntersectionType::Outside)
+        {
+            // There is no need to keep checking for outliers
+            continue;
+        }
+
+        if (cast_result == IntersectionType::Inside)
+        {
+            // We know that everything inside of this is inside so it is reported
+            const std::vector<Node*> leaves{current_node->get_leaves()};
+            for (const Node* node : leaves)
+            {
+                results.AddResult(CastResult{node->get_data(), 0.f});
+            }
+
+            continue;
+        }
+
+        if (current_node->is_leaf())
+        {
+            results.AddResult(CastResult{current_node->get_data(), 0.f});
+            continue;
+        }
+
+        to_visit.push_back(current_node->get_left());
+        to_visit.push_back(current_node->get_right());
+    }
 }
 
 void DynamicAabbTree::SelfQuery(QueryResults& results)
 {
-    Warn("Assignment3: Required function un-implemented");
+    std::vector<std::pair<Node*, Node*>> to_visit{};
+    const Node* root{tree.get_root()};
+    to_visit.emplace_back(root->get_left(), root->get_right());
+
+    while (!to_visit.empty())
+    {
+        const std::pair<Node*, Node*> pair{to_visit.back()};
+        to_visit.pop_back();
+
+        Node* a{pair.first};
+        Node* b{pair.second};
+
+        if (!a->is_leaf())
+        {
+            to_visit.emplace_back(a->get_left(), a->get_right());
+        }
+
+        if (!b->is_leaf())
+        {
+            to_visit.emplace_back(b->get_left(), b->get_right());
+        }
+
+        Aabb a_bounds{a->get_bounds()};
+        Aabb b_bounds{b->get_bounds()};
+
+        const bool are_overlapping{AabbAabb(a_bounds.mMin, a_bounds.mMax,
+                                            b_bounds.mMin, b_bounds.mMax)};
+
+        if (!are_overlapping)
+        {
+            continue;
+        }
+
+        if (a->is_leaf() && b->is_leaf())
+        {
+            results.AddResult(QueryResult{a->get_data(), b->get_data()});
+            continue;
+        }
+
+        if (!a->is_leaf() && !b->is_leaf())
+        {
+
+            if (a_bounds.GetVolume() < b_bounds.GetVolume())
+            {
+                to_visit.emplace_back(a, b->get_left());
+                to_visit.emplace_back(a, b->get_right());
+            }
+            else
+            {
+                to_visit.emplace_back(b, a->get_left());
+                to_visit.emplace_back(b, a->get_right());
+            }
+
+            continue;
+        }
+
+        Node* leaf{a->is_leaf() ? a : b};
+        const Node* internal{a->is_leaf() ? b : a};
+
+        to_visit.emplace_back(leaf, internal->get_left());
+        to_visit.emplace_back(leaf, internal->get_right());
+    }
 }
 
 void DynamicAabbTree::FilloutData(
@@ -158,19 +283,7 @@ std::vector<SpatialPartitionQueryData>& results) const
         const Node* current_node{to_visit.back()};
         to_visit.pop_back();
 
-        // TODO: Clean up this
         void* data_to_print{current_node->get_data()};
-        if (false && !current_node->is_leaf())
-        {
-            if (current_node->is_root())
-            {
-                data_to_print = reinterpret_cast<void*>(8);
-            }
-            else
-            {
-                data_to_print = reinterpret_cast<void*>(9);
-            }
-        }
 
         SpatialPartitionQueryData data(
         {data_to_print, current_node->get_bounds()});
@@ -268,14 +381,10 @@ void DynamicAabbTree::Tree::delete_node(Node& node)
 
 void DynamicAabbTree::Tree::update_nodes(Node& node)
 {
-    Node* next_node;
-
     for (Node* current_node{node.get_parent()};
          current_node != nullptr;
-         current_node = next_node)
+         current_node = current_node->get_parent())
     {
-        next_node = current_node->get_parent();
-
         current_node->refit_bounds();
         current_node->update_height();
 
@@ -286,9 +395,43 @@ void DynamicAabbTree::Tree::update_nodes(Node& node)
             continue;
         }
 
-        current_node->rotate(*rotation.child_to_rotate,
-                             *rotation.sibling_to_rotate, *rotation.pivot);
+        current_node->rotate(*rotation.big_child, *rotation.pivot);
     }
+}
+
+std::vector<DynamicAabbTree::Node*> DynamicAabbTree::Node::get_leaves()
+{
+    std::vector<Node*> output;
+
+    std::vector<Node*> to_visit{};
+    to_visit.emplace_back(this);
+
+    while (!to_visit.empty())
+    {
+        Node* current_node{to_visit.back()};
+        to_visit.pop_back();
+
+        if (current_node->is_leaf())
+        {
+            output.push_back(current_node);
+            continue;
+        }
+
+        to_visit.push_back(current_node->left);
+        to_visit.push_back(current_node->right);
+    }
+
+    return output;
+}
+
+void DynamicAabbTree::Node::set_last_axis(size_t new_last_axis)
+{
+    last_axis = new_last_axis;
+}
+
+size_t& DynamicAabbTree::Node::get_last_axis()
+{
+    return last_axis;
 }
 
 void* DynamicAabbTree::Node::get_data() const
@@ -301,9 +444,15 @@ Aabb DynamicAabbTree::Node::get_bounds() const
     return bounds;
 }
 
-void DynamicAabbTree::Node::set_data(void* new_data) { data = new_data; }
+void DynamicAabbTree::Node::set_data(void* new_data)
+{
+    data = new_data;
+}
 
-void DynamicAabbTree::Node::set_tree(Tree* new_tree) { tree = new_tree; }
+void DynamicAabbTree::Node::set_tree(Tree* new_tree)
+{
+    tree = new_tree;
+}
 
 void DynamicAabbTree::Node::set_parent(Node* new_parent)
 {
@@ -330,8 +479,9 @@ DynamicAabbTree::Node* DynamicAabbTree::Node::get_sibling() const
     return nullptr;
 }
 
-DynamicAabbTree::Node* DynamicAabbTree::Node::replace_child(Node& to_replace,
-    Node* replacement)
+DynamicAabbTree::Node* DynamicAabbTree::Node::replace_child(
+Node& to_replace,
+Node* replacement)
 {
     Node* output{replacement ? replacement->parent : nullptr};
 
@@ -363,7 +513,10 @@ bool DynamicAabbTree::Node::is_root() const
     return this == tree->get_root();
 }
 
-bool DynamicAabbTree::Node::is_leaf() const { return !left && !right; }
+bool DynamicAabbTree::Node::is_leaf() const
+{
+    return !left && !right;
+}
 
 DynamicAabbTree::Node& DynamicAabbTree::Node::split(Node& other)
 {
@@ -392,8 +545,6 @@ DynamicAabbTree::Node& DynamicAabbTree::Node::split(Node& other)
 DynamicAabbTree::Node* DynamicAabbTree::Node::select_path(Node* left_path,
     Node* right_path) const
 {
-    // TODO: Add the cases where the left or right are null
-
     const float diff_left{get_possible_cost_delta(*left_path)};
     const float diff_right{get_possible_cost_delta(*right_path)};
 
@@ -416,7 +567,8 @@ float DynamicAabbTree::Node::get_possible_cost(const Node& other) const
     return new_bounds.GetSurfaceArea();
 }
 
-float DynamicAabbTree::Node::get_possible_cost_delta(const Node& other) const
+float DynamicAabbTree::Node::get_possible_cost_delta(
+const Node& other) const
 {
     return get_possible_cost(other) - other.bounds.GetSurfaceArea();
 }
@@ -426,7 +578,10 @@ DynamicAabbTree::Node* DynamicAabbTree::Node::get_parent() const
     return parent;
 }
 
-DynamicAabbTree::Node* DynamicAabbTree::Node::get_left() const { return left; }
+DynamicAabbTree::Node* DynamicAabbTree::Node::get_left() const
+{
+    return left;
+}
 
 DynamicAabbTree::Node* DynamicAabbTree::Node::get_right() const
 {
@@ -440,7 +595,6 @@ void DynamicAabbTree::Node::refit_bounds()
         return;
     }
 
-    // TODO: Add the cases where the left or right are null
     bounds = Aabb::Combine(left->bounds, right->bounds);
 }
 
@@ -452,8 +606,8 @@ void DynamicAabbTree::Node::update_height()
         return;
     }
 
-    const int height_left{left ? left->height : 0};
-    const int height_right{right ? right->height : 0};
+    const int height_left{left->height};
+    const int height_right{right->height};
 
     height = Math::Max(height_left, height_right) + 1;
 }
@@ -473,9 +627,10 @@ int DynamicAabbTree::Node::get_depth() const
     return depth;
 }
 
-DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
+DynamicAabbTree::Node::RotationData
+DynamicAabbTree::Node::should_rotate() const
 {
-    if (height < 2)
+    if (is_leaf())
     {
         return {};
     }
@@ -486,80 +641,27 @@ DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::should_rotate() const
         return {};
     }
 
-    std::vector<RotationData> possible_rotations;
-    left->add_rotations(possible_rotations);
-    right->add_rotations(possible_rotations);
-
-    // if we must not rotate then we will not do it 
-    // (this is the same as the height < 2 check)
-    if (left->height != 0 && right->height != 0)
+    if (balance > 0)
     {
-        possible_rotations.emplace_back();
+        return left->generate_rotation();
     }
 
+    return right->generate_rotation();
+}
+
+DynamicAabbTree::Node::RotationData DynamicAabbTree::Node::
+generate_rotation()
+{
+    const bool left_is_smaller{left->height < right->height};
+
     return {
-    *std::min_element( //
-    possible_rotations.begin(), possible_rotations.end(),
-    [](const RotationData& a, const RotationData& b)
-    {
-        return a.height_delta < b.height_delta;
-
-        if (a.height_delta != b.height_delta)
-        {
-            return true;
-        }
-
-        return a.cost_delta < b.cost_delta;
-    }),
+    left_is_smaller ? left : right,
+    this,
+    true,
     };
 }
 
-void DynamicAabbTree::Node::add_rotations(std::vector<RotationData>& rotations)
-{
-    rotations.push_back({
-    rotation_cost_delta(left, right, this, get_sibling()),
-    height_cost_delta(left, right),
-    right, this, get_sibling(), true});
-
-    rotations.push_back(
-    {rotation_cost_delta(right, left, this, get_sibling()),
-     height_cost_delta(right, left),
-     left, this, get_sibling(), true}
-    );
-}
-
-float DynamicAabbTree::Node::rotation_cost_delta(
-const Node* big_child,
-const Node* small_child,
-const Node* pivot,
-const Node* sibling)
-{
-    if (!big_child || !small_child || !sibling)
-    {
-        // Any number larger than 0.f should do
-        return std::numeric_limits<float>::max();
-    }
-
-    return
-    (big_child->get_current_cost() +
-        small_child->get_possible_cost(*sibling)) -
-    (sibling->get_current_cost() + pivot->get_current_cost());
-}
-
-int DynamicAabbTree::Node::height_cost_delta(const Node* big_child,
-                                             const Node* small_child)
-{
-    if (!big_child || !small_child)
-    {
-        // Any number larger than 0.f should do
-        return std::numeric_limits<int>::max();
-    }
-
-    return small_child->height - big_child->height;
-}
-
-void DynamicAabbTree::Node::rotate(Node& small_child, Node& sibling,
-                                   Node& pivot)
+void DynamicAabbTree::Node::rotate(Node& small_child, Node& pivot)
 {
     // TODO: Left off here trying to fix the rotation:
     // which has something wrong somewhere

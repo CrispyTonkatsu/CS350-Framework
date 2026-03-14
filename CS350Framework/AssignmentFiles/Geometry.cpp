@@ -290,9 +290,9 @@ IntersectionType::Type PlaneTriangle(const Vector4& plane, const Vector3& triP0,
         }
 
         if (((results[i] == IntersectionType::Outside) ||
-             (results[i] == IntersectionType::Inside)) &&
+                (results[i] == IntersectionType::Inside)) &&
             ((results[prev] == IntersectionType::Outside) ||
-             (results[prev] == IntersectionType::Inside)))
+                (results[prev] == IntersectionType::Inside)))
         {
             return IntersectionType::Overlaps;
         }
@@ -423,11 +423,17 @@ IntersectionType::Type FrustumSphere(const Vector4 planes[6],
 
     for (size_t i{0}; i < 6; i++)
     {
+        if (i == lastAxis)
+        {
+            continue;
+        }
+
         const IntersectionType::Type result{
         PlaneSphere(planes[i], sphereCenter, sphereRadius)};
 
         if (result == IntersectionType::Outside)
         {
+            lastAxis = i;
             return IntersectionType::Outside;
         }
 
@@ -451,15 +457,32 @@ IntersectionType::Type FrustumAabb(const Vector4 planes[6],
 {
     ++Application::mStatistics.mFrustumAabbTests;
 
+    if (lastAxis < 6)
+    {
+        const IntersectionType::Type result{
+        PlaneAabb(planes[lastAxis], aabbMin, aabbMax)};
+
+        if (result == IntersectionType::Outside)
+        {
+            return IntersectionType::Outside;
+        }
+    }
+
     size_t inside_count{0};
 
     for (size_t i{0}; i < 6; i++)
     {
+        if (i == lastAxis)
+        {
+            continue;
+        }
+
         const IntersectionType::Type result{
         PlaneAabb(planes[i], aabbMin, aabbMax)};
 
         if (result == IntersectionType::Outside)
         {
+            lastAxis = i;
             return IntersectionType::Outside;
         }
 
