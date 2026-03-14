@@ -8,7 +8,7 @@
 
 #include <map>
 #include <memory>
-#include <unordered_map>
+#include <queue>
 #include "Shapes.hpp"
 #include "SpatialPartition.hpp"
 
@@ -64,7 +64,7 @@ public:
 
         void delete_node(Node& node);
 
-        void update_nodes(Node& node);
+        static void update_nodes(const Node& node);
     };
 
     Tree tree{};
@@ -99,7 +99,7 @@ public:
         void set_bounds(const Aabb& new_bounds);
 
         Node* get_sibling() const;
-        Node* replace_child(Node& to_replace, Node* replacement);
+        Node* replace_child(const Node& to_replace, Node* replacement);
 
         bool is_root() const;
         bool is_leaf() const;
@@ -131,5 +131,43 @@ public:
         RotationData generate_rotation();
 
         void rotate(Node& small_child, Node& pivot);
+    };
+
+    // Functors for iterative pair test
+    class NodeQuery;
+    using QueryList = std::queue<std::unique_ptr<NodeQuery>>;
+
+    // If only I had variant to not use inheritance
+    class NodeQuery
+    {
+    public:
+        virtual ~NodeQuery() = default;
+
+        virtual void execute(QueryList& queries_left,
+                             QueryResults& results) = 0;
+
+        static void add_single(QueryList& queries_left, Node* node);
+        static void add_pair(QueryList& queries_left, Node* a, Node* b);
+    };
+
+    class SingleQuery final : public NodeQuery
+    {
+    public:
+        explicit SingleQuery(Node* node);
+        void execute(QueryList& queries_left, QueryResults& results) override;
+
+    private:
+        Node* node{nullptr};
+    };
+
+    class PairQuery final : public NodeQuery
+    {
+    public:
+        explicit PairQuery(Node* a, Node* b);
+        void execute(QueryList& queries_left, QueryResults& results) override;
+
+    private:
+        Node* a{nullptr};
+        Node* b{nullptr};
     };
 };

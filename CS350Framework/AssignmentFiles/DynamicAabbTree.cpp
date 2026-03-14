@@ -7,10 +7,7 @@
 
 #include "Precompiled.hpp"
 
-#include <algorithm>
 #include "DynamicAabbTree.hpp"
-
-#include <queue>
 
 const float DynamicAabbTree::mFatteningFactor = 1.1f;
 
@@ -84,13 +81,14 @@ void DynamicAabbTree::RemoveData(SpatialPartitionKey& key)
 void DynamicAabbTree::DebugDraw(int level, const Matrix4& transform,
                                 const Vector4& color, int bitMask)
 {
-    if (tree.get_root() == nullptr)
+    const Node* root{tree.get_root()};
+    if (root == nullptr)
     {
         return;
     }
 
     std::queue<const Node*> to_visit{};
-    to_visit.push(tree.get_root());
+    to_visit.push(root);
 
     while (!to_visit.empty())
     {
@@ -126,8 +124,14 @@ void DynamicAabbTree::DebugDraw(int level, const Matrix4& transform,
 
 void DynamicAabbTree::CastRay(const Ray& ray, CastResults& results)
 {
+    Node* root{tree.get_root()};
+    if (root == nullptr)
+    {
+        return;
+    }
+
     std::vector<const Node*> to_visit{};
-    to_visit.emplace_back(tree.get_root());
+    to_visit.emplace_back(root);
 
     while (!to_visit.empty())
     {
@@ -156,8 +160,14 @@ void DynamicAabbTree::CastRay(const Ray& ray, CastResults& results)
 void DynamicAabbTree::CastFrustum(const Frustum& frustum,
                                   CastResults& results)
 {
+    Node* root{tree.get_root()};
+    if (root == nullptr)
+    {
+        return;
+    }
+
     std::vector<Node*> to_visit{};
-    to_visit.emplace_back(tree.get_root());
+    to_visit.emplace_back(root);
 
     while (!to_visit.empty())
     {
@@ -201,67 +211,19 @@ void DynamicAabbTree::CastFrustum(const Frustum& frustum,
 
 void DynamicAabbTree::SelfQuery(QueryResults& results)
 {
-    std::vector<std::pair<Node*, Node*>> to_visit{};
-    const Node* root{tree.get_root()};
-    to_visit.emplace_back(root->get_left(), root->get_right());
-
-    while (!to_visit.empty())
+    Node* root{tree.get_root()};
+    if (root == nullptr)
     {
-        const std::pair<Node*, Node*> pair{to_visit.back()};
-        to_visit.pop_back();
+        return;
+    }
 
-        Node* a{pair.first};
-        Node* b{pair.second};
+    QueryList queries_left{};
+    NodeQuery::add_single(queries_left, root);
 
-        if (!a->is_leaf())
-        {
-            to_visit.emplace_back(a->get_left(), a->get_right());
-        }
-
-        if (!b->is_leaf())
-        {
-            to_visit.emplace_back(b->get_left(), b->get_right());
-        }
-
-        Aabb a_bounds{a->get_bounds()};
-        Aabb b_bounds{b->get_bounds()};
-
-        const bool are_overlapping{AabbAabb(a_bounds.mMin, a_bounds.mMax,
-                                            b_bounds.mMin, b_bounds.mMax)};
-
-        if (!are_overlapping)
-        {
-            continue;
-        }
-
-        if (a->is_leaf() && b->is_leaf())
-        {
-            results.AddResult(QueryResult{a->get_data(), b->get_data()});
-            continue;
-        }
-
-        if (!a->is_leaf() && !b->is_leaf())
-        {
-
-            if (a_bounds.GetVolume() < b_bounds.GetVolume())
-            {
-                to_visit.emplace_back(a, b->get_left());
-                to_visit.emplace_back(a, b->get_right());
-            }
-            else
-            {
-                to_visit.emplace_back(b, a->get_left());
-                to_visit.emplace_back(b, a->get_right());
-            }
-
-            continue;
-        }
-
-        Node* leaf{a->is_leaf() ? a : b};
-        const Node* internal{a->is_leaf() ? b : a};
-
-        to_visit.emplace_back(leaf, internal->get_left());
-        to_visit.emplace_back(leaf, internal->get_right());
+    while (!queries_left.empty())
+    {
+        queries_left.front()->execute(queries_left, results);
+        queries_left.pop();
     }
 }
 
@@ -379,7 +341,7 @@ void DynamicAabbTree::Tree::delete_node(Node& node)
     nodes.erase(&node);
 }
 
-void DynamicAabbTree::Tree::update_nodes(Node& node)
+void DynamicAabbTree::Tree::update_nodes(const Node& node)
 {
     for (Node* current_node{node.get_parent()};
          current_node != nullptr;
@@ -480,7 +442,7 @@ DynamicAabbTree::Node* DynamicAabbTree::Node::get_sibling() const
 }
 
 DynamicAabbTree::Node* DynamicAabbTree::Node::replace_child(
-Node& to_replace,
+const Node& to_replace,
 Node* replacement)
 {
     Node* output{replacement ? replacement->parent : nullptr};
@@ -663,9 +625,6 @@ generate_rotation()
 
 void DynamicAabbTree::Node::rotate(Node& small_child, Node& pivot)
 {
-    // TODO: Left off here trying to fix the rotation:
-    // which has something wrong somewhere
-
     if (is_root())
     {
         tree->set_root(&pivot);
@@ -684,4 +643,88 @@ void DynamicAabbTree::Node::rotate(Node& small_child, Node& pivot)
 
     pivot.update_height();
     pivot.refit_bounds();
+}
+
+void DynamicAabbTree::NodeQuery::add_single(QueryList& queries_left, Node* node)
+{
+    queries_left.push(
+    std::make_unique<SingleQuery>(node));
+}
+
+void DynamicAabbTree::NodeQuery::add_pair(
+QueryList& queries_left, Node* a,
+Node* b)
+{
+    queries_left.push(
+    std::make_unique<PairQuery>(a, b));
+}
+
+DynamicAabbTree::SingleQuery::SingleQuery(Node* node)
+    : node(node)
+{
+}
+
+void DynamicAabbTree::SingleQuery::execute(
+QueryList& queries_left,
+QueryResults& results)
+{
+    if (node->is_leaf())
+    {
+        return;
+    }
+
+    add_pair(queries_left, node->get_left(), node->get_right());
+
+    add_single(queries_left, node->get_left());
+    add_single(queries_left, node->get_right());
+}
+
+DynamicAabbTree::PairQuery::PairQuery(Node* a, Node* b)
+    : a(a), b(b)
+{
+}
+
+void DynamicAabbTree::PairQuery::execute(
+QueryList& queries_left,
+QueryResults& results)
+{
+    const Aabb a_bounds{a->get_bounds()};
+    const Aabb b_bounds{b->get_bounds()};
+
+    const bool are_overlapping{
+    AabbAabb(a_bounds.GetMin(), a_bounds.GetMax(),
+             b_bounds.GetMin(), b_bounds.GetMax())};
+
+    if (!are_overlapping)
+    {
+        return;
+    }
+
+    if (a->is_leaf() && b->is_leaf())
+    {
+        results.AddResult(QueryResult{a->get_data(), b->get_data()});
+        return;
+    }
+
+    if (!a->is_leaf() && !b->is_leaf())
+    {
+        if (a->get_bounds().GetVolume() < b->get_bounds().GetVolume())
+        {
+            add_pair(queries_left, a, b->get_left());
+            add_pair(queries_left, a, b->get_right());
+        }
+        else
+        {
+            add_pair(queries_left, b, a->get_left());
+            add_pair(queries_left, b, a->get_right());
+        }
+
+        return;
+    }
+
+    Node* leaf{a->is_leaf() ? a : b};
+    const Node* internal{!a->is_leaf() ? a : b};
+
+    add_pair(queries_left, leaf, internal->get_left());
+    add_pair(queries_left, leaf, internal->get_right());
 }
