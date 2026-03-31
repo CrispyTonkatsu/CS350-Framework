@@ -1,9 +1,13 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// Authors: Joshua Davis
-/// Copyright 2015, DigiPen Institute of Technology
-///
-///////////////////////////////////////////////////////////////////////////////
+/* Start Header ------------------------------------------------------
+Copyright (C) 2026 DigiPen Institute of Technology.
+File Name: DynamicAabbTree.hpp
+Purpose: Declaration of BVH with AABBs
+Language: C++
+Platform: Windows MSVC version: 18.0.5.56406
+Project: e.donosomansilla_CS350_2
+Author: Edgar Jose Donoso Mansilla, e.donosomansilla, id: 0066578
+Creation date: 24-Feb-2026
+End Header -------------------------------------------------------*/
 #pragma once
 
 #include <map>
@@ -60,7 +64,7 @@ public:
 
         void insert_node(Node& node);
 
-        void remove_node(Node& node);
+        void remove_node(const Node& node);
 
         void delete_node(Node& node);
 
