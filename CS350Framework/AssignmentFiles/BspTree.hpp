@@ -10,6 +10,9 @@ Creation date: 30-March-2026
 End Header -------------------------------------------------------*/
 #pragma once
 
+#include <map>
+#include <memory>
+
 #include "Shapes.hpp"
 
 using TriangleList = std::vector<Triangle>;
@@ -31,7 +34,7 @@ class BspTree
 {
 public:
     // Splits the triangle by the given plane into 4 different lists. The front
-    // and back side list should be self explanatory (using the proper clipping
+    // and back side list should be self-explanatory (using the proper clipping
     // table described in class). The coplanar front list should be added to
     // when a triangle is coplanar and the normal points the same direction as
     // the plane normal. When the normal points in the opposite direction then
@@ -57,11 +60,11 @@ public:
                           float epsilon);
 
     // Given a list of triangles, construct a bsp-tree. You should use the
-    // heuristic shown in class with the given weight (k) to choose between less
+    // heuristic shown in class with the given weight (k) to choose between fewer
     // splits and a more balanced tree.
     void Construct(const TriangleList& triangles, float k, float epsilon);
 
-    // Given a ray determine if and and what time the ray hits this tree. This
+    // Given a ray determine if and what time the ray hits this tree. This
     // should return the t-first value. This method should be an optimized
     // ray-cast that computes a tMin and tMax as discussed in class in order to
     // not check every triangle!
@@ -74,7 +77,7 @@ public:
     // of the tree (split planes, inside/outside pointers, triangle winding
     // order).
     void Invert();
-    // Clips all triangles in this tree against all of the split planes of the
+    // Clips all triangles in this tree against all the split planes of the
     // passed in tree. Use the provided epsilon for triangle splitting.
     void ClipTo(BspTree* tree, float epsilon);
     // Update this tree so that it is a union of the current tree with the
@@ -87,13 +90,14 @@ public:
     // That is, when A = this and B = other compute A - B.
     void Subtract(BspTree* tree, float k, float epsilon);
 
-    // Fillout the array of triangles with the contents of the tree. The tree
+    // Fill out the array of triangles with the contents of the tree. The tree
     // should do a pre-order depth-first insertion into the array (where
     // pre-order means triangle in the node, then recurse down the front of the
     // plane, then the back). Note: When building the tree make sure to add the
     // split triangle as the first on inside the node and then all other
-    // coplanar triangles in order afterwards.
+    // coplanar triangles in order afterward.
     void FilloutData(std::vector<BspTreeQueryData>& results) const;
+
     // Draw the tree at the given level. Level of -1 means draw the entire tree.
     // You should set the color and bit-mask on the debug shape returned from a
     // debug drawing operation using ".Color(float4)" and ".MaskBit(size_t)".
@@ -101,4 +105,73 @@ public:
     void DebugDraw(int level, const Vector4& color, int bitMask = 0);
 
     // Add your implementation here
+
+private:
+    class Node;
+
+    class Tree
+    {
+        Node* root{nullptr};
+        BspTree* owner{nullptr};
+
+    public:
+        float k;
+        float epsilon;
+
+        std::map<Node*, std::unique_ptr<Node>> nodes{};
+
+        void set_owner(BspTree* new_owner);
+        BspTree* get_owner() const;
+
+        void set_root(Node* new_root);
+        Node* get_root() const;
+
+        Node& create_node(TriangleList&& triangles);
+
+        void insert_node(Node& node);
+
+        void remove_node(const Node& node);
+
+        void delete_node(Node& node);
+    };
+
+    Tree tree{};
+
+    class Node
+    {
+        Tree* tree{nullptr};
+
+        Plane plane{};
+        TriangleList triangles{};
+
+        Node* parent{nullptr};
+        Node* left{nullptr};
+        Node* right{nullptr};
+
+    public:
+        void set_tree(Tree* new_tree);
+        void set_parent(Node* new_parent);
+
+        const TriangleList& get_triangles() const;
+        void set_triangles(TriangleList&& new_triangles);
+        
+        const Plane& get_plane() const;
+        void set_plane(const Plane& new_plane);
+
+        bool is_root() const;
+        bool is_leaf() const;
+
+        /**
+         * This will split the node given the plane that it is using into itself 
+         * and 2 children nodes. This allows for splitting whenever we want
+         * @return The left and right nodes respectively
+         */
+        std::pair<Node*, Node*> split();
+
+        int get_depth() const;
+
+        Node* get_parent() const;
+        Node* get_left() const;
+        Node* get_right() const;
+    };
 };
