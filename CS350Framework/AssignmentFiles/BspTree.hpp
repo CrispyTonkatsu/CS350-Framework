@@ -107,7 +107,7 @@ public:
     // Add your implementation here
 
 private:
-    class Node;
+    struct Node;
 
     class Tree
     {
@@ -115,8 +115,8 @@ private:
         BspTree* owner{nullptr};
 
     public:
-        float k;
-        float epsilon;
+        // float k;
+        // float epsilon;
 
         std::map<Node*, std::unique_ptr<Node>> nodes{};
 
@@ -126,52 +126,30 @@ private:
         void set_root(Node* new_root);
         Node* get_root() const;
 
-        Node& create_node(TriangleList&& triangles);
+        Node& create_node();
 
-        void insert_node(Node& node);
-
-        void remove_node(const Node& node);
-
-        void delete_node(Node& node);
+        Node* construct(Node* parent, const TriangleList& triangles, float k,
+                        float epsilon);
     };
 
     Tree tree{};
 
-    class Node
+    struct Node
     {
         Tree* tree{nullptr};
 
         Plane plane{};
-        TriangleList triangles{};
+        TriangleList coplanar_front{};
+        TriangleList coplanar_back{};
 
         Node* parent{nullptr};
         Node* left{nullptr};
         Node* right{nullptr};
 
-    public:
-        void set_tree(Tree* new_tree);
-        void set_parent(Node* new_parent);
-
-        const TriangleList& get_triangles() const;
-        void set_triangles(TriangleList&& new_triangles);
-        
-        const Plane& get_plane() const;
-        void set_plane(const Plane& new_plane);
-
         bool is_root() const;
-        bool is_leaf() const;
 
-        /**
-         * This will split the node given the plane that it is using into itself 
-         * and 2 children nodes. This allows for splitting whenever we want
-         * @return The left and right nodes respectively
-         */
-        std::pair<Node*, Node*> split();
+        TriangleList get_triangles() const;
 
         int get_depth() const;
-
-        Node* get_parent() const;
-        Node* get_left() const;
-        Node* get_right() const;
     };
 };

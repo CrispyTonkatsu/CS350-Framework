@@ -13,15 +13,14 @@ End Header -------------------------------------------------------*/
 
 #include "BspTree.hpp"
 #include "Geometry.hpp"
-#include <iostream>
-#include <vector>
 
 BspTreeQueryData::BspTreeQueryData() { mDepth = 0; }
 
-void BspTree::SplitTriangle(const Plane& plane, const Triangle& tri,
-                            TriangleList& coplanarFront,
-                            TriangleList& coplanarBack, TriangleList& front,
-                            TriangleList& back, float epsilon)
+void BspTree::SplitTriangle(
+const Plane& plane, const Triangle& tri,
+TriangleList& coplanarFront,
+TriangleList& coplanarBack, TriangleList& front,
+TriangleList& back, float epsilon)
 {
     const IntersectionType::Type intersection_type{PlaneTriangle(
     plane.mData, tri.mPoints[0], tri.mPoints[1], tri.mPoints[2], epsilon)};
@@ -31,6 +30,7 @@ void BspTree::SplitTriangle(const Plane& plane, const Triangle& tri,
     case IntersectionType::Outside:
         back.push_back(tri);
         return;
+
     case IntersectionType::Inside:
         front.push_back(tri);
         return;
@@ -60,14 +60,6 @@ void BspTree::SplitTriangle(const Plane& plane, const Triangle& tri,
         // NOTE: This ray is the one to change to fix the ordering
         const Ray ray{current_point, next_point - current_point};
 
-        // TODO: Factor this into the ones that need it
-        float t;
-        RayPlane(ray.mStart, ray.mDirection, plane.mData, t, epsilon);
-        const Vector3 intersection{ray.GetPoint(t)};
-
-        // NOTE: This is just one case, find a way to handle them
-        // mathematically
-
         IntersectionType::Type current_side{
         PointPlane(current_point, plane.mData, epsilon),
         };
@@ -88,6 +80,10 @@ void BspTree::SplitTriangle(const Plane& plane, const Triangle& tri,
                 break;
 
             case IntersectionType::Outside:
+                float t;
+                RayPlane(ray.mStart, ray.mDirection, plane.mData, t, epsilon);
+                const Vector3 intersection{ray.GetPoint(t)};
+
                 inside.push_back(intersection);
                 inside.push_back(next_point);
 
@@ -107,7 +103,6 @@ void BspTree::SplitTriangle(const Plane& plane, const Triangle& tri,
 
             case IntersectionType::Outside:
                 inside.push_back(next_point);
-
                 outside.push_back(next_point);
                 break;
             }
@@ -118,6 +113,10 @@ void BspTree::SplitTriangle(const Plane& plane, const Triangle& tri,
             switch (current_side) // NOLINT
             {
             case IntersectionType::Inside:
+                float t;
+                RayPlane(ray.mStart, ray.mDirection, plane.mData, t, epsilon);
+                const Vector3 intersection{ray.GetPoint(t)};
+
                 inside.push_back(intersection);
 
                 outside.push_back(intersection);
@@ -155,14 +154,16 @@ void BspTree::SplitTriangle(const Plane& plane, const Triangle& tri,
 float BspTree::CalculateScore(const TriangleList& triangles, size_t testIndex,
                               float k, float epsilon)
 {
-    const auto is_degenerate{[epsilon](const Triangle& triangle)
+    const auto is_degenerate{
+    [](const Triangle& triangle, const float epsilon)
     {
-        return (triangle.mPoints[1] - triangle.mPoints[0]).Cross(
-        triangle.mPoints[2] - triangle.mPoints[0]).LengthSq() < epsilon;
+        return Math::Cross(triangle.mPoints[1] - triangle.mPoints[0],
+                           triangle.mPoints[2] - triangle.mPoints[0])
+        .Length() < epsilon;
     }};
 
     const Triangle& triangle_to_test{triangles.at(testIndex)};
-    if (is_degenerate(triangle_to_test))
+    if (is_degenerate(triangle_to_test, epsilon))
     {
         return Math::PositiveMax();
     }
@@ -171,21 +172,12 @@ float BspTree::CalculateScore(const TriangleList& triangles, size_t testIndex,
     plane.Set(triangle_to_test.mPoints[0], triangle_to_test.mPoints[1],
               triangle_to_test.mPoints[2]);
 
-    if (plane.GetNormal().LengthSq() < epsilon * epsilon)
-    {
-        return Math::PositiveMax();
-    }
-
     float front_count{0};
     float overlap_count{0};
     float back_count{0};
+
     for (const Triangle& triangle : triangles)
     {
-        if (&triangle == &triangle_to_test)
-        {
-            continue;
-        }
-
         const IntersectionType::Type intersection{
         PlaneTriangle(plane.mData, triangle.mPoints[0], triangle.mPoints[1],
                       triangle.mPoints[2], epsilon)};
@@ -227,41 +219,10 @@ size_t BspTree::PickSplitPlane(const TriangleList& triangles, float k,
 
 void BspTree::Construct(const TriangleList& triangles, float k, float epsilon)
 {
-    /******Student:Assignment4******/
-    Warn("Assignment4: Required function un-implemented");
-
-    tree.k = k;
-    tree.epsilon = epsilon;
-    tree.set_owner(this);
-
-    Node& node{tree.create_node(TriangleList(triangles))};
-    tree.set_root(&node);
-
-    std::vector<Node*> to_visit{};
-    to_visit.emplace_back(tree.get_root());
-
-    while (!to_visit.empty())
-    {
-        Node* current_node{to_visit.back()};
-        to_visit.pop_back();
-
-        if (current_node->get_triangles().size() == 1)
-        {
-            continue;
-        }
-
-        std::pair<Node*, Node*> children{current_node->split()};
-
-        if (children.second != nullptr)
-        {
-            to_visit.push_back(children.second);
-        }
-
-        if (children.first != nullptr)
-        {
-            to_visit.push_back(children.first);
-        }
-    }
+    // TODO: write a note explaining that the results provided in the master 
+    // results file is just weird and have compared with team mates to 
+    // try and find a difference
+    tree.construct(nullptr, triangles, k, epsilon);
 }
 
 bool BspTree::RayCast(const Ray& ray, float& t, float planeEpsilon,
@@ -269,20 +230,87 @@ bool BspTree::RayCast(const Ray& ray, float& t, float planeEpsilon,
 {
     /******Student:Assignment4******/
     Warn("Assignment4: Required function un-implemented");
+
+
     t = Math::PositiveMax();
     return false;
 }
 
 void BspTree::AllTriangles(TriangleList& triangles) const
 {
-    /******Student:Assignment4******/
-    Warn("Assignment4: Required function un-implemented");
+    const Node* root{tree.get_root()};
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    std::queue<const Node*> to_visit{};
+    to_visit.push(root);
+
+    while (!to_visit.empty())
+    {
+        const Node* node{to_visit.front()};
+        to_visit.pop();
+
+        triangles.insert(triangles.end(), node->coplanar_front.begin(),
+                         node->coplanar_front.end());
+        triangles.insert(triangles.end(), node->coplanar_back.begin(),
+                         node->coplanar_back.end());
+
+        if (node->right)
+        {
+            to_visit.push(node->right);
+        }
+
+        if (node->left)
+        {
+            to_visit.push(node->left);
+        }
+    }
 }
 
 void BspTree::Invert()
 {
-    /******Student:Assignment4******/
-    Warn("Assignment4: Required function un-implemented");
+    Node* root{tree.get_root()};
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    std::queue<Node*> to_visit{};
+    to_visit.push(root);
+
+    while (!to_visit.empty())
+    {
+        Node* node{to_visit.front()};
+        to_visit.pop();
+
+        std::swap(node->left, node->right);
+        node->plane.mData *= -1.f;
+
+        std::reverse(node->coplanar_front.begin(), node->coplanar_front.end());
+        std::reverse(node->coplanar_back.begin(), node->coplanar_back.end());
+
+        for (Triangle& triangle : node->coplanar_front)
+        {
+            std::swap(triangle.mPoints[0], triangle.mPoints[1]);
+        }
+
+        for (Triangle& triangle : node->coplanar_back)
+        {
+            std::swap(triangle.mPoints[0], triangle.mPoints[1]);
+        }
+
+        if (node->right)
+        {
+            to_visit.push(node->right);
+        }
+
+        if (node->left)
+        {
+            to_visit.push(node->left);
+        }
+    }
 }
 
 void BspTree::ClipTo(BspTree* tree, float epsilon)
@@ -311,9 +339,6 @@ void BspTree::Subtract(BspTree* tree, float k, float epsilon)
 
 void BspTree::FilloutData(std::vector<BspTreeQueryData>& results) const
 {
-    /******Student:Assignment4******/
-    Warn("Assignment4: Required function un-implemented");
-    
     const Node* root{tree.get_root()};
 
     if (root == nullptr)
@@ -335,23 +360,20 @@ void BspTree::FilloutData(std::vector<BspTreeQueryData>& results) const
 
         results.emplace_back(data);
 
-        if (current_node->get_right())
+        if (current_node->right)
         {
-            to_visit.emplace_back(current_node->get_right());
+            to_visit.emplace_back(current_node->right);
         }
 
-        if (current_node->get_left())
+        if (current_node->left)
         {
-            to_visit.emplace_back(current_node->get_left());
+            to_visit.emplace_back(current_node->left);
         }
     }
 }
 
 void BspTree::DebugDraw(int level, const Vector4& color, int bitMask)
 {
-    /******Student:Assignment4******/
-    Warn("Assignment4: Required function un-implemented");
-
     const Node* root{tree.get_root()};
     if (root == nullptr)
     {
@@ -373,22 +395,8 @@ void BspTree::DebugDraw(int level, const Vector4& color, int bitMask)
         {
             for (auto& triangle : node->get_triangles())
             {
-                triangle
-                .DebugDraw()
-                .Color(color)
-                .SetMaskBit(bitMask);
+                triangle.DebugDraw().Color(color).SetMaskBit(bitMask);
             }
-
-            // TODO: Ask how they want the debug draw
-            node->get_plane()
-                .DebugDraw(30.f)
-                .Color(color)
-                .SetMaskBit(bitMask);
-        }
-
-        if (node->is_leaf())
-        {
-            continue;
         }
 
         if (node_level == level)
@@ -396,178 +404,111 @@ void BspTree::DebugDraw(int level, const Vector4& color, int bitMask)
             continue;
         }
 
-        if (node->get_right())
+        if (node->right)
         {
-            to_visit.push(node->get_right());
+            to_visit.push(node->right);
         }
 
-        if (node->get_left())
+        if (node->left)
         {
-            to_visit.push(node->get_left());
+            to_visit.push(node->left);
         }
     }
 }
 
-void BspTree::Tree::set_owner(BspTree* new_owner)
+void BspTree::Tree::set_owner(BspTree* new_owner) { owner = new_owner; }
+
+BspTree* BspTree::Tree::get_owner() const { return owner; }
+
+void BspTree::Tree::set_root(Node* new_root) { root = new_root; }
+
+BspTree::Node* BspTree::Tree::get_root() const { return root; }
+
+BspTree::Node& BspTree::Tree::create_node()
 {
-    owner = new_owner;
-}
-
-BspTree* BspTree::Tree::get_owner() const
-{
-    return owner;
-}
-
-void BspTree::Tree::set_root(Node* new_root)
-{
-    root = new_root;
-}
-
-BspTree::Node* BspTree::Tree::get_root() const
-{
-    return root;
-}
-
-BspTree::Node& BspTree::Tree::create_node(TriangleList&& triangles)
-{
-    size_t plane_index{owner->PickSplitPlane(triangles, k, epsilon)};
-    Triangle& triangle{triangles[plane_index]};
-
-    Plane plane;
-    plane.Set(triangle.mPoints[0], triangle.mPoints[1], triangle.mPoints[2]);
-
     auto node{std::make_unique<Node>()};
-    node->set_tree(this);
-    node->set_triangles(std::move(triangles));
-    node->set_plane(plane);
+    node->tree = this;
 
-    const auto insert_location
-    {nodes.insert({node.get(), std::move(node)})};
+    const auto insert_location{nodes.insert({node.get(), std::move(node)})};
 
     return *insert_location.first->second;
 }
 
-void BspTree::Node::set_tree(Tree* new_tree)
+BspTree::Node* BspTree::Tree::construct(
+Node* parent, const TriangleList& triangles, float k,
+float epsilon)
 {
-    tree = new_tree;
-}
-
-void BspTree::Node::set_parent(Node* new_parent)
-{
-    parent = new_parent;
-}
-
-const TriangleList& BspTree::Node::get_triangles() const
-{
-    return triangles;
-}
-
-void BspTree::Node::set_triangles(TriangleList&& new_triangles)
-{
-    triangles = std::move(new_triangles);
-}
-
-const Plane& BspTree::Node::get_plane() const
-{
-    return plane;
-}
-
-void BspTree::Node::set_plane(const Plane& new_plane)
-{
-    plane = new_plane;
-}
-
-bool BspTree::Node::is_root() const
-{
-    return tree->get_root() == this;
-}
-
-bool BspTree::Node::is_leaf() const
-{
-    return left == nullptr && right == nullptr;
-}
-
-std::pair<BspTree::Node*, BspTree::Node*> BspTree::Node::split()
-{
-    TriangleList negative;
-    TriangleList coplanar;
-    TriangleList positive;
-
-    for (Triangle triangle : triangles)
+    if (triangles.empty())
     {
-        IntersectionType::Type intersection_type{
-        PlaneTriangle(plane.mData, triangle.mPoints[0],
-                      triangle.mPoints[1],
-                      triangle.mPoints[2],
-                      tree->epsilon)};
-
-        switch (intersection_type) // NOLINT
-        {
-        case IntersectionType::Coplanar:
-            coplanar.push_back(triangle);
-            break;
-        case IntersectionType::Outside:
-            negative.push_back(triangle);
-            break;
-        case IntersectionType::Inside:
-            positive.push_back(triangle);
-            break;
-        case IntersectionType::Overlaps:
-            // TODO: Left off here, I think the coplanar arrays
-            // here are wrong or something
-            SplitTriangle(plane, triangle, coplanar, coplanar, positive,
-                          negative, tree->epsilon);
-            break;
-        }
+        return nullptr;
     }
 
-    const auto try_construct{[this](TriangleList&& triangles_to_use) -> Node*
+    Node& node{create_node()};
+    const size_t split_index{owner->PickSplitPlane(triangles, k, epsilon)};
+    const Triangle& split_triangle{triangles[split_index]};
+
+    if (parent == nullptr)
     {
-        if (triangles_to_use.empty())
-        {
-            return nullptr;
-        }
+        root = &node;
+    }
+    else
+    {
+        node.parent = parent;
+    }
 
-        Node& new_node{tree->create_node(std::move(triangles_to_use))};
-        new_node.set_parent(this);
+    node.plane.Set(
+    split_triangle.mPoints[0],
+    split_triangle.mPoints[1],
+    split_triangle.mPoints[2]);
 
-        return &new_node;
-    }};
+    TriangleList front;
+    TriangleList back;
 
-    left = try_construct(std::move(positive));
-    right = try_construct(std::move(negative));
-    
-    set_triangles(std::move(coplanar));
+    for (const Triangle& triangle : triangles)
+    {
+        SplitTriangle(node.plane, triangle, node.coplanar_front,
+                      node.coplanar_back, front, back, epsilon);
+    }
 
-    return {left, right};
+    node.left = construct(&node, front, k, epsilon);
+    node.right = construct(&node, back, k, epsilon);
+
+    return &node;
+}
+
+bool BspTree::Node::is_root() const { return tree->get_root() == this; }
+
+TriangleList BspTree::Node::get_triangles() const
+{
+    // TODO: Make this faster so that the function isn't lagging so bad
+
+    TriangleList output;
+    output.reserve(coplanar_back.size() + coplanar_front.size());
+
+    for (const Triangle& triangle : coplanar_front)
+    {
+        output.push_back(triangle);
+    }
+
+    for (const Triangle& triangle : coplanar_back)
+    {
+        output.push_back(triangle);
+    }
+
+    return output;
 }
 
 int BspTree::Node::get_depth() const
 {
     int depth{0};
 
-    const Node* current_node{this};
+    auto current_node{this};
 
     while (!current_node->is_root())
     {
         depth++;
-        current_node = current_node->get_parent();
+        current_node = current_node->parent;
     }
 
     return depth;
-}
-
-BspTree::Node* BspTree::Node::get_parent() const
-{
-    return parent;
-}
-
-BspTree::Node* BspTree::Node::get_left() const
-{
-    return left;
-}
-
-BspTree::Node* BspTree::Node::get_right() const
-{
-    return right;
 }
