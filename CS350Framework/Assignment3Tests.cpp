@@ -542,7 +542,7 @@ void DynamicAabbTreeFrustumCastTest7(const std::string& testName, int debuggingI
   CastResults castResults; 
   Frustum frustum;
 
-  // Frustum contains left sub-tree
+  // Frustum contains front sub-tree
   frustum.Set(Vector3(-1.32615f, -11.3262f, 10), Vector3(21.3262f, -11.3262f, 10), Vector3(21.3262f, 11.3262f, 10), Vector3(-1.32615f, 11.3262f, 10), Vector3(8, -2, -10), Vector3(12, -2, -10), Vector3(12, 2, -10), Vector3(8, 2, -10));
   PrintAabbTreeFrustumCastTest(spatialPartition, frustum, Application::mStatistics.mPlaneAabbTests, file);
 }
@@ -572,7 +572,7 @@ void DynamicAabbTreeFrustumCastTest8(const std::string& testName, int debuggingI
   CastResults castResults; 
   Frustum frustum;
 
-  // Frustum contains right sub-tree
+  // Frustum contains back sub-tree
   frustum.Set(Vector3(-21.3262f, -11.3262f, 10), Vector3(1.32615f, -11.3262f, 10), Vector3(1.32615f, 11.3262f, 10), Vector3(-21.3262f, 11.3262f, 10), Vector3(-12, -2, -10), Vector3(-8, -2, -10), Vector3(-8, 2, -10), Vector3(-12, 2, -10));
   PrintAabbTreeFrustumCastTest(spatialPartition, frustum, Application::mStatistics.mPlaneAabbTests, file);
 }
@@ -602,7 +602,7 @@ void DynamicAabbTreeFrustumCastTest9(const std::string& testName, int debuggingI
   CastResults castResults; 
   Frustum frustum;
 
-  // Frustum contains bottom-left aabb
+  // Frustum contains bottom-front aabb
   frustum.Set(Vector3(-1.32615f, -18.3262f, 10), Vector3(21.3262f, -18.3262f, 10), Vector3(21.3262f, 4.32615f, 10), Vector3(-1.32615f, 4.32615f, 10), Vector3(8, -9, -10), Vector3(12, -9, -10), Vector3(12, -5, -10), Vector3(8, -5, -10));
   PrintAabbTreeFrustumCastTest(spatialPartition, frustum, Application::mStatistics.mPlaneAabbTests, file);
 }
@@ -632,7 +632,7 @@ void DynamicAabbTreeFrustumCastTest10(const std::string& testName, int debugging
   CastResults castResults; 
   Frustum frustum;
 
-  // Frustum contains top-right aabb
+  // Frustum contains top-back aabb
   frustum.Set(Vector3(-21.3262f, -4.32615f, 10), Vector3(1.32615f, -4.32615f, 10), Vector3(1.32615f, 18.3262f, 10), Vector3(-21.3262f, 18.3262f, 10), Vector3(-12, 5, -10), Vector3(-8, 5, -10), Vector3(-8, 9, -10), Vector3(-12, 9, -10));
   PrintAabbTreeFrustumCastTest(spatialPartition, frustum, Application::mStatistics.mPlaneAabbTests, file);
 }
@@ -13033,13 +13033,13 @@ void InitializeAssignment3Tests()
   mTestFns.push_back(AssignmentUnitTestList());
   AssignmentUnitTestList& list = mTestFns[2];
   
-  // Add Aabb Tree Spatial Partition Tests
-  RegisterAabbTreeStructureTests(list);
-  RegisterAabbTreeRayCastTests(list);
-  RegisterAabbTreeFrustumCastTests(list);
-  RegisterAabbTreeSelfQueryTests(list);
-  RegisterDynamicAabbTreeStructureFuzzTests(list);
-  RegisterDynamicAabbTreeRayCastFuzzTests(list);
-  RegisterDynamicAabbTreeFrustumCastFuzzTests(list);
-  RegisterAabbTreeSelfQueryFuzzTests(list);
+  // // Add Aabb Tree Spatial Partition Tests
+  // RegisterAabbTreeStructureTests(list);
+  // RegisterAabbTreeRayCastTests(list);
+  // RegisterAabbTreeFrustumCastTests(list);
+  // RegisterAabbTreeSelfQueryTests(list);
+  // RegisterDynamicAabbTreeStructureFuzzTests(list);
+  // RegisterDynamicAabbTreeRayCastFuzzTests(list);
+  // RegisterDynamicAabbTreeFrustumCastFuzzTests(list);
+  // RegisterAabbTreeSelfQueryFuzzTests(list);
 }

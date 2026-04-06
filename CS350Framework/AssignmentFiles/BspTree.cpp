@@ -222,6 +222,9 @@ void BspTree::Construct(const TriangleList& triangles, float k, float epsilon)
     // TODO: write a note explaining that the results provided in the master 
     // results file is just weird and have compared with team mates to 
     // try and find a difference
+
+    tree.nodes.clear();
+    tree.set_root(nullptr);
     tree.construct(nullptr, triangles, k, epsilon);
 }
 
@@ -231,9 +234,12 @@ bool BspTree::RayCast(const Ray& ray, float& t, float planeEpsilon,
     /******Student:Assignment4******/
     Warn("Assignment4: Required function un-implemented");
 
-
-    t = Math::PositiveMax();
-    return false;
+    return tree.get_root()->ray_cast(
+    ray,
+    0, Math::PositiveMax(),
+    t,
+    planeEpsilon,
+    triExpansionEpsilon);
 }
 
 void BspTree::AllTriangles(TriangleList& triangles) const
@@ -257,14 +263,14 @@ void BspTree::AllTriangles(TriangleList& triangles) const
         triangles.insert(triangles.end(), node->coplanar_back.begin(),
                          node->coplanar_back.end());
 
-        if (node->right)
+        if (node->back)
         {
-            to_visit.push(node->right);
+            to_visit.push(node->back);
         }
 
-        if (node->left)
+        if (node->front)
         {
-            to_visit.push(node->left);
+            to_visit.push(node->front);
         }
     }
 }
@@ -285,7 +291,7 @@ void BspTree::Invert()
         Node* node{to_visit.front()};
         to_visit.pop();
 
-        std::swap(node->left, node->right);
+        std::swap(node->front, node->back);
         node->plane.mData *= -1.f;
 
         std::reverse(node->coplanar_front.begin(), node->coplanar_front.end());
@@ -301,28 +307,45 @@ void BspTree::Invert()
             std::swap(triangle.mPoints[0], triangle.mPoints[1]);
         }
 
-        if (node->right)
+        if (node->back)
         {
-            to_visit.push(node->right);
+            to_visit.push(node->back);
         }
 
-        if (node->left)
+        if (node->front)
         {
-            to_visit.push(node->left);
+            to_visit.push(node->front);
         }
     }
 }
 
 void BspTree::ClipTo(BspTree* tree, float epsilon)
 {
-    /******Student:Assignment4******/
-    Warn("Assignment4: Required function un-implemented");
+    this->tree.clip_against(tree->tree.get_root(), epsilon);
 }
 
 void BspTree::Union(BspTree* tree, float k, float epsilon)
 {
     /******Student:Assignment4******/
     Warn("Assignment4: Required function un-implemented");
+
+    ClipTo(tree, epsilon);
+    tree->ClipTo(this, epsilon);
+
+    tree->Invert();
+    tree->ClipTo(this, epsilon);
+    tree->Invert();
+
+    TriangleList this_triangles{};
+    AllTriangles(this_triangles);
+
+    TriangleList other_triangles{};
+    tree->AllTriangles(other_triangles);
+
+    this_triangles.insert(this_triangles.end(), other_triangles.begin(),
+                          other_triangles.end());
+
+    Construct(this_triangles, k, epsilon);
 }
 
 void BspTree::Intersection(BspTree* tree, float k, float epsilon)
@@ -360,14 +383,14 @@ void BspTree::FilloutData(std::vector<BspTreeQueryData>& results) const
 
         results.emplace_back(data);
 
-        if (current_node->right)
+        if (current_node->back)
         {
-            to_visit.emplace_back(current_node->right);
+            to_visit.emplace_back(current_node->back);
         }
 
-        if (current_node->left)
+        if (current_node->front)
         {
-            to_visit.emplace_back(current_node->left);
+            to_visit.emplace_back(current_node->front);
         }
     }
 }
@@ -404,14 +427,14 @@ void BspTree::DebugDraw(int level, const Vector4& color, int bitMask)
             continue;
         }
 
-        if (node->right)
+        if (node->back)
         {
-            to_visit.push(node->right);
+            to_visit.push(node->back);
         }
 
-        if (node->left)
+        if (node->front)
         {
-            to_visit.push(node->left);
+            to_visit.push(node->front);
         }
     }
 }
@@ -470,17 +493,32 @@ float epsilon)
                       node.coplanar_back, front, back, epsilon);
     }
 
-    node.left = construct(&node, front, k, epsilon);
-    node.right = construct(&node, back, k, epsilon);
+    node.front = construct(&node, front, k, epsilon);
+    node.back = construct(&node, back, k, epsilon);
 
     return &node;
+}
+
+void BspTree::Tree::clip_against(Node* node, float epsilon)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    node->coplanar_back = root->clip_triangles(node->coplanar_back, epsilon);
+    node->coplanar_front = root->clip_triangles(node->coplanar_front, epsilon);
+
+    clip_against(node->front, epsilon);
+    clip_against(node->back, epsilon);
 }
 
 bool BspTree::Node::is_root() const { return tree->get_root() == this; }
 
 TriangleList BspTree::Node::get_triangles() const
 {
-    // TODO: Make this faster so that the function isn't lagging so bad
+    // TODO: Make this faster so that the function isn't lagging so bad 
+    // when we need it later.
 
     TriangleList output;
     output.reserve(coplanar_back.size() + coplanar_front.size());
@@ -511,4 +549,215 @@ int BspTree::Node::get_depth() const
     }
 
     return depth;
+}
+
+bool BspTree::Node::ray_cast(
+const Ray& ray,
+float t_min, float t_max, float& t_out,
+float plane_epsilon, float triangle_epsilon) const
+{
+    const float point_side_thin{
+    Vector4(ray.mStart.x, ray.mStart.y, ray.mStart.z, 1.f).Dot(plane.mData)};
+    
+    const IntersectionType::Type point_side{
+    PointPlane(ray.mStart, plane.mData, plane_epsilon)};
+
+    const Node* near_side{point_side_thin >= 0 ? back : front};
+    const Node* far_side{near_side == front ? back : front};
+
+    float t_plane;
+    const bool hit_plane{
+    RayPlane(ray.mStart, ray.mDirection, plane.mData, t_plane, plane_epsilon)};
+
+    if (point_side == IntersectionType::Coplanar)
+    {
+        // TODO: Get the smallest return value out of this the triangle checks
+
+        float t_near;
+        const bool hit_near{near_side &&
+        near_side->ray_cast(ray, t_min, t_max, t_near, plane_epsilon,
+                            triangle_epsilon)};
+
+        if (hit_near)
+        {
+            t_out = t_near;
+            return true;
+        }
+
+        float t_far;
+        const bool hit_far{far_side &&
+        far_side->ray_cast(ray, t_min, t_max, t_far, plane_epsilon,
+                           triangle_epsilon)};
+
+        if (hit_far)
+        {
+            t_out = t_far;
+            return true;
+        }
+
+        float t_triangles;
+        const bool hit_triangles{
+        ray_triangles(ray, t_triangles, triangle_epsilon)};
+
+        if (hit_triangles)
+        {
+            t_out = t_triangles;
+            return true;
+        }
+    }
+
+    if (!hit_plane)
+    {
+        float t_near;
+        const bool hit_near{near_side &&
+        near_side->ray_cast(ray, t_min, t_max, t_near, plane_epsilon,
+                            triangle_epsilon)};
+
+        if (hit_near)
+        {
+            t_out = t_near;
+            return true;
+        }
+    }
+
+    if (hit_plane)
+    {
+        float t_near;
+        const bool hit_near{near_side &&
+        near_side->ray_cast(ray, t_min, t_plane, t_near, plane_epsilon,
+                            triangle_epsilon)};
+
+        if (hit_near)
+        {
+            t_out = t_near;
+            return true;
+        }
+
+        float t_far;
+        const bool hit_far{far_side &&
+        far_side->ray_cast(ray, t_plane, t_max, t_far, plane_epsilon,
+                           triangle_epsilon)};
+
+        if (hit_far)
+        {
+            t_out = t_far;
+            return true;
+        }
+
+        float t_triangles;
+        const bool hit_triangles{
+        ray_triangles(ray, t_triangles, triangle_epsilon)};
+
+        if (hit_triangles)
+        {
+            t_out = t_triangles;
+            return true;
+        }
+    }
+
+    if (t_plane < 0 || t_plane > t_max)
+    {
+        float t_near;
+        const bool hit_near{near_side &&
+        near_side->ray_cast(ray, t_min, t_max, t_near, plane_epsilon,
+                            triangle_epsilon)};
+
+        if (hit_near)
+        {
+            t_out = t_near;
+            return true;
+        }
+    }
+
+    if (t_plane > 0 && t_plane < t_min)
+    {
+        float t_far;
+        const bool hit_far{far_side &&
+        far_side->ray_cast(ray, t_min, t_max, t_far, plane_epsilon,
+                           triangle_epsilon)};
+
+        if (hit_far)
+        {
+            t_out = t_far;
+            return true;
+        }
+    }
+
+    // TODO: Handle edge-case 2
+    // TODO: Handle edge-case 3
+
+    return false;
+}
+
+bool BspTree::Node::ray_triangles(const Ray& ray, float& t_out,
+                                  float triangle_epsilon) const
+{
+    bool hit{false};
+    float t_min{Math::PositiveMax()};
+
+    for (const Triangle& triangle : coplanar_front)
+    {
+        float t_triangle;
+        const bool hit_triangle{
+        RayTriangle(
+        ray.mStart, ray.mDirection,
+        triangle.mPoints[0], triangle.mPoints[1], triangle.mPoints[2],
+        t_triangle, triangle_epsilon)};
+
+        if (hit_triangle && t_triangle < t_min)
+        {
+            t_min = t_triangle;
+            hit = true;
+        }
+    }
+
+    for (const Triangle& triangle : coplanar_back)
+    {
+        float t_triangle;
+        const bool hit_triangle{
+        RayTriangle(
+        ray.mStart, ray.mDirection,
+        triangle.mPoints[0], triangle.mPoints[1], triangle.mPoints[2],
+        t_triangle, triangle_epsilon)};
+
+        if (hit_triangle && t_triangle < t_min)
+        {
+            t_min = t_triangle;
+            hit = true;
+        }
+    }
+
+    t_out = t_min;
+    return hit;
+}
+
+TriangleList BspTree::Node::clip_triangles(const TriangleList& triangles,
+                                           float epsilon)
+{
+    std::vector<Triangle> front_triangles;
+    std::vector<Triangle> back_triangles;
+
+    for (const Triangle& triangle : triangles)
+    {
+        SplitTriangle(plane, triangle, front_triangles, back_triangles,
+                      front_triangles, back_triangles, epsilon);
+    }
+
+    if (front)
+    {
+        front->clip_triangles(front_triangles, epsilon);
+    }
+
+    if (back)
+    {
+        back->clip_triangles(back_triangles, epsilon);
+    }
+    else
+    {
+        back_triangles.clear();
+    }
+
+    front_triangles.insert(front_triangles.end(), back_triangles.begin(),
+                           back_triangles.end());
+    return front_triangles;
 }

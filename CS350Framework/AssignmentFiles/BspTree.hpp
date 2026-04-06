@@ -115,9 +115,6 @@ private:
         BspTree* owner{nullptr};
 
     public:
-        // float k;
-        // float epsilon;
-
         std::map<Node*, std::unique_ptr<Node>> nodes{};
 
         void set_owner(BspTree* new_owner);
@@ -130,6 +127,8 @@ private:
 
         Node* construct(Node* parent, const TriangleList& triangles, float k,
                         float epsilon);
+
+        void clip_against(Node* node, float epsilon);
     };
 
     Tree tree{};
@@ -143,13 +142,21 @@ private:
         TriangleList coplanar_back{};
 
         Node* parent{nullptr};
-        Node* left{nullptr};
-        Node* right{nullptr};
+        Node* front{nullptr};
+        Node* back{nullptr};
 
         bool is_root() const;
 
         TriangleList get_triangles() const;
 
         int get_depth() const;
+
+        bool ray_cast(const Ray& ray, float t_min, float t_max, float& t_out,
+                      float plane_epsilon, float triangle_epsilon) const;
+
+        bool ray_triangles(const Ray& ray, float& t_out, float triangle_epsilon) const;
+
+        TriangleList clip_triangles(const TriangleList& triangles,
+                                    float epsilon);
     };
 };

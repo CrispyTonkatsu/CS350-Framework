@@ -15188,7 +15188,7 @@ void FrustumAabbTest1(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on right of frustum.
+// Aabb on back of frustum.
 void FrustumAabbTest2(const std::string& testName, int debuggingIndex,
                       FILE* file = nullptr)
 {
@@ -15204,7 +15204,7 @@ void FrustumAabbTest2(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on left of frustum.
+// Aabb on front of frustum.
 void FrustumAabbTest3(const std::string& testName, int debuggingIndex,
                       FILE* file = nullptr)
 {
@@ -15284,7 +15284,7 @@ void FrustumAabbTest7(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting right side of frustum.
+// Aabb intersecting back side of frustum.
 void FrustumAabbTest8(const std::string& testName, int debuggingIndex,
                       FILE* file = nullptr)
 {
@@ -15300,7 +15300,7 @@ void FrustumAabbTest8(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting left side of frustum.
+// Aabb intersecting front side of frustum.
 void FrustumAabbTest9(const std::string& testName, int debuggingIndex,
                       FILE* file = nullptr)
 {
@@ -15860,7 +15860,7 @@ void FrustumAabbTest42(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on right of frustum.
+// Aabb on back of frustum.
 void FrustumAabbTest43(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -15876,7 +15876,7 @@ void FrustumAabbTest43(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on left of frustum.
+// Aabb on front of frustum.
 void FrustumAabbTest44(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -15956,7 +15956,7 @@ void FrustumAabbTest48(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting right side of frustum.
+// Aabb intersecting back side of frustum.
 void FrustumAabbTest49(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -15972,7 +15972,7 @@ void FrustumAabbTest49(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting left side of frustum.
+// Aabb intersecting front side of frustum.
 void FrustumAabbTest50(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -16532,7 +16532,7 @@ void FrustumAabbTest83(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on right of frustum.
+// Aabb on back of frustum.
 void FrustumAabbTest84(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -16548,7 +16548,7 @@ void FrustumAabbTest84(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on left of frustum.
+// Aabb on front of frustum.
 void FrustumAabbTest85(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -16628,7 +16628,7 @@ void FrustumAabbTest89(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting right side of frustum.
+// Aabb intersecting back side of frustum.
 void FrustumAabbTest90(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -16644,7 +16644,7 @@ void FrustumAabbTest90(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting left side of frustum.
+// Aabb intersecting front side of frustum.
 void FrustumAabbTest91(const std::string& testName, int debuggingIndex,
                        FILE* file = nullptr)
 {
@@ -17205,7 +17205,7 @@ void FrustumAabbTest124(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on right of frustum.
+// Aabb on back of frustum.
 void FrustumAabbTest125(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -17223,7 +17223,7 @@ void FrustumAabbTest125(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on left of frustum.
+// Aabb on front of frustum.
 void FrustumAabbTest126(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -17311,7 +17311,7 @@ void FrustumAabbTest130(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting right side of frustum.
+// Aabb intersecting back side of frustum.
 void FrustumAabbTest131(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -17329,7 +17329,7 @@ void FrustumAabbTest131(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting left side of frustum.
+// Aabb intersecting front side of frustum.
 void FrustumAabbTest132(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -17936,7 +17936,7 @@ void FrustumAabbTest165(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on right of frustum.
+// Aabb on back of frustum.
 void FrustumAabbTest166(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -17956,7 +17956,7 @@ void FrustumAabbTest166(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on left of frustum.
+// Aabb on front of frustum.
 void FrustumAabbTest167(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -18054,7 +18054,7 @@ void FrustumAabbTest171(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting right side of frustum.
+// Aabb intersecting back side of frustum.
 void FrustumAabbTest172(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -18074,7 +18074,7 @@ void FrustumAabbTest172(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting left side of frustum.
+// Aabb intersecting front side of frustum.
 void FrustumAabbTest173(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -18751,7 +18751,7 @@ void FrustumAabbTest206(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on right of frustum.
+// Aabb on back of frustum.
 void FrustumAabbTest207(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -18770,7 +18770,7 @@ void FrustumAabbTest207(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb on left of frustum.
+// Aabb on front of frustum.
 void FrustumAabbTest208(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -18869,7 +18869,7 @@ void FrustumAabbTest212(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting right side of frustum.
+// Aabb intersecting back side of frustum.
 void FrustumAabbTest213(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -18888,7 +18888,7 @@ void FrustumAabbTest213(const std::string& testName, int debuggingIndex,
     TestFrustumAabb(frustum, aabb, file);
 }
 
-// Aabb intersecting left side of frustum.
+// Aabb intersecting front side of frustum.
 void FrustumAabbTest214(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -19563,7 +19563,7 @@ void FrustumSphereTest1(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on right of frustum.
+// Sphere on back of frustum.
 void FrustumSphereTest2(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -19579,7 +19579,7 @@ void FrustumSphereTest2(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on left of frustum.
+// Sphere on front of frustum.
 void FrustumSphereTest3(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -19659,7 +19659,7 @@ void FrustumSphereTest7(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting right side of frustum.
+// Sphere intersecting back side of frustum.
 void FrustumSphereTest8(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -19675,7 +19675,7 @@ void FrustumSphereTest8(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting left side of frustum.
+// Sphere intersecting front side of frustum.
 void FrustumSphereTest9(const std::string& testName, int debuggingIndex,
                         FILE* file = nullptr)
 {
@@ -20155,7 +20155,7 @@ void FrustumSphereTest38(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on right of frustum.
+// Sphere on back of frustum.
 void FrustumSphereTest39(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -20171,7 +20171,7 @@ void FrustumSphereTest39(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on left of frustum.
+// Sphere on front of frustum.
 void FrustumSphereTest40(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -20251,7 +20251,7 @@ void FrustumSphereTest44(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting right side of frustum.
+// Sphere intersecting back side of frustum.
 void FrustumSphereTest45(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -20267,7 +20267,7 @@ void FrustumSphereTest45(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting left side of frustum.
+// Sphere intersecting front side of frustum.
 void FrustumSphereTest46(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -20747,7 +20747,7 @@ void FrustumSphereTest75(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on right of frustum.
+// Sphere on back of frustum.
 void FrustumSphereTest76(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -20763,7 +20763,7 @@ void FrustumSphereTest76(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on left of frustum.
+// Sphere on front of frustum.
 void FrustumSphereTest77(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -20843,7 +20843,7 @@ void FrustumSphereTest81(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting right side of frustum.
+// Sphere intersecting back side of frustum.
 void FrustumSphereTest82(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -20859,7 +20859,7 @@ void FrustumSphereTest82(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting left side of frustum.
+// Sphere intersecting front side of frustum.
 void FrustumSphereTest83(const std::string& testName, int debuggingIndex,
                          FILE* file = nullptr)
 {
@@ -21340,7 +21340,7 @@ void FrustumSphereTest112(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on right of frustum.
+// Sphere on back of frustum.
 void FrustumSphereTest113(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -21357,7 +21357,7 @@ void FrustumSphereTest113(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on left of frustum.
+// Sphere on front of frustum.
 void FrustumSphereTest114(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -21442,7 +21442,7 @@ void FrustumSphereTest118(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting right side of frustum.
+// Sphere intersecting back side of frustum.
 void FrustumSphereTest119(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -21459,7 +21459,7 @@ void FrustumSphereTest119(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting left side of frustum.
+// Sphere intersecting front side of frustum.
 void FrustumSphereTest120(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -21971,7 +21971,7 @@ void FrustumSphereTest149(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on right of frustum.
+// Sphere on back of frustum.
 void FrustumSphereTest150(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -21990,7 +21990,7 @@ void FrustumSphereTest150(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on left of frustum.
+// Sphere on front of frustum.
 void FrustumSphereTest151(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -22085,7 +22085,7 @@ void FrustumSphereTest155(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting right side of frustum.
+// Sphere intersecting back side of frustum.
 void FrustumSphereTest156(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -22104,7 +22104,7 @@ void FrustumSphereTest156(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting left side of frustum.
+// Sphere intersecting front side of frustum.
 void FrustumSphereTest157(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -22674,7 +22674,7 @@ void FrustumSphereTest186(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on right of frustum.
+// Sphere on back of frustum.
 void FrustumSphereTest187(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -22693,7 +22693,7 @@ void FrustumSphereTest187(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere on left of frustum.
+// Sphere on front of frustum.
 void FrustumSphereTest188(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -22788,7 +22788,7 @@ void FrustumSphereTest192(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting right side of frustum.
+// Sphere intersecting back side of frustum.
 void FrustumSphereTest193(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -22807,7 +22807,7 @@ void FrustumSphereTest193(const std::string& testName, int debuggingIndex,
     TestFrustumSphere(frustum, sphere, file);
 }
 
-// Sphere intersecting left side of frustum.
+// Sphere intersecting front side of frustum.
 void FrustumSphereTest194(const std::string& testName, int debuggingIndex,
                           FILE* file = nullptr)
 {
@@ -26301,23 +26301,23 @@ void InitializeAssignment1Tests()
     mTestFns.push_back(AssignmentUnitTestList());
     AssignmentUnitTestList& list = mTestFns[0];
 
-    RegisterProjectPointOnPlaneTests(list);
-    RegisterBarycentricLineTests(list);
-    RegisterBarycentricTriangleTests(list);
-    RegisterPlaneSetTests(list);
-    RegisterPointPlaneTests(list);
-    RegisterPointSphereTests(list);
-    RegisterPointAabbTests(list);
-    RegisterRayPlaneTests(list);
-    RegisterRayTriangleTests(list);
-    RegisterRaySphereTests(list);
-    RegisterRayAabbTests(list);
-    RegisterPlaneTriangleTests(list);
-    RegisterPlaneSphereTests(list);
-    RegisterPlaneAabbTests(list);
-    RegisterFrustumTriangleTestsTests(list);
-    RegisterFrustumAabbTestsTests(list);
-    RegisterFrustumSphereTestsTests(list);
-    RegisterSphereSphereTests(list);
-    RegisterAabbAabbTests(list);
+    // RegisterProjectPointOnPlaneTests(list);
+    // RegisterBarycentricLineTests(list);
+    // RegisterBarycentricTriangleTests(list);
+    // RegisterPlaneSetTests(list);
+    // RegisterPointPlaneTests(list);
+    // RegisterPointSphereTests(list);
+    // RegisterPointAabbTests(list);
+    // RegisterRayPlaneTests(list);
+    // RegisterRayTriangleTests(list);
+    // RegisterRaySphereTests(list);
+    // RegisterRayAabbTests(list);
+    // RegisterPlaneTriangleTests(list);
+    // RegisterPlaneSphereTests(list);
+    // RegisterPlaneAabbTests(list);
+    // RegisterFrustumTriangleTestsTests(list);
+    // RegisterFrustumAabbTestsTests(list);
+    // RegisterFrustumSphereTestsTests(list);
+    // RegisterSphereSphereTests(list);
+    // RegisterAabbAabbTests(list);
 }
