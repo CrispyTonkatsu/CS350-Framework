@@ -58,6 +58,10 @@ public:
     // balancing the tree with splitting triangles.
     size_t PickSplitPlane(const TriangleList& triangles, float k,
                           float epsilon);
+    
+    // Static variant so I don't need to pass around the object
+    static size_t S_PickSplitPlane(const TriangleList& triangles, float k,
+                          float epsilon);
 
     // Given a list of triangles, construct a bsp-tree. You should use the
     // heuristic shown in class with the given weight (k) to choose between fewer
@@ -104,31 +108,39 @@ public:
     // The mask bit is just a helper to allow run-time toggling of debug shapes.
     void DebugDraw(int level, const Vector4& color, int bitMask = 0);
 
-    // Add your implementation here
-
 private:
+    BspTree Clone() const;
+    
     struct Node;
 
     struct Tree
     {
         Node* root{nullptr};
-        BspTree* owner{nullptr};
 
         std::map<Node*, std::unique_ptr<Node>> nodes{};
 
         Node& create_node();
-        
-        Node* construct(const Node* parent, const TriangleList& triangles, float k,
-                        float epsilon, int depth);
-        
+
+        Node* construct(
+        const Node* parent,
+        const TriangleList& triangles,
+        float k, float epsilon, int depth);
+
         void clear();
     };
 
     Tree tree{};
 
+    struct RayCollision
+    {
+        bool hit{false};
+        float t{0.f};
+
+        bool operator<(const RayCollision& rhs) const;
+    };
+
     struct Node
     {
-        Tree* tree{nullptr};
         int depth{-1};
 
         Plane plane{};
@@ -137,5 +149,20 @@ private:
 
         Node* front{nullptr};
         Node* back{nullptr};
+
+        Node* clone(Tree& other_tree) const;
+        
+        [[nodiscard]] RayCollision ray_cast(
+        const Ray& ray, float t_min, float t_max,
+        float plane_epsilon, float triangle_epsilon,
+        int debugging_index) const;
+
+        [[nodiscard]] RayCollision ray_triangles(
+        const Ray& ray, float triangle_epsilon) const;
+
+        void clip_to(const Node* other, float epsilon);
+
+        TriangleList clip_triangles(const TriangleList& triangles,
+                                    float epsilon) const;
     };
 };
