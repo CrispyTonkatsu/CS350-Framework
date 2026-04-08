@@ -318,15 +318,13 @@ void BspTree::AllTriangles(TriangleList& triangles) const
             continue;
         }
 
-        triangles.insert(
-        triangles.end(),
-        current_node->coplanar_back.begin(),
-        current_node->coplanar_back.end());
+        std::copy(current_node->coplanar_back.begin(),
+                  current_node->coplanar_back.end(),
+                  std::back_inserter(triangles));
 
-        triangles.insert(
-        triangles.end(),
-        current_node->coplanar_front.begin(),
-        current_node->coplanar_front.end());
+        std::copy(current_node->coplanar_front.begin(),
+                  current_node->coplanar_front.end(),
+                  std::back_inserter(triangles));
 
         to_visit.push(current_node->back);
         to_visit.push(current_node->front);
@@ -352,13 +350,14 @@ void BspTree::Invert()
         {
             std::swap(triangle.mPoints[0], triangle.mPoints[1]);
         }
-        
+
         for (Triangle& triangle : current_node->coplanar_back)
         {
             std::swap(triangle.mPoints[0], triangle.mPoints[1]);
         }
-        
-        // TODO: Left off here: Change to recursive or see what's wrong
+
+        std::swap(current_node->front, current_node->back);
+
         current_node->plane.mData *= -1.f;
 
         to_visit.push(current_node->back);
@@ -401,10 +400,31 @@ void BspTree::Union(BspTree* tree, float k, float epsilon)
 
 void BspTree::Intersection(BspTree* tree, float k, float epsilon)
 {
+    if (this->tree.root == nullptr)
+    {
+        return;
+    }
+
+    BspTree b{tree->Clone()};
+
+    Invert();
+    b.Invert();
+
+    Union(&b, k, epsilon);
+    Invert();
 }
 
 void BspTree::Subtract(BspTree* tree, float k, float epsilon)
 {
+    if (this->tree.root == nullptr)
+    {
+        return;
+    }
+
+    BspTree b{tree->Clone()};
+    b.Invert();
+
+    Intersection(&b, k, epsilon);
 }
 
 void BspTree::FilloutData(std::vector<BspTreeQueryData>& results) const
