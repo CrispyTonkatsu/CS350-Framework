@@ -292,15 +292,13 @@ bool BspTree::RayCast(const Ray& ray, float& t, float planeEpsilon,
         return false;
     }
 
-    const RayCollision output{
-    tree.root->ray_cast(
-    ray,
-    0, Math::PositiveMax(),
-    planeEpsilon, triExpansionEpsilon,
-    debuggingIndex)};
+    t = Math::PositiveMax();
 
-    t = output.t;
-    return output.hit;
+    return tree.root->ray_cast(
+    ray,
+    0, Math::PositiveMax(), t,
+    planeEpsilon, triExpansionEpsilon,
+    debuggingIndex);
 }
 
 void BspTree::AllTriangles(TriangleList& triangles) const
@@ -560,19 +558,11 @@ void BspTree::Tree::clear()
     nodes.clear();
 }
 
-bool BspTree::RayCollision::operator<(const RayCollision& rhs) const
+TriangleList BspTree::Node::get_triangles() const
 {
-    if (!hit)
-    {
-        return false;
-    }
-
-    if (!rhs.hit)
-    {
-        return true;
-    }
-
-    return t < rhs.t;
+    TriangleList output{coplanar_front};
+    output.insert(output.end(), coplanar_back.begin(), coplanar_back.end());
+    return output;
 }
 
 BspTree::Node* BspTree::Node::clone(Tree& other_tree) const
@@ -596,144 +586,94 @@ BspTree::Node* BspTree::Node::clone(Tree& other_tree) const
     return &output;
 }
 
-BspTree::RayCollision BspTree::Node::ray_cast(
-const Ray& ray, const float t_min, const float t_max,
+bool BspTree::Node::ray_cast(
+const Ray& ray, const float t_min, const float t_max, float& t_out,
 const float plane_epsilon, const float triangle_epsilon,
 const int debugging_index) const
 {
-    const Vector3 iteration_start{ray.GetPoint(t_min)};
-    const IntersectionType::Type point_side{
-    PointPlane(iteration_start, plane.mData, plane_epsilon)};
-
-    const Node* near_side{
-    point_side != static_cast<IntersectionType::Type>(Side::Back)
-    ? front
-    : back
-    };
-    const Node* far_side{near_side == front ? back : front};
-
-    if (point_side == IntersectionType::Coplanar)
+    const auto check_all{[&](const float min, const float max) -> bool
     {
-        std::array<RayCollision, 3> tests
+        bool hit{false};
+        const TriangleList triangles{get_triangles()};
+
+        for (const Triangle& triangle : triangles)
         {
-        near_side
-        ? near_side->ray_cast(
-        ray, t_min, t_max,
-        plane_epsilon, triangle_epsilon, debugging_index)
-        : RayCollision{},
+            float t_hit{0.f};
+            const bool hit_triangle{
+            RayTriangle(ray.mStart, ray.mDirection,
+                        triangle.mPoints[0],
+                        triangle.mPoints[1],
+                        triangle.mPoints[2],
+                        t_hit,
+                        triangle_epsilon
+            )};
 
-        far_side
-        ? far_side->ray_cast(
-        ray, t_min, t_max,
-        plane_epsilon, triangle_epsilon, debugging_index)
-        : RayCollision{},
-
-        ray_triangles(ray, triangle_epsilon)
-        };
-
-        RayCollision closest{*std::min_element(tests.begin(), tests.end())};
-        if (closest.hit && Math::InRange(closest.t, t_min, t_max))
-        {
-            return {closest};
-        }
-    }
-
-    // Handling the regular cases
-    float t_plane;
-    const bool hit_plane{
-    utils::plane_ray(plane, ray, t_plane)};
-
-    if (hit_plane && Math::InRange(t_plane, t_min, t_max))
-    {
-        std::array<RayCollision, 3> tests
-        {
-        near_side
-        ? near_side->ray_cast(
-        ray, t_min, t_plane,
-        plane_epsilon, triangle_epsilon, debugging_index)
-        : RayCollision{},
-
-        far_side
-        ? far_side->ray_cast(
-        ray, t_plane, t_max,
-        plane_epsilon, triangle_epsilon, debugging_index)
-        : RayCollision{},
-
-        ray_triangles(ray, triangle_epsilon)
-        };
-
-        const RayCollision closest{
-        *std::min_element(tests.begin(), tests.end())};
-        if (closest.hit && Math::InRange(closest.t, t_min, t_max))
-        {
-            return closest;
-        }
-    }
-
-    if (!hit_plane)
-    {
-        const RayCollision result{near_side
-        ? near_side->ray_cast(
-        ray, t_min, t_max,
-        plane_epsilon, triangle_epsilon, debugging_index)
-        : RayCollision{}};
-
-        if (result.hit)
-        {
-            return result;
-        }
-    }
-
-    if (hit_plane && t_plane > t_max)
-    {
-        const RayCollision result{far_side
-        ? far_side->ray_cast(
-        ray, t_min, t_max,
-        plane_epsilon, triangle_epsilon, debugging_index)
-        : RayCollision{}};
-
-        if (result.hit)
-        {
-            return result;
-        }
-    }
-
-    return {};
-}
-
-BspTree::RayCollision BspTree::Node::ray_triangles(
-const Ray& ray, float triangle_epsilon) const
-{
-    const auto test_triangles{[&](const TriangleList& list)
-    {
-        RayCollision output{false, Math::PositiveMax()};
-
-        for (const Triangle& triangle : list)
-        {
-            float t;
-            const bool hit{
-            RayTriangle(
-            ray.mStart, ray.mDirection,
-            triangle.mPoints[0],
-            triangle.mPoints[1],
-            triangle.mPoints[2],
-            t, triangle_epsilon)};
-
-            if (hit && t < output.t)
+            if (hit_triangle && Math::InRange(t_hit, min, max) && t_hit < t_out)
             {
-                output.hit = true;
-                output.t = t;
+                hit = true;
+                t_out = t_hit;
             }
         }
 
-        return output;
+        return hit;
     }};
 
-    const RayCollision test_front{test_triangles(coplanar_front)};
-    const RayCollision test_back{test_triangles(coplanar_back)};
+    const auto visit_side{
+    [&](const Node* side, const float min, const float max) -> bool
+    {
+        if (side == nullptr)
+        {
+            return {};
+        }
+        return side->ray_cast(ray, min, max, t_out, plane_epsilon,
+                              triangle_epsilon,
+                              debugging_index);
+    }};
 
-    return test_front < test_back ? test_front : test_back;
+    const IntersectionType::Type start_side{
+    PointPlane(ray.mStart, plane.mData, plane_epsilon)};
 
+    if (start_side == IntersectionType::Coplanar)
+    {
+        bool hit{false};
+        hit |= check_all(t_min, t_max);
+        hit |= visit_side(front, t_min, t_max);
+        hit |= visit_side(back, t_min, t_max);
+        return hit;
+    }
+
+    const Node* near_side
+    {start_side == IntersectionType::Inside ? front : back};
+    const Node* far_side{near_side == front ? back : front};
+
+    float t_plane{0.f};
+    const bool hit_plane{
+    utils::plane_ray(plane, ray, t_plane, triangle_epsilon)};
+
+    if (!hit_plane)
+    {
+        return visit_side(near_side, t_min, t_max);
+    }
+
+    if (t_plane < t_min)
+    {
+        return visit_side(far_side, t_min, t_max);
+    }
+
+    if (t_plane > t_max)
+    {
+        return visit_side(near_side, t_min, t_max);
+    }
+
+    const float padding{
+    Math::Abs(plane_epsilon / ray.mDirection.Dot(plane.GetNormal()))};
+
+    bool hit_final{false};
+    hit_final |= visit_side(near_side, t_min, t_plane + padding);
+    hit_final |= check_all(t_plane - padding, t_plane + padding);
+    hit_final |= visit_side(far_side, t_plane - padding, t_max);
+
+    return hit_final;
 }
 
 void BspTree::Node::clip_to(const Node* other, float epsilon)

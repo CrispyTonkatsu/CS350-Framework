@@ -131,14 +131,6 @@ private:
 
     Tree tree{};
 
-    struct RayCollision
-    {
-        bool hit{false};
-        float t{0.f};
-
-        bool operator<(const RayCollision& rhs) const;
-    };
-
     struct Node
     {
         int depth{-1};
@@ -147,18 +139,17 @@ private:
         TriangleList coplanar_front{};
         TriangleList coplanar_back{};
 
+        TriangleList get_triangles() const;
+        
         Node* front{nullptr};
         Node* back{nullptr};
 
         Node* clone(Tree& other_tree) const;
         
-        [[nodiscard]] RayCollision ray_cast(
-        const Ray& ray, float t_min, float t_max,
+        [[nodiscard]] bool ray_cast(
+        const Ray& ray, float t_min, float t_max, float& t_out,
         float plane_epsilon, float triangle_epsilon,
         int debugging_index) const;
-
-        [[nodiscard]] RayCollision ray_triangles(
-        const Ray& ray, float triangle_epsilon) const;
 
         void clip_to(const Node* other, float epsilon);
 
