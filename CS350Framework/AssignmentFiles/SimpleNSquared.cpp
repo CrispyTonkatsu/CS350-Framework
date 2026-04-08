@@ -9,7 +9,6 @@ Author: Edgar Jose Donoso Mansilla, e.donosomansilla, id: 0066578
 Creation date: 24-Feb-2026
 End Header -------------------------------------------------------*/
 
-#include "Geometry.hpp"
 #include "Precompiled.hpp"
 
 //-----------------------------------------------------------------------------NSquaredSpatialPartition

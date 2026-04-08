@@ -140,15 +140,9 @@ bool RayTriangle(const Vector3& rayStart, const Vector3& rayDir,
 {
     ++Application::mStatistics.mRayTriangleTests;
 
-    const Vector3 normal{(triP1 - triP0).Cross(triP2 - triP0)};
-    const Vector4 plane{normal.x, normal.y, normal.z, normal.Dot(triP0)};
+    const Plane plane{triP0, triP1, triP2};
 
-    if (!RayPlane(rayStart, rayDir, plane, t))
-    {
-        return false;
-    }
-
-    if (t < -triExpansionEpsilon)
+    if (!RayPlane(rayStart, rayDir, plane.mData, t))
     {
         return false;
     }

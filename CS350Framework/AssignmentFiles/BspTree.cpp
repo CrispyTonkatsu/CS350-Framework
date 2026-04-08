@@ -1,10 +1,10 @@
 /* Start Header ------------------------------------------------------
 Copyright (C) 2026 DigiPen Institute of Technology.
 File Name: BspTree.cpp
-Purpose: Implementation of the available intersection tests
+Purpose: Implementation of a binary spatial partition
 Language: C++
 Platform: Windows MSVC version: 18.0.5.56406
-Project: e.donosomansilla_CS350_2
+Project: e.donosomansilla_CS350_4
 Author: Edgar Jose Donoso Mansilla, e.donosomansilla, id: 0066578
 Creation date: 30-March-2026
 End Header -------------------------------------------------------*/
@@ -485,9 +485,6 @@ void BspTree::DebugDraw(int level, const Vector4& color, int bitMask)
             {
                 triangle.DebugDraw().Color(color).SetMaskBit(bitMask);
             }
-
-            current_node->plane.DebugDraw(10.f).Color(
-            Vector4{1.f, 0.f, 0.f, 0.f});
         }
 
         to_visit.push(current_node->back);
@@ -600,12 +597,13 @@ const int debugging_index) const
         {
             float t_hit{0.f};
             const bool hit_triangle{
-            RayTriangle(ray.mStart, ray.mDirection,
-                        triangle.mPoints[0],
-                        triangle.mPoints[1],
-                        triangle.mPoints[2],
-                        t_hit,
-                        triangle_epsilon
+            RayTriangle(
+            ray.mStart, ray.mDirection,
+            triangle.mPoints[0],
+            triangle.mPoints[1],
+            triangle.mPoints[2],
+            t_hit,
+            triangle_epsilon
             )};
 
             if (hit_triangle && Math::InRange(t_hit, min, max) && t_hit < t_out)
