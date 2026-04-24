@@ -28,6 +28,13 @@ Vector3 ProjectPointOnPlane(const Vector3& point, const Vector3& normal,
 bool BarycentricCoordinates(const Vector3& point, const Vector3& a,
                             const Vector3& b, float& u, float& v, float epsilon)
 {
+    if (Math::Abs(Math::Dot(a - b, a - b)) < epsilon)
+    {
+        u = 0.f;
+        v = 0.f;
+        return false;
+    }
+    
     u = {
     Math::Dot(point - b, a - b) / Math::Dot(a - b, a - b),
     };
@@ -60,7 +67,7 @@ bool BarycentricCoordinates(const Vector3& point, const Vector3& a,
     const float eq_det{det(eq_a, eq_b, eq_c, eq_d)};
 
     // Checking for no solutions
-    if (eq_det <= -epsilon)
+    if (Math::Abs(eq_det) < epsilon)
     {
         u = 0;
         v = 0;
@@ -140,9 +147,15 @@ bool RayTriangle(const Vector3& rayStart, const Vector3& rayDir,
 {
     ++Application::mStatistics.mRayTriangleTests;
 
-    const Plane plane{triP0, triP1, triP2};
+    const Vector3 normal{(triP1 - triP0).Cross(triP2 - triP0)};
+    const Vector4 plane{normal.x, normal.y, normal.z, normal.Dot(triP0)};
 
-    if (!RayPlane(rayStart, rayDir, plane.mData, t))
+    if (!RayPlane(rayStart, rayDir, plane, t))
+    {
+        return false;
+    }
+
+    if (t < -triExpansionEpsilon)
     {
         return false;
     }
@@ -417,10 +430,10 @@ IntersectionType::Type FrustumSphere(const Vector4 planes[6],
 
     for (size_t i{0}; i < 6; i++)
     {
-        if (i == lastAxis)
-        {
-            continue;
-        }
+        // if (i == lastAxis)
+        // {
+        //     continue;
+        // }
 
         const IntersectionType::Type result{
         PlaneSphere(planes[i], sphereCenter, sphereRadius)};
@@ -466,10 +479,10 @@ IntersectionType::Type FrustumAabb(const Vector4 planes[6],
 
     for (size_t i{0}; i < 6; i++)
     {
-        if (i == lastAxis)
-        {
-            continue;
-        }
+        // if (i == lastAxis)
+        // {
+        //     continue;
+        // }
 
         const IntersectionType::Type result{
         PlaneAabb(planes[i], aabbMin, aabbMax)};

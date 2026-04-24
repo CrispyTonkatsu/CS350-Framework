@@ -14150,32 +14150,32 @@ void InitializeAssignment2Tests()
   mTestFns.push_back(AssignmentUnitTestList());
   AssignmentUnitTestList& list = mTestFns[1];
   
-  // // Add Aabb Shape Tests
-  // RegisterAabbSurfaceAreaTests(list);
-  // RegisterAabbVolumeTests(list);
-  // RegisterAabbContainsTests(list);
-  // RegisterAabbTransformTests(list);
-  // // Add Sphere Shape Tests
-  // RegisterSphereCentroidTests(list);
-  // RegisterSphereRitterTests(list);
-  // RegisterSpherePCATests(list);
-  // // Add Sphere Spatial Partition Tests
-  // RegisterSphereSpatialPartitionStructureTests(list);
-  // RegisterSphereSpatialPartitionRayCastTests(list);
-  // RegisterSphereSpatialPartitionFrustumCastTests(list);
-  // RegisterSphereSpatialPartitionSelfQueryTests(list);
-  // RegisterSphereSpatialPartitionStructureFuzzTests(list);
-  // RegisterSphereSpatialPartitionRayCastFuzzTests(list);
-  // RegisterSphereSpatialPartitionFrustumCastFuzzTests(list);
-  // RegisterSphereSpatialPartitionSelfQueryFuzzTests(list);
-  // // Add Debug Drawing Tests
-  // RegisterDebugDrawingPointsTests(list);
-  // RegisterDebugDrawingLinesTests(list);
-  // RegisterDebugDrawingRaysTests(list);
-  // RegisterDebugDrawingSpheresTests(list);
-  // RegisterDebugDrawingAabbsTests(list);
-  // RegisterDebugDrawingTrianglesTests(list);
-  // RegisterDebugDrawingPlanesTests(list);
-  // RegisterDebugDrawingQuadsTests(list);
-  // RegisterDebugDrawingFrustumTests(list);
+  // Add Aabb Shape Tests
+  RegisterAabbSurfaceAreaTests(list);
+  RegisterAabbVolumeTests(list);
+  RegisterAabbContainsTests(list);
+  RegisterAabbTransformTests(list);
+  // Add Sphere Shape Tests
+  RegisterSphereCentroidTests(list);
+  RegisterSphereRitterTests(list);
+  RegisterSpherePCATests(list);
+  // Add Sphere Spatial Partition Tests
+  RegisterSphereSpatialPartitionStructureTests(list);
+  RegisterSphereSpatialPartitionRayCastTests(list);
+  RegisterSphereSpatialPartitionFrustumCastTests(list);
+  RegisterSphereSpatialPartitionSelfQueryTests(list);
+  RegisterSphereSpatialPartitionStructureFuzzTests(list);
+  RegisterSphereSpatialPartitionRayCastFuzzTests(list);
+  RegisterSphereSpatialPartitionFrustumCastFuzzTests(list);
+  RegisterSphereSpatialPartitionSelfQueryFuzzTests(list);
+  // Add Debug Drawing Tests
+  RegisterDebugDrawingPointsTests(list);
+  RegisterDebugDrawingLinesTests(list);
+  RegisterDebugDrawingRaysTests(list);
+  RegisterDebugDrawingSpheresTests(list);
+  RegisterDebugDrawingAabbsTests(list);
+  RegisterDebugDrawingTrianglesTests(list);
+  RegisterDebugDrawingPlanesTests(list);
+  RegisterDebugDrawingQuadsTests(list);
+  RegisterDebugDrawingFrustumTests(list);
 }

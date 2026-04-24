@@ -159,6 +159,7 @@ public:
     bool Intersect(const SupportShape* shapeA, const SupportShape* shapeB,
                    unsigned int maxIterations, CsoPoint& closestPoint,
                    float epsilon, int debuggingIndex, bool debugDraw);
+    
     // Finds the point furthest in the given direction on the CSO (and the
     // relevant points from each object)
     CsoPoint ComputeSupport(const SupportShape* shapeA,

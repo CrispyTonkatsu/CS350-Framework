@@ -13033,13 +13033,13 @@ void InitializeAssignment3Tests()
   mTestFns.push_back(AssignmentUnitTestList());
   AssignmentUnitTestList& list = mTestFns[2];
   
-  // // Add Aabb Tree Spatial Partition Tests
-  // RegisterAabbTreeStructureTests(list);
-  // RegisterAabbTreeRayCastTests(list);
-  // RegisterAabbTreeFrustumCastTests(list);
-  // RegisterAabbTreeSelfQueryTests(list);
-  // RegisterDynamicAabbTreeStructureFuzzTests(list);
-  // RegisterDynamicAabbTreeRayCastFuzzTests(list);
-  // RegisterDynamicAabbTreeFrustumCastFuzzTests(list);
-  // RegisterAabbTreeSelfQueryFuzzTests(list);
+  // Add Aabb Tree Spatial Partition Tests
+  RegisterAabbTreeStructureTests(list);
+  RegisterAabbTreeRayCastTests(list);
+  RegisterAabbTreeFrustumCastTests(list);
+  RegisterAabbTreeSelfQueryTests(list);
+  RegisterDynamicAabbTreeStructureFuzzTests(list);
+  RegisterDynamicAabbTreeRayCastFuzzTests(list);
+  RegisterDynamicAabbTreeFrustumCastFuzzTests(list);
+  RegisterAabbTreeSelfQueryFuzzTests(list);
 }
