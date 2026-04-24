@@ -1,9 +1,14 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// Authors: Joshua Davis
-/// Copyright 2015, DigiPen Institute of Technology
-///
-///////////////////////////////////////////////////////////////////////////////
+/* Start Header ------------------------------------------------------
+Copyright (C) 2026 DigiPen Institute of Technology.
+File Name: Gjk.hpp
+Purpose: Implementation of the GJK algorithm
+Language: C++
+Platform: Windows MSVC version: 18.0.5.56406
+Project: e.donosomansilla_CS350_5
+Author: Edgar Jose Donoso Mansilla, e.donosomansilla, id: 0066578
+Creation date: 24-April-2026
+End Header -------------------------------------------------------*/
+
 #pragma once
 
 #include "DebugDraw.hpp"

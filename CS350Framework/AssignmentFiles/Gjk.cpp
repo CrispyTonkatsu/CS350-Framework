@@ -1,12 +1,17 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// Authors: Joshua Davis
-/// Copyright 2015, DigiPen Institute of Technology
-///
-///////////////////////////////////////////////////////////////////////////////
+/* Start Header ------------------------------------------------------
+Copyright (C) 2026 DigiPen Institute of Technology.
+File Name: Gjk.cpp
+Purpose: Implementation of the GJK algorithm
+Language: C++
+Platform: Windows MSVC version: 18.0.5.56406
+Project: e.donosomansilla_CS350_5
+Author: Edgar Jose Donoso Mansilla, e.donosomansilla, id: 0066578
+Creation date: 24-April-2026
+End Header -------------------------------------------------------*/
 
 #include "Precompiled.hpp"
 
+#include <iostream>
 #include <numeric>
 
 namespace utils
@@ -65,10 +70,12 @@ void SupportShape::DebugDraw(const std::vector<Vector3>& localPoints,
                              const Matrix4& localToWorldTransform,
                              const Vector4& color) const
 {
-    // TODO: Implement this
-    
-    /******Student:Assignment5******/
-    Warn("Assignment5: Required function un-implemented");
+    for (const Vector3& local_point : localPoints)
+    {
+        const Vector3 world_point{
+        Math::TransformPoint(localToWorldTransform, local_point)};
+        gDebugDrawer->DrawPoint(world_point).Color(color);
+    }
 }
 
 //-----------------------------------------------------------------------------ModelSupportShape
@@ -151,8 +158,6 @@ Vector3 ObbSupportShape::Support(const Vector3& worldDirection) const
 
 void ObbSupportShape::DebugDraw(const Vector4& color) const
 {
-    // TODO: Implement this correctly
-    
     Matrix4 transform = Math::BuildTransform(mTranslation, mRotation, mScale);
     DebugShape& shape =
     gDebugDrawer->DrawAabb(Aabb(Vector3(-0.5f), Vector3(0.5f)));
@@ -540,7 +545,120 @@ bool Gjk::Intersect(const SupportShape* shapeA, const SupportShape* shapeB,
                     unsigned int maxIterations, CsoPoint& closestPoint,
                     float epsilon, int debuggingIndex, bool debugDraw)
 {
-    Warn("Assignment5: Required function un-implemented");
+    // TODO: Complete this
+
+    Vector3 search_direction{shapeB->GetCenter() - shapeA->GetCenter()};
+    if (search_direction.LengthSq() < Math::DebugEpsilon() *
+        Math::DebugEpsilon())
+    {
+        search_direction = -Vector3::cXAxis;
+    }
+
+    std::vector<CsoPoint> simplex;
+    simplex.reserve(4);
+
+    closestPoint = ComputeSupport(shapeA, shapeB, search_direction);
+    simplex.push_back(closestPoint);
+
+    const Vector3 q{Vector3::cZero};
+
+    for (size_t i{0}; i < maxIterations; i++)
+    {
+        const size_t current_size{simplex.size()};
+
+        Vector3 p;
+        int indices[4];
+        size_t new_size{0};
+
+        switch (current_size)
+        {
+        case 1:
+            IdentifyVoronoiRegion(q, simplex[0].mCsoPoint, new_size,
+                                  indices, p, search_direction);
+            break;
+        case 2:
+            IdentifyVoronoiRegion(q, simplex[0].mCsoPoint, simplex[1].mCsoPoint,
+                                  new_size,
+                                  indices, p, search_direction);
+            break;
+        case 3:
+            IdentifyVoronoiRegion(q, simplex[0].mCsoPoint, simplex[1].mCsoPoint,
+                                  simplex[2].mCsoPoint,
+                                  new_size,
+                                  indices, p, search_direction);
+            break;
+        case 4:
+            IdentifyVoronoiRegion(q, simplex[0].mCsoPoint, simplex[1].mCsoPoint,
+                                  simplex[2].mCsoPoint, simplex[3].mCsoPoint,
+                                  new_size,
+                                  indices, p, search_direction);
+            break;
+        default:
+            std::cerr << "Simplex has invalid amount of vertices";
+            return false;
+        }
+
+        if (new_size == 4 || (p - q).Length() < epsilon)
+        {
+            return true;
+        }
+
+        for (size_t c{0}; c < new_size; c++)
+        {
+            simplex[c] = simplex[indices[c]];
+        }
+        simplex.resize(new_size);
+
+        closestPoint = ComputeSupport(shapeA, shapeB, search_direction);
+        simplex.push_back(closestPoint);
+
+        if (search_direction.Dot(closestPoint.mCsoPoint - p) <= epsilon)
+        {
+            // TODO: Compute the closest point before quitting if this is the closest we can get
+
+            std::vector<float> barycentric;
+
+            switch (new_size)
+            {
+            case 1:
+                closestPoint = simplex[0];
+                return false;
+            case 2:
+                barycentric.resize(2, 0.f);
+                BarycentricCoordinates(
+                p, simplex[0].mCsoPoint,
+                simplex[1].mCsoPoint, barycentric[0],
+                barycentric[1]);
+                break;
+            case 3:
+                barycentric.resize(3, 0.f);
+                BarycentricCoordinates(
+                p, simplex[0].mCsoPoint,
+                simplex[1].mCsoPoint, simplex[2].mCsoPoint,
+                barycentric[0],
+                barycentric[1],
+                barycentric[2]);
+                break;
+            default:
+                std::cerr << "Simplex has invalid amount of vertices";
+                return false;
+            }
+
+            closestPoint.mCsoPoint = p;
+            closestPoint.mPointA = Vector3::cZero;
+            closestPoint.mPointB = Vector3::cZero;
+
+            for (size_t j{0}; j < barycentric.size(); j++)
+            {
+                // closestPoint.mCsoPoint += simplex[j].mCsoPoint * barycentric[j];
+                closestPoint.mPointA += simplex[j].mPointA * barycentric[j];
+                closestPoint.mPointB += simplex[j].mPointB * barycentric[j];
+            }
+
+            return false;
+        }
+    }
+
     return false;
 }
 
@@ -548,9 +666,8 @@ Gjk::CsoPoint Gjk::ComputeSupport(const SupportShape* shapeA,
                                   const SupportShape* shapeB,
                                   const Vector3& direction)
 {
-    /******Student:Assignment5******/
-    CsoPoint result = {};
-    Warn("Assignment5: Required function un-implemented");
+    const Vector3 point_a{shapeA->Support(direction)};
+    const Vector3 point_b{shapeB->Support(-direction)};
 
-    return result;
+    return {point_a, point_b, point_a - point_b};
 }
