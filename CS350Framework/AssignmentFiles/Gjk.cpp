@@ -65,6 +65,8 @@ void SupportShape::DebugDraw(const std::vector<Vector3>& localPoints,
                              const Matrix4& localToWorldTransform,
                              const Vector4& color) const
 {
+    // TODO: Implement this
+    
     /******Student:Assignment5******/
     Warn("Assignment5: Required function un-implemented");
 }
@@ -149,6 +151,8 @@ Vector3 ObbSupportShape::Support(const Vector3& worldDirection) const
 
 void ObbSupportShape::DebugDraw(const Vector4& color) const
 {
+    // TODO: Implement this correctly
+    
     Matrix4 transform = Math::BuildTransform(mTranslation, mRotation, mScale);
     DebugShape& shape =
     gDebugDrawer->DrawAabb(Aabb(Vector3(-0.5f), Vector3(0.5f)));
