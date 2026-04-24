@@ -47,11 +47,11 @@ Vector3 SupportShape::Support(const Vector3& worldDirection,
     Math::TransformNormal(localToWorldTransform.Inverted(), worldDirection)};
 
     Vector3 support_point{};
-    float max_dot{0.f};
-    for (const auto point : localPoints)
+    float max_dot{std::numeric_limits<float>::lowest()};
+    for (const Vector3& point : localPoints)
     {
         const float dot{point.Dot(local_direction)};
-        if (dot > max_dot)
+        if (dot >= max_dot)
         {
             max_dot = dot;
             support_point = point;
@@ -134,12 +134,17 @@ Vector3 ObbSupportShape::GetCenter() const { return mTranslation; }
 
 Vector3 ObbSupportShape::Support(const Vector3& worldDirection) const
 {
-    // TODO: Ask about the way they expect us to make the AABB here 
-    // (just to clarify from the slides)
+    const Vector3 local_direction{
+    Math::Transform(mRotation.Transposed(), worldDirection)};
 
-    /******Student:Assignment5******/
-    Warn("Assignment5: Required function un-implemented");
-    return Vector3::cZero;
+    const Vector3 unit_cube_point{
+    Math::GetSign(local_direction.x),
+    Math::GetSign(local_direction.y),
+    Math::GetSign(local_direction.z),
+    };
+
+    const Vector3 local_obb_point{unit_cube_point * (mScale * 0.5f)};
+    return Math::Transform(mRotation, local_obb_point) + mTranslation;
 }
 
 void ObbSupportShape::DebugDraw(const Vector4& color) const
